@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcurva — AllAboard Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:   #f9f3e8;
+      --ink:  #160000;
+      --gray: #71726b;
+      --mid:  #6a6a6a;
+      --dark: #373737;
+      --pad:  80px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Bitter', Georgia, serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 44px var(--pad);
+    }
+
+    .nav-logo {
+      font-size: clamp(32px, 2.8vw, 48px);
+      font-weight: 800;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(32px, 4.6vw, 80px);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(16px, 1.4vw, 24px);
+      color: var(--mid);
+      text-decoration: none;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--ink);
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── Main layout ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 120px;
+      padding-bottom: 120px;
+    }
+
+    /* ── Case Study Hero ── */
+    .cs-hero {
+      padding: 52px var(--pad);
+      text-align: center;
+    }
+
+    .cs-hero h1 {
+      font-size: clamp(32px, 3.7vw, 64px);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--ink);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Content sections ── */
+    .cs-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      padding: 0 var(--pad);
+      align-items: start;
+    }
+
+    /* label + title column */
+    .cs-label {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(14px, 1.16vw, 20px);
+      font-weight: 700;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .cs-title {
+      font-size: clamp(28px, 2.78vw, 48px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    /* right-align title column by default */
+    .cs-col-title {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    /* left-align variant */
+    .cs-col-title.left {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    /* body text column */
+    .cs-col-body {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(16px, 1.4vw, 24px);
+      line-height: 1.5;
+      color: var(--gray);
+    }
+
+    .cs-col-body p + p { margin-top: 1em; }
+
+    .cs-col-body strong {
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    .cs-col-body ul {
+      list-style: disc;
+      padding-left: 1.4em;
+      margin-top: 0.75em;
+    }
+
+    .cs-col-body li { margin-bottom: 0.25em; }
+
+    /* section with image beside title column */
+    .cs-section-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 80px;
+      padding: 0 var(--pad);
+      align-items: start;
+    }
+
+    /* placeholder for ecosystem / competitive research */
+    .cs-placeholder {
+      border: 1.5px dashed rgba(22, 0, 0, 0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 240px;
+      color: rgba(22,0,0,0.3);
+      font-family: Helvetica, sans-serif;
+      font-size: 18px;
+    }
+
+    /* research image */
+    .cs-research-img {
+      width: 100%;
+      aspect-ratio: 483 / 668;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .cs-research-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Wireframes ── */
+    .wireframes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .wireframes-row {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .wireframes-row::-webkit-scrollbar { height: 4px; }
+    .wireframes-row::-webkit-scrollbar-thumb { background: rgba(22,0,0,0.15); border-radius: 2px; }
+
+    .phone-mock {
+      flex-shrink: 0;
+      width: 200px;
+      height: 434px;
+      background: white;
+      border-radius: 20px;
+      border: 1.5px solid rgba(22,0,0,0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      gap: 12px;
+    }
+
+    .phone-mock-label {
+      font-family: Helvetica, sans-serif;
+      font-size: 11px;
+      color: var(--gray);
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .phone-mock-title {
+      font-family: Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .phone-mock-dot {
+      width: 40px;
+      height: 4px;
+      background: rgba(22,0,0,0.1);
+      border-radius: 2px;
+    }
+
+    /* ── Let's Connect ── */
+    .connect {
+      padding: 0 var(--pad);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-end;
+    }
+
+    .connect-heading {
+      font-size: clamp(22px, 2.1vw, 36px);
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    .connect-img {
+      width: min(789px, 48vw);
+      aspect-ratio: 789 / 510;
+      background: var(--dark);
+      border-radius: 2px;
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      :root { --pad: 24px; }
+
+      .cs-section,
+      .cs-section-3col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .cs-col-title { text-align: left; align-items: flex-start; }
+
+      .cs-research-img { max-width: 100%; aspect-ratio: 4/3; }
+
+      .connect-img { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="index.html">mcurva</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="cs-hero reveal">
+      <h1>52% of Gen-Z stopped speaking to each other after a terrible trip.</h1>
+    </section>
+
+    <!-- 01 The Problem -->
+    <div class="cs-section reveal">
+      <div class="cs-col-title">
+        <p class="cs-label">01 . The Problem</p>
+        <h2 class="cs-title">The Situation</h2>
+      </div>
+      <div class="cs-col-body">
+        <p><strong>Group plans break down quickly.</strong></p>
+        <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel.</p>
+        <p>&nbsp;</p>
+        <p><strong>They rely on:</strong></p>
+        <ul>
+          <li>Back-and-forth conversations</li>
+          <li>Manual coordination</li>
+          <li>Uneven contribution</li>
+        </ul>
+        <p>&nbsp;</p>
+        <p>This leads to slow decision-making and in some cases, conflict.</p>
+      </div>
+    </div>
+
+    <!-- 02 The Goal -->
+    <div class="cs-section reveal">
+      <div class="cs-col-title">
+        <p class="cs-label">02 . The Goal</p>
+        <h2 class="cs-title">Effortless Decision-Making</h2>
+      </div>
+      <div class="cs-col-body">
+        <ul>
+          <li>Create a tool that takes group dynamics into account</li>
+          <li>Help groups reduce friction</li>
+          <li>Create a non-sticky tool that doesn't take them out of their travel experience</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 User Research -->
+    <div class="cs-section-3col reveal">
+      <div class="cs-col-title left">
+        <p class="cs-label">03 . User Research</p>
+        <h2 class="cs-title">What did the backpackers think?</h2>
+      </div>
+      <div class="cs-col-body">
+        <ul>
+          <li>Interviewed 30 backpackers</li>
+          <li>Aged 18–24</li>
+          <li>Across 2 different hostels</li>
+        </ul>
+        <p>&nbsp;</p>
+        <p><strong>We found that:</strong></p>
+        <ul>
+          <li>Hidden power dynamic in group planning</li>
+          <li>Planning responsibilities and roles are unclear</li>
+          <li>Decision-making is exhausting for everyone</li>
+          <li>Different planning styles = Conflict</li>
+          <li>Everyone wants a fun, stress-free group outing</li>
+        </ul>
+      </div>
+      <div class="cs-research-img">
+        <img src="https://www.figma.com/api/mcp/asset/ba71d62f-a17d-48c0-a727-dfc817702aab" alt="User research — hostel interview" />
+      </div>
+    </div>
+
+    <!-- 04 The Ecosystem -->
+    <div class="cs-section reveal">
+      <div class="cs-col-title">
+        <p class="cs-label">04 . The Ecosystem</p>
+        <h2 class="cs-title">How do groups travel?</h2>
+      </div>
+      <div class="cs-col-body">
+        <div class="cs-placeholder">Ecosystem diagram coming soon</div>
+      </div>
+    </div>
+
+    <!-- 05 Competitive Research -->
+    <div class="cs-section reveal">
+      <div class="cs-col-title">
+        <p class="cs-label">05 . Competitive Research</p>
+        <h2 class="cs-title">Who are our competition?</h2>
+      </div>
+      <div class="cs-col-body">
+        <div class="cs-placeholder">Competitive analysis table coming soon</div>
+      </div>
+    </div>
+
+    <!-- 06 Wireframes -->
+    <div class="cs-section reveal">
+      <div class="cs-col-title left">
+        <p class="cs-label">06 . Wireframes</p>
+        <h2 class="cs-title">Low-fidelity</h2>
+      </div>
+      <div class="wireframes-grid">
+        <div class="wireframes-row">
+          <div class="phone-mock">
+            <div class="phone-mock-dot"></div>
+            <div class="phone-mock-title">Let AllAboard! help you pick what to do on your trip!</div>
+            <div class="phone-mock-label">A1 — Onboarding</div>
+          </div>
+          <div class="phone-mock">
+            <div class="phone-mock-dot"></div>
+            <div class="phone-mock-title">Add Mates</div>
+            <div class="phone-mock-label">A7 — Add friends QR</div>
+          </div>
+          <div class="phone-mock">
+            <div class="phone-mock-dot"></div>
+            <div class="phone-mock-title">Let's create your crew!</div>
+            <div class="phone-mock-label">A6 — Create crew</div>
+          </div>
+        </div>
+        <div class="wireframes-row">
+          <div class="phone-mock">
+            <div class="phone-mock-dot"></div>
+            <div class="phone-mock-title">You're being re<strong>crew</strong>ted!</div>
+            <div class="phone-mock-label">Pop-up — Added to group</div>
+          </div>
+          <div class="phone-mock">
+            <div class="phone-mock-dot"></div>
+            <div class="phone-mock-title">Crew List</div>
+            <div class="phone-mock-label">Change group</div>
+          </div>
+          <div class="phone-mock">
+            <div class="phone-mock-dot"></div>
+            <div class="phone-mock-title">Got an idea?</div>
+            <div class="phone-mock-label">Suggest a plan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Let's Connect -->
+    <section class="connect reveal" id="contact">
+      <p class="connect-heading">Let's connect</p>
+      <div class="connect-img"></div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ─── Scroll reveal ─── */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

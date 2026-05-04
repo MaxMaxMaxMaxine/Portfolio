@@ -6,24 +6,17 @@
   <title>mcurva — Portfolio 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Helvetica+Neue:wght@400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #fcfcfc;
-      --ink: #000000;
-      --gray: #9e9e9e;
-      --mid: #6a6a6a;
-      --blue: #d1e9f1;
+      --bg:   #f9f3e8;
+      --ink:  #160000;
+      --gray: #71726b;
+      --mid:  #6a6a6a;
       --dark: #373737;
-      --gold-1: #ffd17d;
-      --gold-2: #ffd991;
-      --gold-3: #ffe0a7;
-      --gold-4: #ffe9c0;
-      --gold-5: #ffedcd;
-      --gold-6: #fff3dc;
-      --pad: 40px;
+      --pad:  80px;
     }
 
     html { scroll-behavior: smooth; }
@@ -31,7 +24,7 @@
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Cormorant Garant', Georgia, serif;
+      font-family: 'Bitter', Georgia, serif;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -46,10 +39,10 @@
 
     .nav-logo {
       font-size: clamp(32px, 2.8vw, 48px);
-      font-weight: 400;
+      font-weight: 800;
       color: var(--ink);
-      letter-spacing: -0.01em;
       text-decoration: none;
+      letter-spacing: -0.01em;
     }
 
     .nav-links {
@@ -60,7 +53,7 @@
 
     .nav-links a {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(14px, 1.16vw, 20px);
+      font-size: clamp(16px, 1.4vw, 24px);
       color: var(--mid);
       text-decoration: none;
       position: relative;
@@ -81,47 +74,56 @@
     /* ── Hero ── */
     .hero {
       padding: 52px var(--pad);
-      /* extra left padding absorbs the leftward shadow so it doesn't clip */
-      padding-left: calc(var(--pad) + 55px);
+      padding-left: calc(var(--pad) + 55px); /* absorbs leftward shadow offset */
     }
 
     .hero-text {
-      font-size: clamp(36px, 5.56vw, 96px);
-      font-weight: 700;
-      line-height: 1.05;
+      font-size: clamp(40px, 5.56vw, 96px);
+      line-height: 1.25;
       text-transform: uppercase;
       letter-spacing: -0.01em;
-      /* text face matches bg → invisible, shadow does all the work */
-      color: var(--bg);
+      color: var(--bg); /* invisible — shadow does the work */
       will-change: text-shadow;
       transform: translateZ(0);
-      /* animation injected by JS after keyframes are built */
-      /* direction + shadow set dynamically by JS */
-      /* fade-in entrance so the shadow builds from nothing */
       opacity: 0;
       transition: opacity 0.8s ease 0.2s;
     }
 
-    .hero-text.visible {
-      opacity: 1;
+    .hero-text.visible { opacity: 1; }
+
+    .hero-bold    { font-weight: 900; }
+    .hero-regular { font-weight: 400; }
+
+    /* ── Shared section spacing ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 120px;
+      padding-bottom: 120px;
     }
 
     /* ── Case 1 ── */
-    .case1 {
-      padding: 40px var(--pad);
+    .case1-link {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      padding: 0 var(--pad);
+      text-decoration: none;
+      color: inherit;
     }
 
-    .case-heading-right {
-      font-size: clamp(28px, 2.78vw, 48px);
-      font-weight: 300;
-      line-height: 1.25;
-      color: var(--ink);
+    .case1-heading {
+      font-size: clamp(22px, 2.1vw, 36px);
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
       text-align: right;
-      max-width: min(757px, 46%);
+      max-width: min(548px, 34%);
+      color: var(--ink);
+      transition: opacity 0.2s;
     }
+
+    .case1-link:hover .case1-heading { opacity: 0.6; }
 
     .case1-images {
       display: flex;
@@ -131,37 +133,39 @@
       padding: 20px 0;
     }
 
-    .img-blue-main {
+    .img-main {
       width: min(702px, 43vw);
       aspect-ratio: 702 / 343;
-      background: var(--blue);
+      background: #797979;
+      border-radius: 2px;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .img-tag {
+      width: min(212px, 13vw);
+      aspect-ratio: 212 / 91;
+      background: #797979;
       border-radius: 2px;
     }
 
-    .img-blue-tag {
-      width: min(212px, 13vw);
-      aspect-ratio: 212 / 91;
-      background: var(--blue);
-      border-radius: 2px;
-    }
+    .case1-link:hover .img-main { transform: scale(0.98); }
 
     /* ── Case 2 ── */
     .case2 {
-      padding: 40px var(--pad);
+      padding: 0 var(--pad);
       display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
 
-    .case-heading-left {
-      font-size: clamp(28px, 2.78vw, 48px);
-      font-weight: 300;
-      line-height: 1.25;
-      color: var(--ink);
+    .case2-heading {
+      font-size: clamp(22px, 2.1vw, 36px);
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
       max-width: min(757px, 46%);
+      color: var(--ink);
     }
 
-    /* Fan of cards */
     .fan-stage {
       position: relative;
       width: calc(100% + var(--pad) * 2);
@@ -178,18 +182,19 @@
       height: clamp(182px, 24.2vw, 418px);
       border-radius: 3px;
       transform-origin: bottom center;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.4s ease;
     }
 
     .fan-card:hover {
       transform: var(--base-rotate) translateY(-16px) !important;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
       z-index: 10 !important;
     }
 
     /* ── Let's Connect ── */
     .connect {
-      padding: 40px var(--pad);
+      padding: 0 var(--pad);
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -197,9 +202,10 @@
     }
 
     .connect-heading {
-      font-size: clamp(28px, 2.78vw, 48px);
-      font-weight: 300;
-      line-height: 1.25;
+      font-size: clamp(22px, 2.1vw, 36px);
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
       color: var(--ink);
       text-align: right;
     }
@@ -214,29 +220,20 @@
     /* ── Scroll reveal ── */
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
+      transform: translateY(28px);
       transition:
         opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     }
-
-    .reveal.in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* stagger siblings */
-    .reveal:nth-child(2) { transition-delay: 0.1s; }
-    .reveal:nth-child(3) { transition-delay: 0.2s; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      :root { --pad: 20px; }
-      .case-heading-right,
-      .case-heading-left { max-width: 100%; text-align: left; }
-      .img-blue-main,
-      .img-blue-tag,
-      .connect-img { width: 100%; }
+      :root { --pad: 24px; }
+      .hero { padding-left: calc(var(--pad) + 32px); }
+      .case1-heading,
+      .case2-heading { max-width: 100%; text-align: left; }
+      .img-main, .img-tag, .connect-img { width: 100%; }
       .fan-stage { height: clamp(220px, 55vw, 380px); }
     }
   </style>
@@ -245,55 +242,56 @@
 
   <!-- Nav -->
   <nav>
-    <a class="nav-logo" href="#">mcurva</a>
+    <a class="nav-logo" href="index.html">mcurva</a>
     <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
+      <li><a href="case-study.html">Work</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- Hero -->
-  <section class="hero" id="hero">
+  <section class="hero">
     <h1 class="hero-text" id="heroText">
-      Motion designer &amp; UX/UI designer, focused on creating digital experiences that blend visual storytelling with product thinking.
+      <span class="hero-bold">MOTION &amp; UX/UI designer, </span><span class="hero-regular">focused on creating digital experiences that blend visual storytelling with product thinking.</span>
     </h1>
   </section>
 
-  <!-- Case 1 -->
-  <section class="case1" id="work">
-    <h2 class="case-heading-right reveal">Helping groups reduce friction when travelling as a group</h2>
-    <div class="case1-images reveal">
-      <div class="img-blue-main"></div>
-      <div class="img-blue-tag"></div>
-    </div>
-  </section>
+  <main>
+    <!-- Case 1 -->
+    <a class="case1-link reveal" href="case-study.html" id="work">
+      <h2 class="case1-heading">Helping groups reduce friction when travelling as a group</h2>
+      <div class="case1-images">
+        <div class="img-main"></div>
+        <div class="img-tag"></div>
+      </div>
+    </a>
 
-  <!-- Case 2 -->
-  <section class="case2" id="about">
-    <h2 class="case-heading-left reveal">Five years of experience in news broadcasting</h2>
-    <div class="fan-stage" id="fanStage"></div>
-  </section>
+    <!-- Case 2 -->
+    <section class="case2 reveal" id="about">
+      <h2 class="case2-heading">Five years of experience in news broadcasting</h2>
+      <div class="fan-stage" id="fanStage"></div>
+    </section>
 
-  <!-- Let's Connect -->
-  <section class="connect" id="contact">
-    <p class="connect-heading reveal">Let's connect</p>
-    <div class="connect-img reveal"></div>
-  </section>
+    <!-- Let's Connect -->
+    <section class="connect reveal" id="contact">
+      <p class="connect-heading">Let's connect</p>
+      <div class="connect-img"></div>
+    </section>
+  </main>
 
   <script>
     /* ─── Cursor-driven long shadow ─── */
     (function () {
       const el = document.getElementById('heroText');
       const TOTAL = 40;
-      const LERP  = 0.06;           // smoothing — lower = lazier follow
-      const COLOR = '158,158,158';  // light gray (#9e9e9e)
+      const LERP  = 0.06;
+      const COLOR = '130,122,110'; /* warm-toned gray that reads on the beige bg */
 
       function blurPx(i)   { return (i * 0.18).toFixed(2); }
       function alphaVal(i) { return Math.pow(1 - i / TOTAL, 1.8).toFixed(3); }
 
       function buildShadow(dx, dy) {
-        // dx/dy are -1…1 unit direction vectors (opposite of cursor)
         const parts = [`0px 0px 0px rgba(${COLOR},1)`];
         for (let i = 1; i <= TOTAL; i++) {
           const x = (dx * i).toFixed(1);
@@ -303,12 +301,10 @@
         return parts.join(',');
       }
 
-      // Default: subtle downward-right before the user has moved
       let targetDx = 0.3, targetDy = 0.4;
       let currDx   = 0,   currDy   = 0;
 
       window.addEventListener('mousemove', e => {
-        // Cast shadow in the direction opposite to the cursor from center
         targetDx = -(e.clientX / window.innerWidth  - 0.5) * 2;
         targetDy = -(e.clientY / window.innerHeight - 0.5) * 2;
       });
@@ -329,30 +325,26 @@
     /* ─── Fan cards ─── */
     (function () {
       const stage = document.getElementById('fanStage');
-
-      // card data: left-offset (% of stage width), bottom offset (px), rotation, color
       const cards = [
-        { left: -2,  bottom: 0,  rot: -9.62, color: '#ffd17d' },
-        { left:  8,  bottom: 0,  rot: -5.62, color: '#ffd991' },
-        { left: 18,  bottom: 0,  rot: -2.48, color: '#ffe0a7' },
-        { left: 29,  bottom: 0,  rot:  0,    color: '#ffe9c0' },
-        { left: 40,  bottom: 0,  rot:  8.27, color: '#ffedcd' },
-        { left: 50,  bottom: 0,  rot: 13.16, color: '#fff3dc' },
-        { left: 60,  bottom: 0,  rot: 14.98, color: '#fff3dc' },
+        { left: -2,  rot: -9.62, color: '#ffd17d' },
+        { left:  8,  rot: -5.62, color: '#ffd991' },
+        { left: 18,  rot: -2.48, color: '#ffe0a7' },
+        { left: 29,  rot:  0,    color: '#ffe9c0' },
+        { left: 40,  rot:  8.27, color: '#ffedcd' },
+        { left: 50,  rot: 13.16, color: '#fff3dc' },
+        { left: 60,  rot: 14.98, color: '#fff3dc' },
       ];
-
-      // Arc: cards rise toward the center (index 3) and drop at edges
-      const arcY = [80, 48, 20, 0, 20, 48, 80]; // px lift from bottom per card
+      const arcY = [80, 48, 20, 0, 20, 48, 80];
 
       cards.forEach((c, i) => {
         const card = document.createElement('div');
         card.className = 'fan-card';
-        const baseTransform = `rotate(${c.rot}deg) translateY(-${arcY[i]}px)`;
+        const base = `rotate(${c.rot}deg) translateY(-${arcY[i]}px)`;
         card.style.cssText = `
           left: ${c.left}%;
           bottom: 0;
           background: ${c.color};
-          transform: ${baseTransform};
+          transform: ${base};
           --base-rotate: rotate(${c.rot}deg) translateY(-${arcY[i]}px);
           z-index: ${i === 3 ? 4 : i < 3 ? i + 1 : 7 - i};
         `;
@@ -362,16 +354,12 @@
 
     /* ─── Scroll reveal ─── */
     (function () {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            observer.unobserve(entry.target);
-          }
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
         });
-      }, { threshold: 0.15 });
-
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     })();
   </script>
 </body>

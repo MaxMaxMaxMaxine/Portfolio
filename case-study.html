@@ -6,17 +6,18 @@
   <title>mcurva — AllAboard Case Study</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:   #f9f3e8;
-      --ink:  #160000;
-      --gray: #71726b;
-      --mid:  #6a6a6a;
-      --dark: #373737;
-      --pad:  80px;
+      --bg:    #f6f6f6;
+      --ink:   #160000;
+      --gray:  #71726b;
+      --dark:  #373737;
+      --nav-pad: 40px;
+      --pad:   116px;
     }
 
     html { scroll-behavior: smooth; }
@@ -25,36 +26,38 @@
       background: var(--bg);
       color: var(--ink);
       font-family: 'Bitter', Georgia, serif;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── Nav ── */
+    /* ── NAV ── */
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 44px var(--pad);
+      padding: 44px var(--nav-pad);
+      white-space: nowrap;
     }
 
-    .nav-logo {
-      font-size: clamp(32px, 2.8vw, 48px);
+    .logo {
+      font-size: clamp(32px, 3.3vw, 48px);
       font-weight: 800;
       color: var(--ink);
       text-decoration: none;
-      letter-spacing: -0.01em;
+      line-height: 1;
     }
 
     .nav-links {
       display: flex;
-      gap: clamp(32px, 4.6vw, 80px);
+      gap: clamp(32px, 5.5vw, 80px);
       list-style: none;
     }
 
     .nav-links a {
-      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(16px, 1.4vw, 24px);
-      color: var(--mid);
+      font-size: clamp(18px, 1.95vw, 28px);
+      font-weight: 600;
+      letter-spacing: 0.56px;
+      color: var(--ink);
       text-decoration: none;
       position: relative;
     }
@@ -62,39 +65,47 @@
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -2px; left: 0;
+      bottom: -3px; left: 0;
       width: 0; height: 1px;
       background: var(--ink);
       transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
-
-    .nav-links a:hover { color: var(--ink); }
     .nav-links a:hover::after { width: 100%; }
 
-    /* ── Main layout ── */
-    main {
+    /* ── DIVIDER ── */
+    .rule { width: 100%; height: 1px; background: rgba(22, 0, 0, 0.18); }
+
+    /* ── PAGE STRUCTURE ── */
+    .content {
       display: flex;
       flex-direction: column;
-      gap: 120px;
+      gap: 80px;
       padding-bottom: 120px;
     }
 
-    /* ── Case Study Hero ── */
+    /* ── CASE STUDY HERO ── */
     .cs-hero {
-      padding: 52px var(--pad);
+      padding: 80px var(--pad);
       text-align: center;
     }
 
     .cs-hero h1 {
-      font-size: clamp(32px, 3.7vw, 64px);
+      font-size: clamp(28px, 4.44vw, 64px);
       font-weight: 800;
       line-height: 1.25;
       color: var(--ink);
-      max-width: 900px;
+      max-width: 860px;
       margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
     }
 
-    /* ── Content sections ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── NUMBERED SECTIONS ── */
     .cs-section {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -103,211 +114,198 @@
       align-items: start;
     }
 
-    /* label + title column */
+    /* Title column — right-aligned by default */
+    .cs-col-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .cs-col-title.left {
+      align-items: flex-start;
+      text-align: left;
+    }
+
     .cs-label {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(14px, 1.16vw, 20px);
+      font-size: clamp(13px, 1.4vw, 20px);
       font-weight: 700;
       color: var(--gray);
       line-height: 1.5;
-      margin-bottom: 4px;
     }
 
     .cs-title {
-      font-size: clamp(28px, 2.78vw, 48px);
+      font-size: clamp(26px, 3.3vw, 48px);
       font-weight: 700;
       line-height: 1.25;
       color: var(--ink);
     }
 
-    /* right-align title column by default */
-    .cs-col-title {
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-start;
-    }
-
-    /* left-align variant */
-    .cs-col-title.left {
-      text-align: left;
-      align-items: flex-start;
-    }
-
-    /* body text column */
+    /* Body column */
     .cs-col-body {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(16px, 1.4vw, 24px);
+      font-size: clamp(15px, 1.67vw, 24px);
       line-height: 1.5;
       color: var(--gray);
     }
 
-    .cs-col-body p + p { margin-top: 1em; }
-
-    .cs-col-body strong {
-      font-weight: 700;
-      color: var(--gray);
-    }
+    .cs-col-body p + p  { margin-top: 1em; }
+    .cs-col-body strong { font-weight: 700; color: var(--gray); }
 
     .cs-col-body ul {
       list-style: disc;
       padding-left: 1.4em;
-      margin-top: 0.75em;
+      margin-top: 0.6em;
     }
+    .cs-col-body li { margin-bottom: 0.3em; }
 
-    .cs-col-body li { margin-bottom: 0.25em; }
-
-    /* section with image beside title column */
-    .cs-section-3col {
+    /* 3-column layout for research section */
+    .cs-section-3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 80px;
+      gap: 60px;
       padding: 0 var(--pad);
       align-items: start;
     }
 
-    /* placeholder for ecosystem / competitive research */
-    .cs-placeholder {
-      border: 1.5px dashed rgba(22, 0, 0, 0.2);
+    /* Research photo */
+    .cs-photo {
+      width: 100%;
+      aspect-ratio: 483 / 668;
       border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .cs-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* Placeholder (ecosystem / competitive analysis) */
+    .cs-placeholder {
+      border: 1.5px dashed rgba(22, 0, 0, 0.18);
+      border-radius: 4px;
+      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 240px;
-      color: rgba(22,0,0,0.3);
       font-family: Helvetica, sans-serif;
-      font-size: 18px;
+      font-size: 17px;
+      color: rgba(22, 0, 0, 0.28);
     }
 
-    /* research image */
-    .cs-research-img {
-      width: 100%;
-      aspect-ratio: 483 / 668;
-      overflow: hidden;
-      border-radius: 4px;
-    }
-
-    .cs-research-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* ── Wireframes ── */
-    .wireframes-grid {
+    /* ── WIREFRAMES ── */
+    .wireframes-wrap {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 14px;
     }
 
     .wireframes-row {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
     }
 
-    .wireframes-row::-webkit-scrollbar { height: 4px; }
-    .wireframes-row::-webkit-scrollbar-thumb { background: rgba(22,0,0,0.15); border-radius: 2px; }
+    .wireframes-row::-webkit-scrollbar { height: 3px; }
+    .wireframes-row::-webkit-scrollbar-thumb {
+      background: rgba(22,0,0,0.14);
+      border-radius: 2px;
+    }
 
-    .phone-mock {
+    .phone {
       flex-shrink: 0;
-      width: 200px;
-      height: 434px;
-      background: white;
-      border-radius: 20px;
-      border: 1.5px solid rgba(22,0,0,0.15);
-      overflow: hidden;
+      width: 185px;
+      height: 400px;
+      background: #fff;
+      border-radius: 22px;
+      border: 1.5px solid rgba(22,0,0,0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      gap: 12px;
+      padding: 18px 14px;
+      gap: 10px;
+      text-align: center;
     }
 
-    .phone-mock-label {
+    .phone-notch {
+      width: 50px; height: 5px;
+      background: rgba(22,0,0,0.07);
+      border-radius: 3px;
+    }
+
+    .phone-name {
       font-family: Helvetica, sans-serif;
-      font-size: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .phone-label {
+      font-family: Helvetica, sans-serif;
+      font-size: 10px;
       color: var(--gray);
-      text-align: center;
       opacity: 0.7;
     }
 
-    .phone-mock-title {
-      font-family: Helvetica, sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink);
-      text-align: center;
-    }
-
-    .phone-mock-dot {
-      width: 40px;
-      height: 4px;
-      background: rgba(22,0,0,0.1);
-      border-radius: 2px;
-    }
-
-    /* ── Let's Connect ── */
+    /* ── LET'S CONNECT ── */
     .connect {
-      padding: 0 var(--pad);
       display: flex;
       flex-direction: column;
       gap: 20px;
       align-items: flex-end;
+      padding: 0 var(--pad);
     }
 
-    .connect-heading {
-      font-size: clamp(22px, 2.1vw, 36px);
-      font-weight: 600;
+    .connect p {
+      font-size: clamp(20px, 2.5vw, 36px);
+      font-weight: 400;
       line-height: 1.5;
       letter-spacing: -0.02em;
-      color: var(--ink);
+      text-transform: uppercase;
       text-align: right;
     }
 
     .connect-img {
-      width: min(789px, 48vw);
+      width: min(789px, 55vw);
       aspect-ratio: 789 / 510;
       background: var(--dark);
       border-radius: 2px;
     }
 
-    /* ── Scroll reveal ── */
+    /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(22px);
       transition:
-        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      :root { --pad: 24px; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      :root { --pad: 32px; }
 
       .cs-section,
-      .cs-section-3col {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
+      .cs-section-3 { grid-template-columns: 1fr; gap: 40px; }
 
-      .cs-col-title { text-align: left; align-items: flex-start; }
-
-      .cs-research-img { max-width: 100%; aspect-ratio: 4/3; }
-
+      .cs-col-title { align-items: flex-start; text-align: left; }
+      .cs-photo { aspect-ratio: 4/3; }
       .connect-img { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
+  <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="index.html">mcurva</a>
+    <a class="logo" href="index.html">mcurva</a>
     <ul class="nav-links">
       <li><a href="index.html#work">Work</a></li>
       <li><a href="index.html#about">About</a></li>
@@ -315,12 +313,16 @@
     </ul>
   </nav>
 
-  <main>
+  <div class="content">
 
-    <!-- Hero -->
-    <section class="cs-hero reveal">
+    <div class="rule"></div>
+
+    <!-- HERO STAT -->
+    <section class="cs-hero">
       <h1>52% of Gen-Z stopped speaking to each other after a terrible trip.</h1>
     </section>
+
+    <div class="rule"></div>
 
     <!-- 01 The Problem -->
     <div class="cs-section reveal">
@@ -331,15 +333,13 @@
       <div class="cs-col-body">
         <p><strong>Group plans break down quickly.</strong></p>
         <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel.</p>
-        <p>&nbsp;</p>
-        <p><strong>They rely on:</strong></p>
+        <p><br><strong>They rely on:</strong></p>
         <ul>
           <li>Back-and-forth conversations</li>
           <li>Manual coordination</li>
           <li>Uneven contribution</li>
         </ul>
-        <p>&nbsp;</p>
-        <p>This leads to slow decision-making and in some cases, conflict.</p>
+        <p><br>This leads to slow decision-making and in some cases, conflict.</p>
       </div>
     </div>
 
@@ -359,7 +359,7 @@
     </div>
 
     <!-- 03 User Research -->
-    <div class="cs-section-3col reveal">
+    <div class="cs-section-3 reveal">
       <div class="cs-col-title left">
         <p class="cs-label">03 . User Research</p>
         <h2 class="cs-title">What did the backpackers think?</h2>
@@ -370,8 +370,7 @@
           <li>Aged 18–24</li>
           <li>Across 2 different hostels</li>
         </ul>
-        <p>&nbsp;</p>
-        <p><strong>We found that:</strong></p>
+        <p><br><strong>We found that:</strong></p>
         <ul>
           <li>Hidden power dynamic in group planning</li>
           <li>Planning responsibilities and roles are unclear</li>
@@ -380,8 +379,11 @@
           <li>Everyone wants a fun, stress-free group outing</li>
         </ul>
       </div>
-      <div class="cs-research-img">
-        <img src="https://www.figma.com/api/mcp/asset/ba71d62f-a17d-48c0-a727-dfc817702aab" alt="User research — hostel interview" />
+      <div class="cs-photo">
+        <img
+          src="https://www.figma.com/api/mcp/asset/ba71d62f-a17d-48c0-a727-dfc817702aab"
+          alt="User research — hostel interview"
+        />
       </div>
     </div>
 
@@ -413,54 +415,53 @@
         <p class="cs-label">06 . Wireframes</p>
         <h2 class="cs-title">Low-fidelity</h2>
       </div>
-      <div class="wireframes-grid">
+      <div class="wireframes-wrap">
         <div class="wireframes-row">
-          <div class="phone-mock">
-            <div class="phone-mock-dot"></div>
-            <div class="phone-mock-title">Let AllAboard! help you pick what to do on your trip!</div>
-            <div class="phone-mock-label">A1 — Onboarding</div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-name">Let AllAboard! help you pick what to do on your trip!</div>
+            <div class="phone-label">A1 — Onboarding</div>
           </div>
-          <div class="phone-mock">
-            <div class="phone-mock-dot"></div>
-            <div class="phone-mock-title">Add Mates</div>
-            <div class="phone-mock-label">A7 — Add friends QR</div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-name">Add Mates</div>
+            <div class="phone-label">A7 — Add friends QR</div>
           </div>
-          <div class="phone-mock">
-            <div class="phone-mock-dot"></div>
-            <div class="phone-mock-title">Let's create your crew!</div>
-            <div class="phone-mock-label">A6 — Create crew</div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-name">Let's create your crew!</div>
+            <div class="phone-label">A6 — Create crew</div>
           </div>
         </div>
         <div class="wireframes-row">
-          <div class="phone-mock">
-            <div class="phone-mock-dot"></div>
-            <div class="phone-mock-title">You're being re<strong>crew</strong>ted!</div>
-            <div class="phone-mock-label">Pop-up — Added to group</div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-name">You're being re<strong>crew</strong>ted!</div>
+            <div class="phone-label">Pop-up — Group invite</div>
           </div>
-          <div class="phone-mock">
-            <div class="phone-mock-dot"></div>
-            <div class="phone-mock-title">Crew List</div>
-            <div class="phone-mock-label">Change group</div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-name">Crew List</div>
+            <div class="phone-label">Change group</div>
           </div>
-          <div class="phone-mock">
-            <div class="phone-mock-dot"></div>
-            <div class="phone-mock-title">Got an idea?</div>
-            <div class="phone-mock-label">Suggest a plan</div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-name">Got an idea?</div>
+            <div class="phone-label">Suggest a plan</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Let's Connect -->
+    <!-- LET'S CONNECT -->
     <section class="connect reveal" id="contact">
-      <p class="connect-heading">Let's connect</p>
+      <p>Let's connect</p>
       <div class="connect-img"></div>
     </section>
 
-  </main>
+  </div>
 
   <script>
-    /* ─── Scroll reveal ─── */
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }

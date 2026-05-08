@@ -6,17 +6,15 @@
   <title>mcurva — Portfolio 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:   #f9f3e8;
+      --bg:   #f6f6f6;
       --ink:  #160000;
-      --gray: #71726b;
-      --mid:  #6a6a6a;
       --dark: #373737;
-      --pad:  80px;
     }
 
     html { scroll-behavior: smooth; }
@@ -25,341 +23,602 @@
       background: var(--bg);
       color: var(--ink);
       font-family: 'Bitter', Georgia, serif;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── Nav ── */
+    /* ── NAV ── */
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 44px var(--pad);
+      padding: 44px 40px;
     }
 
-    .nav-logo {
-      font-size: clamp(32px, 2.8vw, 48px);
-      font-weight: 800;
+    .logo {
+      font-size: clamp(24px, 2.5vw, 36px);
+      font-weight: 500;
       color: var(--ink);
       text-decoration: none;
-      letter-spacing: -0.01em;
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
-      gap: clamp(32px, 4.6vw, 80px);
+      gap: clamp(24px, 5.5vw, 80px);
       list-style: none;
     }
 
     .nav-links a {
-      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(16px, 1.4vw, 24px);
-      color: var(--mid);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: clamp(14px, 1.5vw, 22px);
+      font-weight: 600;
+      letter-spacing: 0.44px;
+      color: var(--ink);
       text-decoration: none;
+      white-space: nowrap;
       position: relative;
     }
 
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -2px; left: 0;
+      bottom: -3px; left: 0;
       width: 0; height: 1px;
       background: var(--ink);
       transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
-
-    .nav-links a:hover { color: var(--ink); }
     .nav-links a:hover::after { width: 100%; }
 
-    /* ── Hero ── */
+    .nav-arrow {
+      width: clamp(16px, 1.4vw, 22px);
+      height: clamp(16px, 1.4vw, 22px);
+      flex-shrink: 0;
+    }
+
+    /* ── RULE ── */
+    .rule { width: 100%; height: 1px; background: rgba(22,0,0,0.15); }
+
+    /* ── PAGE SECTIONS ── */
+    .content { display: flex; flex-direction: column; gap: 80px; }
+
+    /* ── HERO ── */
     .hero {
-      padding: 52px var(--pad);
-      padding-left: calc(var(--pad) + 55px); /* absorbs leftward shadow offset */
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 0 20px;
+      height: clamp(360px, 46vw, 664px);
+      will-change: opacity, transform;
     }
 
-    .hero-text {
-      font-size: clamp(40px, 5.56vw, 96px);
+    /* Left: multi-line headline */
+    #heroText {
+      flex: 1 0 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* Each line is a flex row controlling alignment */
+    .hero-line {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: -0.09em; /* tighten line gaps */
+      flex-shrink: 0;
+    }
+    .hero-line.l-left    { justify-content: flex-start; }
+    .hero-line.l-center  { justify-content: center; }
+    .hero-line.l-offset  { justify-content: center; padding-left: 6.4vw; }
+    .hero-line.l-right   { justify-content: flex-end; }
+
+    /* The text node inside each line */
+    .hero-line-text {
+      font-size: clamp(24px, 4.9vw, 70px);
+      font-weight: 400;
       line-height: 1.25;
+      letter-spacing: -0.02em;
       text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: var(--bg); /* invisible — shadow does the work */
-      will-change: text-shadow;
-      transform: translateZ(0);
-      opacity: 0;
-      transition: opacity 0.8s ease 0.2s;
+      color: var(--ink);
+      white-space: nowrap;
     }
 
-    .hero-text.visible { opacity: 1; }
-
-    .hero-bold    { font-weight: 900; }
-    .hero-regular { font-weight: 400; }
-
-    /* ── Shared section spacing ── */
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 120px;
-      padding-bottom: 120px;
+    /* Line 5 only — wraps to 2 right-aligned lines inside a constrained box */
+    .hero-line-text.wrappable {
+      white-space: normal;
+      text-align: right;
+      max-width: min(670px, 46.5vw);
     }
 
-    /* ── Case 1 ── */
-    .case1-link {
+    /* GIF items get a smooth transform for the hover float */
+    .gif-item {
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Right: info column */
+    .hero-info {
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
+      gap: 10px;
       align-items: flex-end;
-      padding: 0 var(--pad);
+      height: 100%;
+      padding-bottom: 8px;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(11px, 1.11vw, 16px);
+      line-height: 1.5;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .hero-info-top {
+      flex: 1 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .hero-info-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    /* ── ANIMATION SYSTEM ──
+       .h-word  → outer: opacity 0→1 + rainbow hue → ink (no lag)
+       .h-wave  → inner: single-shot translateY arc                  */
+    .h-word { display: inline-block; opacity: 0; }
+    .h-wave { display: inline-block; }
+
+    @keyframes heroWordIn {
+      0%   { opacity: 0; color: var(--c); }
+      100% { opacity: 1; color: var(--ink); }
+    }
+
+    @keyframes heroWave {
+      0%   { transform: translateY(0); }
+      30%  { transform: translateY(-9px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ── GET IN TOUCH BUTTON ── */
+    .cta-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 88px;
+      flex-shrink: 0;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 16px 48px;
+      border-radius: 34px;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(13px, 1.25vw, 18px);
+      line-height: 1.5;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.85; transform: scale(0.98); }
+
+    /* ── CASE 1 ── */
+    .case1 {
+      display: flex;
+      gap: clamp(40px, 9vw, 140px);
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 0 20px;
       text-decoration: none;
       color: inherit;
+      will-change: opacity, transform;
     }
 
-    .case1-heading {
-      font-size: clamp(22px, 2.1vw, 36px);
-      font-weight: 600;
-      line-height: 1.5;
-      letter-spacing: -0.02em;
-      text-align: right;
-      max-width: min(548px, 34%);
-      color: var(--ink);
-      transition: opacity 0.2s;
-    }
-
-    .case1-link:hover .case1-heading { opacity: 0.6; }
-
-    .case1-images {
+    .case1-title {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      align-items: flex-end;
-      padding: 20px 0;
+      gap: 28px;
+      width: clamp(200px, 24vw, 346px);
+      flex-shrink: 0;
     }
 
-    .img-main {
-      width: min(702px, 43vw);
-      aspect-ratio: 702 / 343;
-      background: #797979;
-      border-radius: 2px;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    .case1-title h2 {
+      font-size: clamp(17px, 2vw, 28px);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: opacity 0.25s;
     }
-    .img-tag {
-      width: min(212px, 13vw);
-      aspect-ratio: 212 / 91;
-      background: #797979;
-      border-radius: 2px;
+    .case1:hover .case1-title h2 { opacity: 0.5; }
+
+    .case1-title p {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(12px, 1.25vw, 18px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink);
     }
 
-    .case1-link:hover .img-main { transform: scale(0.98); }
+    .case1-image {
+      width: clamp(220px, 33vw, 474px);
+      height: clamp(153px, 25.3vw, 364px);
+      border-radius: 20px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
 
-    /* ── Case 2 ── */
+    .case1-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .case1:hover .case1-image img { transform: scale(1.03); }
+
+    /* ── CASE 2 ── */
     .case2 {
-      padding: 0 var(--pad);
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      will-change: opacity, transform;
     }
 
-    .case2-heading {
-      font-size: clamp(22px, 2.1vw, 36px);
-      font-weight: 600;
+    .case2-heading-wrap {
+      padding: 0 116px;
+      width: 100%;
+    }
+
+    .case2-heading-wrap h2 {
+      font-size: clamp(17px, 2vw, 28px);
+      font-weight: 400;
       line-height: 1.5;
       letter-spacing: -0.02em;
-      max-width: min(757px, 46%);
-      color: var(--ink);
+      text-transform: uppercase;
+      max-width: clamp(260px, 26vw, 376px);
     }
 
-    .fan-stage {
-      position: relative;
-      width: calc(100% + var(--pad) * 2);
-      margin-left: calc(-1 * var(--pad));
-      height: clamp(320px, 32vw, 550px);
+    /* Diagonal staircase gallery — matches Figma inline-grid approach */
+    .gif-gallery {
+      display: inline-grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      place-items: start;
+      overflow: visible;
       margin-top: 40px;
+    }
+
+    .gif-item {
+      grid-column: 1;
+      grid-row: 1;
+      width: clamp(180px, 31.4vw, 452px);
+      height: clamp(115px, 22.7vw, 327px);
       overflow: hidden;
     }
 
-    .fan-card {
-      position: absolute;
-      bottom: 0;
-      width: clamp(160px, 21.3vw, 368px);
-      height: clamp(182px, 24.2vw, 418px);
-      border-radius: 3px;
-      transform-origin: bottom center;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                  box-shadow 0.4s ease;
+    .gif-item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
     }
 
-    .fan-card:hover {
-      transform: var(--base-rotate) translateY(-16px) !important;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-      z-index: 10 !important;
-    }
-
-    /* ── Let's Connect ── */
+    /* ── LET'S CONNECT ── */
     .connect {
-      padding: 0 var(--pad);
       display: flex;
       flex-direction: column;
       gap: 20px;
       align-items: flex-end;
+      padding: 0 116px;
+      will-change: opacity, transform;
     }
 
-    .connect-heading {
-      font-size: clamp(22px, 2.1vw, 36px);
-      font-weight: 600;
+    .connect p {
+      font-size: clamp(16px, 2vw, 28px);
+      font-weight: 400;
       line-height: 1.5;
       letter-spacing: -0.02em;
-      color: var(--ink);
+      text-transform: uppercase;
       text-align: right;
     }
 
     .connect-img {
-      width: min(789px, 48vw);
+      width: min(630px, 44vw);
       aspect-ratio: 789 / 510;
       background: var(--dark);
       border-radius: 2px;
     }
 
-    /* ── Scroll reveal ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition:
-        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    /* ── PARALLAX SECTIONS ── */
+    .hero, .case1, .case2, .connect {
+      will-change: opacity, transform;
     }
-    .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      :root { --pad: 24px; }
-      .hero { padding-left: calc(var(--pad) + 32px); }
-      .case1-heading,
-      .case2-heading { max-width: 100%; text-align: left; }
-      .img-main, .img-tag, .connect-img { width: 100%; }
-      .fan-stage { height: clamp(220px, 55vw, 380px); }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; height: auto; padding: 32px 20px; }
+      .hero-info { align-items: flex-start; }
+      .case1 { flex-direction: column; padding: 0 24px; }
+      .case1-image { width: 100%; height: auto; aspect-ratio: 593/455; }
+      .case2-heading-wrap { padding: 0 24px; }
+      .connect { padding: 0 24px; }
+      .connect-img { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
+  <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="index.html">mcurva</a>
+    <a class="logo" href="index.html">mcurva</a>
     <ul class="nav-links">
-      <li><a href="case-study.html">Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li>
+        <a href="case-study.html">Work
+          <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="#about">About
+          <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="#contact">Contact
+          <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+      </li>
     </ul>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1 class="hero-text" id="heroText">
-      <span class="hero-bold">MOTION &amp; UX/UI designer, </span><span class="hero-regular">focused on creating digital experiences that blend visual storytelling with product thinking.</span>
-    </h1>
-  </section>
+  <!-- CONTENT -->
+  <div class="content">
 
-  <main>
-    <!-- Case 1 -->
-    <a class="case1-link reveal" href="case-study.html" id="work">
-      <h2 class="case1-heading">Helping groups reduce friction when travelling as a group</h2>
-      <div class="case1-images">
-        <div class="img-main"></div>
-        <div class="img-tag"></div>
+    <div class="rule"></div>
+
+    <!-- HERO: multi-line staggered layout -->
+    <section class="hero">
+
+      <div id="heroText">
+        <div class="hero-line l-left">
+          <span class="hero-line-text">MOTION</span>
+        </div>
+        <div class="hero-line l-left">
+          <span class="hero-line-text">&amp; UX/UI designer,</span>
+        </div>
+        <div class="hero-line l-center">
+          <span class="hero-line-text">focused on creating</span>
+        </div>
+        <div class="hero-line l-offset">
+          <span class="hero-line-text">digital experiences</span>
+        </div>
+        <div class="hero-line l-right">
+          <span class="hero-line-text wrappable">that blend visual storytelling</span>
+        </div>
+        <div class="hero-line l-center">
+          <span class="hero-line-text">with product thinking.</span>
+        </div>
+      </div>
+
+      <!-- Right info column -->
+      <div class="hero-info">
+        <div class="hero-info-top">
+          <p>MAXINE CURVA</p>
+          <p>BARCELONA-BASED</p>
+        </div>
+        <div class="hero-info-bottom">
+          <p>MOTION DESIGNER</p>
+          <p>UX/UI DESIGNER</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GET IN TOUCH BUTTON -->
+    <div class="cta-frame">
+      <a class="cta-btn" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="rule"></div>
+
+    <!-- CASE 1 -->
+    <a class="case1" href="case-study.html" id="work">
+      <div class="case1-title">
+        <h2>Helping groups reduce friction when travelling as a group</h2>
+        <p>Conducted UX research and designed an app to help minimise friction when travelling.</p>
+      </div>
+      <div class="case1-image">
+        <img
+          src="https://www.figma.com/api/mcp/asset/c150a303-e75b-470e-8158-538788c0007b"
+          alt="AllAboard app mockup"
+        />
       </div>
     </a>
 
-    <!-- Case 2 -->
-    <section class="case2 reveal" id="about">
-      <h2 class="case2-heading">Five years of experience in news broadcasting</h2>
-      <div class="fan-stage" id="fanStage"></div>
+    <!-- CASE 2 — diagonal image gallery -->
+    <section class="case2" id="about">
+      <div class="case2-heading-wrap">
+        <h2>Five years of experience in news broadcasting</h2>
+      </div>
+      <div class="gif-gallery" id="gifGallery">
+        <!-- positions injected by JS to scale with viewport -->
+      </div>
     </section>
 
-    <!-- Let's Connect -->
-    <section class="connect reveal" id="contact">
-      <p class="connect-heading">Let's connect</p>
+    <!-- LET'S CONNECT -->
+    <section class="connect" id="contact">
+      <p>Let's connect</p>
       <div class="connect-img"></div>
     </section>
-  </main>
+
+  </div>
 
   <script>
-    /* ─── Cursor-driven long shadow ─── */
+    /* ── Hero: word-by-word rainbow fade-in + single-shot wave ── */
     (function () {
-      const el = document.getElementById('heroText');
-      const TOTAL = 40;
-      const LERP  = 0.06;
-      const COLOR = '130,122,110'; /* warm-toned gray that reads on the beige bg */
+      const hero    = document.getElementById('heroText');
+      const sources = hero.querySelectorAll('.hero-line-text');
 
-      function blurPx(i)   { return (i * 0.18).toFixed(2); }
-      function alphaVal(i) { return Math.pow(1 - i / TOTAL, 1.8).toFixed(3); }
+      const FADE_DUR   = 0.9;
+      const FADE_START = 0.08;
+      const WORD_LAG   = 0.1;
+      const WAVE_DUR   = 0.85;
 
-      function buildShadow(dx, dy) {
-        const parts = [`0px 0px 0px rgba(${COLOR},1)`];
-        for (let i = 1; i <= TOTAL; i++) {
-          const x = (dx * i).toFixed(1);
-          const y = (dy * i).toFixed(1);
-          parts.push(`${x}px ${y}px ${blurPx(i)}px rgba(${COLOR},${alphaVal(i)})`);
-        }
-        return parts.join(',');
-      }
-
-      let targetDx = 0.3, targetDy = 0.4;
-      let currDx   = 0,   currDy   = 0;
-
-      window.addEventListener('mousemove', e => {
-        targetDx = -(e.clientX / window.innerWidth  - 0.5) * 2;
-        targetDy = -(e.clientY / window.innerHeight - 0.5) * 2;
-      });
-
-      function tick() {
-        currDx += (targetDx - currDx) * LERP;
-        currDy += (targetDy - currDy) * LERP;
-        el.style.textShadow = buildShadow(currDx, currDy);
-        requestAnimationFrame(tick);
-      }
-
-      requestAnimationFrame(() => {
-        el.classList.add('visible');
-        tick();
-      });
-    })();
-
-    /* ─── Fan cards ─── */
-    (function () {
-      const stage = document.getElementById('fanStage');
-      const cards = [
-        { left: -2,  rot: -9.62, color: '#ffd17d' },
-        { left:  8,  rot: -5.62, color: '#ffd991' },
-        { left: 18,  rot: -2.48, color: '#ffe0a7' },
-        { left: 29,  rot:  0,    color: '#ffe9c0' },
-        { left: 40,  rot:  8.27, color: '#ffedcd' },
-        { left: 50,  rot: 13.16, color: '#fff3dc' },
-        { left: 60,  rot: 14.98, color: '#fff3dc' },
-      ];
-      const arcY = [80, 48, 20, 0, 20, 48, 80];
-
-      cards.forEach((c, i) => {
-        const card = document.createElement('div');
-        card.className = 'fan-card';
-        const base = `rotate(${c.rot}deg) translateY(-${arcY[i]}px)`;
-        card.style.cssText = `
-          left: ${c.left}%;
-          bottom: 0;
-          background: ${c.color};
-          transform: ${base};
-          --base-rotate: rotate(${c.rot}deg) translateY(-${arcY[i]}px);
-          z-index: ${i === 3 ? 4 : i < 3 ? i + 1 : 7 - i};
-        `;
-        stage.appendChild(card);
-      });
-    })();
-
-    /* ─── Scroll reveal ─── */
-    (function () {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      /* Pass 1 — count total words for hue distribution */
+      let totalWords = 0;
+      sources.forEach(src => {
+        src.textContent.split(/(\s+)/).forEach(t => {
+          if (t && !/^\s+$/.test(t)) totalWords++;
         });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+      });
+
+      /* Pass 2 — build DOM */
+      const HUES = [245, 275, 310, 345, 285, 225, 245]; // indigo→purple→pink→red→purple→blue→indigo
+      let gWord = 0;
+
+      sources.forEach(src => {
+        const text = src.textContent;
+        src.textContent = '';
+
+        text.split(/(\s+)/).forEach(token => {
+          if (!token) return;
+          if (/^\s+$/.test(token)) { src.appendChild(document.createTextNode(token)); return; }
+
+          const wi    = gWord++;
+          const t     = totalWords > 1 ? wi / (totalWords - 1) : 0;
+          const seg   = t * (HUES.length - 1);
+          const si    = Math.min(Math.floor(seg), HUES.length - 2);
+          const hue   = Math.round(HUES[si] + (HUES[si + 1] - HUES[si]) * (seg - si));
+          const delay = (FADE_START + wi * WORD_LAG).toFixed(2);
+
+          const outer = document.createElement('span');
+          outer.className = 'h-word';
+          outer.style.setProperty('--c', `hsl(${hue},100%,55%)`);
+          outer.style.animation =
+            `heroWordIn ${FADE_DUR}s cubic-bezier(0.16,1,0.3,1) ${delay}s forwards`;
+
+          const inner = document.createElement('span');
+          inner.className = 'h-wave';
+          inner.style.animation =
+            `heroWave ${WAVE_DUR}s cubic-bezier(0.22,1,0.36,1) ${delay}s 1`;
+          inner.textContent = token;
+
+          outer.appendChild(inner);
+          src.appendChild(outer);
+        });
+      });
+    })();
+
+    /* ── Diagonal GIF gallery ── */
+    (function () {
+      const gallery = document.getElementById('gifGallery');
+      const imgs = [
+        { src: 'https://www.figma.com/api/mcp/asset/bce24693-131f-41c7-9192-b561a5ff7ca6', ml: 0,    mt: 305 },
+        { src: 'https://www.figma.com/api/mcp/asset/04f4de59-c3a7-4044-8c01-1fd7b1d9ad16', ml: 217,  mt: 195 },
+        { src: 'https://www.figma.com/api/mcp/asset/2d374018-d8af-4c60-884d-7387c62bdd36', ml: 560,  mt: 126 },
+        { src: 'https://www.figma.com/api/mcp/asset/4b05bee9-6058-46e0-b91d-76b36011786e', ml: 923,  mt: 52  },
+        { src: 'https://www.figma.com/api/mcp/asset/3a98ea7d-f0f0-4432-89bd-7571307c852c', ml: 1309, mt: 0   },
+      ];
+
+      // Scale positions proportionally to viewport width; 0.8 shrinks the whole gallery ~20%
+      const BASE_W = 1440;
+      const SHRINK = 0.8;
+      const scale  = () => Math.min(window.innerWidth / BASE_W, 1) * SHRINK;
+
+      function build () {
+        gallery.innerHTML = '';
+        const s = scale();
+        imgs.forEach(({ src, ml, mt }) => {
+          const el  = document.createElement('div');
+          el.className = 'gif-item';
+          el.style.cssText =
+            `margin-left:${ml * s}px; margin-top:${mt * s}px;` +
+            `width:${452 * s}px; height:${327 * s}px;`;
+          const img = document.createElement('img');
+          img.src = src; img.alt = '';
+          el.appendChild(img);
+          gallery.appendChild(el);
+        });
+      }
+
+      build();
+      window.addEventListener('resize', build);
+
+      // Depth multipliers per image — middle card floats most
+      const DEPTHS = [0.4, 0.7, 1.0, 0.7, 0.4];
+
+      gallery.addEventListener('mousemove', e => {
+        const items = gallery.querySelectorAll('.gif-item');
+        const rect  = gallery.getBoundingClientRect();
+        // Normalise to -0.5 … 0.5 relative to gallery bounds
+        const mx = (e.clientX - rect.left)  / rect.width  - 0.5;
+        const my = (e.clientY - rect.top)   / rect.height - 0.5;
+
+        items.forEach((el, i) => {
+          const d  = DEPTHS[i] ?? 0.5;
+          const tx = (mx * d * 28).toFixed(1);
+          const ty = (my * d * 18).toFixed(1);
+          el.style.transform = `translate(${tx}px, ${ty}px)`;
+        });
+      });
+
+      gallery.addEventListener('mouseleave', () => {
+        gallery.querySelectorAll('.gif-item').forEach(el => {
+          el.style.transform = 'translate(0,0)';
+        });
+      });
+    })();
+
+    /* ── Scroll parallax + fade ── */
+    (function () {
+      const items = [
+        { el: document.querySelector('.hero'),    speed: 0.10, fadeIn: false },
+        { el: document.querySelector('.case1'),   speed: 0.06, fadeIn: true  },
+        { el: document.querySelector('.case2'),   speed: 0.05, fadeIn: true  },
+        { el: document.querySelector('.connect'), speed: 0.04, fadeIn: true  },
+      ].filter(d => d.el);
+
+      const FADE   = 0.32;
+      let ticking  = false;
+
+      function update () {
+        const vh = window.innerHeight;
+        items.forEach(({ el, speed, fadeIn }) => {
+          const rect   = el.getBoundingClientRect();
+          const center = rect.top + rect.height * 0.5;
+          const zone   = vh * FADE;
+          const parallaxY = (center - vh * 0.5) * speed;
+          let   opacity   = 1;
+
+          if (fadeIn && center > vh - zone)
+            opacity = Math.min(opacity, 1 - (center - (vh - zone)) / zone);
+          if (center < zone)
+            opacity = Math.min(opacity, center / zone);
+
+          el.style.opacity   = Math.max(0, Math.min(1, opacity));
+          el.style.transform = `translateY(${parallaxY.toFixed(1)}px)`;
+        });
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
     })();
   </script>
 </body>

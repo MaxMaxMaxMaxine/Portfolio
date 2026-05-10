@@ -6,18 +6,17 @@
   <title>mcurva — AllAboard Case Study</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:    #f6f6f6;
-      --ink:   #160000;
-      --gray:  #71726b;
-      --dark:  #373737;
-      --nav-pad: 40px;
-      --pad:   116px;
+      --bg:   #f6f6f6;
+      --ink:  #160000;
+      /* Horizontal content padding — 80px in Figma */
+      --pl: 80px;
+      --pr: 80px;
     }
 
     html { scroll-behavior: smooth; }
@@ -30,444 +29,704 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* ───── NAV ───── */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 44px var(--nav-pad);
-      white-space: nowrap;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 44px var(--pr) 44px var(--pl);
     }
-
-    .logo {
-      font-size: clamp(32px, 3.3vw, 48px);
-      font-weight: 800;
-      color: var(--ink);
-      text-decoration: none;
-      line-height: 1;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: clamp(32px, 5.5vw, 80px);
-      list-style: none;
-    }
-
+    .logo { font-size: 48px; font-weight: 500; color: var(--ink); text-decoration: none; line-height: 1; }
+    .nav-links { display: flex; gap: 56px; list-style: none; }
     .nav-links a {
-      font-size: clamp(18px, 1.95vw, 28px);
-      font-weight: 600;
-      letter-spacing: 0.56px;
-      color: var(--ink);
-      text-decoration: none;
-      position: relative;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 28px; font-weight: 600; font-family: 'Bitter', serif;
+      color: var(--ink); text-decoration: none; white-space: nowrap; position: relative;
     }
-
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0;
-      width: 0; height: 1px;
-      background: var(--ink);
-      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--ink);
+      transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
     }
     .nav-links a:hover::after { width: 100%; }
+    .arr { width: 20px; height: 20px; flex-shrink: 0; }
 
-    /* ── DIVIDER ── */
-    .rule { width: 100%; height: 1px; background: rgba(22, 0, 0, 0.18); }
+    /* ───── RULE ───── */
+    .rule { width: 100%; height: 1px; background: rgba(22,0,0,0.2); }
 
-    /* ── PAGE STRUCTURE ── */
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: 80px;
-      padding-bottom: 120px;
+    /* ───── PAGE FLOW ───── */
+    /* 120px gap between every section */
+    .gap { height: 120px; }
+
+    /* ───── HERO ───── */
+    .hero {
+      display: flex; gap: 80px; align-items: flex-start;
+      padding: 52px var(--pr) 0 40px;  /* 40px left matches Figma hero-ui x:40 */
+    }
+    .hero-img { flex: 0 0 47.5%; max-width: 820px; }
+    .hero-img img { width: 100%; display: block; }
+    .hero-text {
+      flex: 1; min-width: 0; padding-top: 32px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .hero-title {
+      font-family: 'Bitter', serif;
+      font-size: clamp(32px, 4.63vw, 80px);
+      font-weight: 400; line-height: 1.05; text-transform: uppercase; color: var(--ink);
+    }
+    .hero-stat {
+      font-family: 'Bitter', serif;
+      font-size: clamp(20px, 3.01vw, 52px);
+      font-weight: 400; line-height: 1.2; text-transform: uppercase; color: var(--ink);
     }
 
-    /* ── CASE STUDY HERO ── */
-    .cs-hero {
-      padding: 80px var(--pad);
-      text-align: center;
+    /* ───── META BAR ───── */
+    .meta-bar {
+      padding: 0 var(--pr) 0 var(--pl);
+      display: flex; justify-content: center; gap: 200px;
+    }
+    .meta-col { width: 240px; display: flex; flex-direction: column; gap: 4px; }
+    .meta-label, .meta-value {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; line-height: 1.5; text-transform: uppercase; color: var(--ink);
     }
 
-    .cs-hero h1 {
-      font-size: clamp(28px, 4.44vw, 64px);
-      font-weight: 800;
-      line-height: 1.25;
-      color: var(--ink);
-      max-width: 860px;
-      margin: 0 auto;
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    /* ───── SHARED TWO-COLUMN LAYOUT ───── */
+    .cs {
+      display: flex; align-items: flex-start;
+      padding: 0 var(--pr) 0 var(--pl);
     }
+    .cs-right { flex: 1; min-width: 0; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* Left label + title column — width set per section */
+    .cs-left {
+      flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 4px;
+      text-transform: uppercase; color: var(--ink);
+      margin-right: 80px;
     }
-
-    /* ── NUMBERED SECTIONS ── */
-    .cs-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      padding: 0 var(--pad);
-      align-items: start;
-    }
-
-    /* Title column — right-aligned by default */
-    .cs-col-title {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      align-items: flex-end;
-      text-align: right;
-    }
-
-    .cs-col-title.left {
-      align-items: flex-start;
-      text-align: left;
-    }
-
     .cs-label {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(13px, 1.4vw, 20px);
-      font-weight: 700;
-      color: var(--gray);
-      line-height: 1.5;
+      font-size: 20px; line-height: 1.5; color: var(--ink);
     }
-
     .cs-title {
-      font-size: clamp(26px, 3.3vw, 48px);
-      font-weight: 700;
-      line-height: 1.25;
-      color: var(--ink);
+      font-family: 'Bitter', serif;
+      font-size: clamp(24px, 2.78vw, 48px); font-weight: 400; line-height: 1.15;
     }
 
-    /* Body column */
-    .cs-col-body {
+    /* Section heading (large Bitter, all-caps) */
+    .sec-h {
+      font-family: 'Bitter', serif;
+      font-size: clamp(22px, 2.78vw, 48px); font-weight: 400; line-height: 1.15;
+      text-transform: uppercase; color: var(--ink);
+    }
+
+    /* Helvetica body */
+    .body {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(15px, 1.67vw, 24px);
-      line-height: 1.5;
-      color: var(--gray);
+      font-size: 20px; line-height: 1.5; color: var(--ink);
+    }
+    .body p + p { margin-top: 0.8em; }
+    .body ul { list-style: none; padding: 0; margin-top: 0.4em; }
+    .body li { padding-left: 1.4em; position: relative; margin-bottom: 0.2em; }
+    .body li::before { content: '·'; position: absolute; left: 0; }
+
+    /* ───── NUMBERED BORDERED CARD ───── */
+    .num-cards { display: flex; }
+    .num-card {
+      flex: 1; border: 1px solid var(--ink);
+      padding: 20px 20px 20px 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 280px;
+    }
+    .num-card + .num-card { border-left: none; }
+    .num-n {
+      font-family: 'Bitter', serif;
+      font-size: clamp(20px, 2.3vw, 40px); color: var(--ink); line-height: 1; font-weight: 400;
+    }
+    .num-text {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 18px; line-height: 1.45; color: var(--ink);
     }
 
-    .cs-col-body p + p  { margin-top: 1em; }
-    .cs-col-body strong { font-weight: 700; color: var(--gray); }
-
-    .cs-col-body ul {
-      list-style: disc;
-      padding-left: 1.4em;
-      margin-top: 0.6em;
+    /* ───── USER RESEARCH ───── */
+    .research-photo { width: 100%; margin-bottom: 60px; }
+    .research-photo img { width: 100%; display: block; }
+    .research-body { display: flex; gap: 60px; }
+    .research-stats {
+      width: 252px; flex-shrink: 0;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; line-height: 1.5; color: var(--ink);
     }
-    .cs-col-body li { margin-bottom: 0.3em; }
-
-    /* 3-column layout for research section */
-    .cs-section-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 60px;
-      padding: 0 var(--pad);
-      align-items: start;
+    .research-stats p { margin-bottom: 60px; }
+    .research-findings { flex: 1; display: flex; flex-direction: column; }
+    .findings-row { display: flex; }
+    .finding-box {
+      flex: 1; border: 1px solid var(--ink);
+      padding: 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 230px;
     }
+    .finding-box + .finding-box { border-left: none; }
+    .findings-row + .findings-row .finding-box { border-top: none; }
 
-    /* Research photo */
-    .cs-photo {
-      width: 100%;
-      aspect-ratio: 483 / 668;
-      border-radius: 4px;
-      overflow: hidden;
+    /* ───── PERSONA CARDS ───── */
+    .persona-row { display: flex; gap: 27px; margin-bottom: 48px; }
+    .persona-card {
+      flex: 1; border: 1px solid var(--ink);
+      padding: 40px; min-height: 480px;
     }
-
-    .cs-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
+    .persona-name {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; font-weight: 400; line-height: 1.5;
+      text-transform: uppercase; color: var(--ink); margin-bottom: 16px;
     }
-
-    /* Placeholder (ecosystem / competitive analysis) */
-    .cs-placeholder {
-      border: 1.5px dashed rgba(22, 0, 0, 0.18);
-      border-radius: 4px;
-      height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Helvetica, sans-serif;
-      font-size: 17px;
-      color: rgba(22, 0, 0, 0.28);
+    .persona-card ul { list-style: none; padding: 0; }
+    .persona-card li {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; line-height: 1.5; color: var(--ink);
+      padding-left: 1.4em; position: relative; margin-bottom: 0.25em;
     }
-
-    /* ── WIREFRAMES ── */
-    .wireframes-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .persona-card li::before { content: '·'; position: absolute; left: 0; }
+    .takeaway-label {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 10px;
+    }
+    .takeaway {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; line-height: 1.5; color: var(--ink);
     }
 
-    .wireframes-row {
-      display: flex;
-      gap: 12px;
+    /* ───── FULL IMAGES ───── */
+    .full-img img { width: 100%; display: block; }
+
+    /* ───── COMPETITIVE TABLE ───── */
+    .comp-table {
+      width: 100%; border-collapse: collapse;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-size: 15px;
+    }
+    .comp-table th, .comp-table td {
+      border: 1px solid rgba(22,0,0,0.25); padding: 13px 12px;
+      text-align: center; vertical-align: middle; color: var(--ink);
+    }
+    .comp-table th:first-child, .comp-table td:first-child { text-align: left; padding-left: 16px; min-width: 180px; }
+    .comp-table th { font-weight: 400; font-size: 14px; }
+    .comp-table td:first-child { font-size: 14px; }
+    .empty { background: #e4e4e4; }
+    .tick::before { content: '✓'; font-size: 17px; }
+
+    /* ───── SITEMAP ───── */
+    .sitemap-wrap { display: flex; gap: 40px; align-items: flex-start; }
+    .app-tree { flex: 1.6; display: flex; flex-direction: column; align-items: center; }
+    .sm-vline { width: 1px; height: 28px; background: var(--ink); }
+    .sm-box {
+      border: 1px solid var(--ink); padding: 6px 16px;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px; text-transform: uppercase; text-align: center;
+      background: var(--bg); white-space: nowrap; line-height: 1.4; color: var(--ink);
+    }
+    .sm-num { display: block; font-size: 10px; }
+    .sm-split { display: flex; width: 100%; position: relative; }
+    .sm-split::before {
+      content: ''; position: absolute; top: 0;
+      left: 12.5%; right: 12.5%; height: 1px; background: var(--ink);
+    }
+    .sm-branch { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .onboard-tree { flex: 1; display: flex; flex-direction: column; align-items: center; }
+
+    /* ───── FULL-WIDTH SECTION (wireframes, final, motion) ───── */
+    .fw-section { padding: 0 var(--pr) 0 var(--pl); }
+    .fw-header { margin-bottom: 80px; }
+
+    /* ───── MOTION BLACK BOX ───── */
+    .motion-black {
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; padding: 60px 40px;
       overflow-x: auto;
-      padding-bottom: 6px;
     }
+    .motion-black::-webkit-scrollbar { height: 4px; }
+    .motion-black::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+    .motion-phone { flex-shrink: 0; width: 260px; border-radius: 28px; overflow: hidden; background: #111; }
+    .motion-phone video { width: 100%; display: block; }
 
-    .wireframes-row::-webkit-scrollbar { height: 3px; }
-    .wireframes-row::-webkit-scrollbar-thumb {
-      background: rgba(22,0,0,0.14);
-      border-radius: 2px;
+    /* ───── KEY TAKEAWAYS — Bitter 32px ───── */
+    .takeaways-text {
+      font-family: 'Bitter', serif;
+      font-size: clamp(20px, 1.85vw, 32px);
+      font-weight: 341; line-height: 1.5; color: var(--ink);
     }
+    .takeaways-text li { padding-left: 1.4em; position: relative; margin-bottom: 0.25em; }
+    .takeaways-text li::before { content: '·'; position: absolute; left: 0; }
+    .takeaways-text ul { list-style: none; padding: 0; }
 
-    .phone {
-      flex-shrink: 0;
-      width: 185px;
-      height: 400px;
-      background: #fff;
-      border-radius: 22px;
-      border: 1.5px solid rgba(22,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 18px 14px;
-      gap: 10px;
-      text-align: center;
+    /* ───── LET'S CONNECT ───── */
+    .lets-connect {
+      background: var(--ink);
+      display: flex; gap: 40px; align-items: flex-start;
+      padding: 160px var(--pr) 160px var(--pl);
     }
-
-    .phone-notch {
-      width: 50px; height: 5px;
-      background: rgba(22,0,0,0.07);
-      border-radius: 3px;
+    .lc-heading {
+      flex: 1; min-width: 0; font-family: 'Bitter', serif;
+      font-size: clamp(40px, 4.63vw, 80px); font-weight: 400; line-height: 1.1;
+      letter-spacing: -0.02em; text-transform: uppercase; color: #f6f6f6;
     }
-
-    .phone-name {
-      font-family: Helvetica, sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.35;
+    .lc-links { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0; padding-top: 4px; }
+    .lc-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; }
+    .lc-row a {
+      flex: 1; font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; color: #f6f6f6; text-decoration: none; line-height: 1.5;
+      transition: opacity 0.2s;
     }
+    .lc-row a:hover { opacity: 0.55; }
+    .lc-rule { width: 100%; height: 1px; background: rgba(246,246,246,0.25); }
 
-    .phone-label {
-      font-family: Helvetica, sans-serif;
-      font-size: 10px;
-      color: var(--gray);
-      opacity: 0.7;
-    }
+    /* ───── REVEAL ───── */
+    .reveal { transform: translateY(20px); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.in { transform: translateY(0); }
 
-    /* ── LET'S CONNECT ── */
-    .connect {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: flex-end;
-      padding: 0 var(--pad);
-    }
-
-    .connect p {
-      font-size: clamp(20px, 2.5vw, 36px);
-      font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      text-align: right;
-    }
-
-    .connect-img {
-      width: min(789px, 55vw);
-      aspect-ratio: 789 / 510;
-      background: var(--dark);
-      border-radius: 2px;
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition:
-        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      :root { --pad: 32px; }
-
-      .cs-section,
-      .cs-section-3 { grid-template-columns: 1fr; gap: 40px; }
-
-      .cs-col-title { align-items: flex-start; text-align: left; }
-      .cs-photo { aspect-ratio: 4/3; }
-      .connect-img { width: 100%; }
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 1100px) {
+      :root { --pl: 32px; --pr: 32px; }
+      nav { padding: 28px var(--pr) 28px var(--pl); }
+      .logo { font-size: 32px; }
+      .nav-links { gap: 24px; }
+      .nav-links a { font-size: 18px; }
+      .hero { flex-direction: column; padding: 40px var(--pr) 0 var(--pl); }
+      .hero-img { flex: none; width: 100%; max-width: 480px; }
+      .meta-bar { gap: 24px; flex-direction: column; }
+      .meta-col { width: auto; }
+      .cs { flex-direction: column; }
+      .cs-left { margin-right: 0; margin-bottom: 32px; width: 100% !important; }
+      .num-cards { flex-direction: column; }
+      .num-card + .num-card { border-left: 1px solid var(--ink); border-top: none; }
+      .persona-row { flex-direction: column; }
+      .research-body { flex-direction: column; }
+      .research-stats { width: 100%; }
+      .sitemap-wrap { flex-direction: column; }
+      .lets-connect { flex-direction: column; padding: 80px var(--pr) 80px var(--pl); }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a class="logo" href="index.html">mcurva</a>
-    <ul class="nav-links">
-      <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-  </nav>
+<!-- ══════════════════════════════════════════════════════
+     NAV
+══════════════════════════════════════════════════════ -->
+<nav>
+  <a class="logo" href="index.html">mcurva</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Work<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></li>
+    <li><a href="index.html#about">About<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></li>
+    <li><a href="#contact">Contact<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a></li>
+  </ul>
+</nav>
 
-  <div class="content">
+<div class="rule"></div>
+<div class="gap"></div>
 
-    <div class="rule"></div>
-
-    <!-- HERO STAT -->
-    <section class="cs-hero">
-      <h1>52% of Gen-Z stopped speaking to each other after a terrible trip.</h1>
-    </section>
-
-    <div class="rule"></div>
-
-    <!-- 01 The Problem -->
-    <div class="cs-section reveal">
-      <div class="cs-col-title">
-        <p class="cs-label">01 . The Problem</p>
-        <h2 class="cs-title">The Situation</h2>
-      </div>
-      <div class="cs-col-body">
-        <p><strong>Group plans break down quickly.</strong></p>
-        <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel.</p>
-        <p><br><strong>They rely on:</strong></p>
-        <ul>
-          <li>Back-and-forth conversations</li>
-          <li>Manual coordination</li>
-          <li>Uneven contribution</li>
-        </ul>
-        <p><br>This leads to slow decision-making and in some cases, conflict.</p>
-      </div>
-    </div>
-
-    <!-- 02 The Goal -->
-    <div class="cs-section reveal">
-      <div class="cs-col-title">
-        <p class="cs-label">02 . The Goal</p>
-        <h2 class="cs-title">Effortless Decision-Making</h2>
-      </div>
-      <div class="cs-col-body">
-        <ul>
-          <li>Create a tool that takes group dynamics into account</li>
-          <li>Help groups reduce friction</li>
-          <li>Create a non-sticky tool that doesn't take them out of their travel experience</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 03 User Research -->
-    <div class="cs-section-3 reveal">
-      <div class="cs-col-title left">
-        <p class="cs-label">03 . User Research</p>
-        <h2 class="cs-title">What did the backpackers think?</h2>
-      </div>
-      <div class="cs-col-body">
-        <ul>
-          <li>Interviewed 30 backpackers</li>
-          <li>Aged 18–24</li>
-          <li>Across 2 different hostels</li>
-        </ul>
-        <p><br><strong>We found that:</strong></p>
-        <ul>
-          <li>Hidden power dynamic in group planning</li>
-          <li>Planning responsibilities and roles are unclear</li>
-          <li>Decision-making is exhausting for everyone</li>
-          <li>Different planning styles = Conflict</li>
-          <li>Everyone wants a fun, stress-free group outing</li>
-        </ul>
-      </div>
-      <div class="cs-photo">
-        <img
-          src="https://www.figma.com/api/mcp/asset/ba71d62f-a17d-48c0-a727-dfc817702aab"
-          alt="User research — hostel interview"
-        />
-      </div>
-    </div>
-
-    <!-- 04 The Ecosystem -->
-    <div class="cs-section reveal">
-      <div class="cs-col-title">
-        <p class="cs-label">04 . The Ecosystem</p>
-        <h2 class="cs-title">How do groups travel?</h2>
-      </div>
-      <div class="cs-col-body">
-        <div class="cs-placeholder">Ecosystem diagram coming soon</div>
-      </div>
-    </div>
-
-    <!-- 05 Competitive Research -->
-    <div class="cs-section reveal">
-      <div class="cs-col-title">
-        <p class="cs-label">05 . Competitive Research</p>
-        <h2 class="cs-title">Who are our competition?</h2>
-      </div>
-      <div class="cs-col-body">
-        <div class="cs-placeholder">Competitive analysis table coming soon</div>
-      </div>
-    </div>
-
-    <!-- 06 Wireframes -->
-    <div class="cs-section reveal">
-      <div class="cs-col-title left">
-        <p class="cs-label">06 . Wireframes</p>
-        <h2 class="cs-title">Low-fidelity</h2>
-      </div>
-      <div class="wireframes-wrap">
-        <div class="wireframes-row">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-name">Let AllAboard! help you pick what to do on your trip!</div>
-            <div class="phone-label">A1 — Onboarding</div>
-          </div>
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-name">Add Mates</div>
-            <div class="phone-label">A7 — Add friends QR</div>
-          </div>
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-name">Let's create your crew!</div>
-            <div class="phone-label">A6 — Create crew</div>
-          </div>
-        </div>
-        <div class="wireframes-row">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-name">You're being re<strong>crew</strong>ted!</div>
-            <div class="phone-label">Pop-up — Group invite</div>
-          </div>
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-name">Crew List</div>
-            <div class="phone-label">Change group</div>
-          </div>
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-name">Got an idea?</div>
-            <div class="phone-label">Suggest a plan</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LET'S CONNECT -->
-    <section class="connect reveal" id="contact">
-      <p>Let's connect</p>
-      <div class="connect-img"></div>
-    </section>
-
+<!-- ══════════════════════════════════════════════════════
+     HERO  (image 47.5%, gap 80px, text 39%)
+══════════════════════════════════════════════════════ -->
+<section class="hero reveal">
+  <div class="hero-img">
+    <img src="images/Hero-UI-Frames.png" alt="AllAboard app UI screens" />
   </div>
+  <div class="hero-text">
+    <p class="hero-title">All aboard!</p>
+    <p class="hero-stat">52% of Gen-Z stopped speaking to each other after a terrible trip.</p>
+  </div>
+</section>
 
-  <script>
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  </script>
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     META BAR  (Team / Role / Time — 3 centered cols)
+══════════════════════════════════════════════════════ -->
+<div class="meta-bar reveal">
+  <div class="meta-col">
+    <p class="meta-label">Team</p>
+    <p class="meta-value">Maxine Curva,<br>Lucas Meir</p>
+  </div>
+  <div class="meta-col">
+    <p class="meta-label">Role</p>
+    <p class="meta-value">UX Research, UI Design &amp; Motion</p>
+  </div>
+  <div class="meta-col">
+    <p class="meta-label">Time</p>
+    <p class="meta-value">10 Weeks</p>
+  </div>
+</div>
+
+<div class="gap"></div>
+<div class="rule"></div>
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     01 · THE PROBLEM   left col: 543px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal">
+  <div class="cs-left" style="width:543px;">
+    <p class="cs-label">01 . The Problem</p>
+    <h2 class="cs-title">The Situation</h2>
+  </div>
+  <div class="cs-right">
+    <p class="sec-h" style="margin-bottom:24px;">Group plans break down quickly.</p>
+    <div class="body">
+      <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel.</p>
+      <p>They rely on:</p>
+      <ul>
+        <li>Back-and-forth conversations</li>
+        <li>Manual coordination</li>
+        <li>Uneven contribution</li>
+      </ul>
+    </div>
+    <p class="sec-h" style="margin-top:48px;">This leads to slow decision&#8209;making and in some cases, conflict.</p>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     02 · THE GOAL   left col: 342px + 3 bordered cards
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal" style="align-items:stretch;">
+  <div class="cs-left" style="width:342px;">
+    <p class="cs-label">02 . The Goal</p>
+    <h2 class="cs-title">Effortless Decision&#8209;Making</h2>
+  </div>
+  <div class="cs-right num-cards">
+    <div class="num-card">
+      <span class="num-n">01.</span>
+      <span class="num-text">Create a tool that takes group dynamics into account</span>
+    </div>
+    <div class="num-card">
+      <span class="num-n">02.</span>
+      <span class="num-text">Help travelling groups reduce friction.</span>
+    </div>
+    <div class="num-card">
+      <span class="num-n">03.</span>
+      <span class="num-text">Create a non-sticky tool that doesn't take them out of their travel experience</span>
+    </div>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     03 · USER RESEARCH   left col: 514px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal">
+  <div class="cs-left" style="width:514px;">
+    <p class="cs-label">03 . User Research</p>
+    <h2 class="cs-title">What did the Backpackers Think?</h2>
+  </div>
+  <div class="cs-right">
+    <div class="research-photo">
+      <img src="images/research.png" alt="Backpackers at Black Swan Hostel" />
+    </div>
+    <div class="research-body">
+      <div class="research-stats">
+        <p>Interviewed 30 backpackers<br>Aged 18–24<br>Across 2 different hostels</p>
+        <p>At the end of the day, Everyone wants a fun, stress-free group outing.</p>
+      </div>
+      <div class="research-findings">
+        <div class="findings-row">
+          <div class="finding-box">
+            <span class="num-n">01.</span>
+            <span class="num-text">Hidden power dynamic in group planning</span>
+          </div>
+          <div class="finding-box">
+            <span class="num-n">02.</span>
+            <span class="num-text">Planning responsibilities and roles are unclear</span>
+          </div>
+        </div>
+        <div class="findings-row">
+          <div class="finding-box">
+            <span class="num-n">03.</span>
+            <span class="num-text">Decision-making is exhausting for everyone</span>
+          </div>
+          <div class="finding-box">
+            <span class="num-n">04.</span>
+            <span class="num-text">Different planning styles can lead to Conflict</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     06 · PERSONAS   left col: 514px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal">
+  <div class="cs-left" style="width:514px;">
+    <p class="cs-label">06 . Personas</p>
+    <h2 class="cs-title">Who are our Users?</h2>
+  </div>
+  <div class="cs-right">
+    <div class="persona-row">
+      <div class="persona-card">
+        <p class="persona-name">Planning Patricia</p>
+        <ul>
+          <li>Frustrated she always does a bulk of the planning</li>
+          <li>Others ignoring messages</li>
+          <li>Disagreements with friends over sticking to the plan</li>
+          <li>Panics when plans fall through</li>
+          <li>Has to use many different platforms</li>
+        </ul>
+      </div>
+      <div class="persona-card">
+        <p class="persona-name">Ghosting Greg</p>
+        <ul>
+          <li>Has never travelled without his parents before</li>
+          <li>Overwhelmed by long chats and decision-making</li>
+          <li>Prefers spontaneity and doesn't like to plan</li>
+          <li>Not accustomed to travelling</li>
+          <li>Regrets not speaking up about preferences before</li>
+        </ul>
+      </div>
+    </div>
+    <p class="takeaway-label">Key Takeaways</p>
+    <p class="takeaway">There is a hidden power dynamic in group planning. Planning responsibilities and roles are often unclear. Decision-making is exhausting for everyone and different planning styles often lead to conflict. However at the end of the day, everyone wants a fun, stress-free group outing.</p>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     04 · THE ECOSYSTEM   left col: 211px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal">
+  <div class="cs-left" style="width:211px;">
+    <p class="cs-label">04 . The Ecosystem</p>
+    <h2 class="cs-title">How do Groups Travel?</h2>
+  </div>
+  <div class="cs-right full-img">
+    <img src="images/ecosystem.png" alt="Ecosystem diagram" />
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     05 · COMPETITIVE RESEARCH   left col: 364px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal">
+  <div class="cs-left" style="width:364px;">
+    <p class="cs-label">05 . Competitive Research</p>
+    <h2 class="cs-title">Who are our Competition?</h2>
+  </div>
+  <div class="cs-right">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Wanderlog</th>
+          <th>Flickmate</th>
+          <th>Splitwise</th>
+          <th>WhatsApp Polls</th>
+          <th>Instagram Polls</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Voting on existing content</td><td class="empty"></td><td><span class="tick"></span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
+        <tr><td>Suggesting Activities</td><td><span class="tick"></span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td><span class="tick"></span></td></tr>
+        <tr><td>Creating &amp; maintaining multiple groups</td><td><span class="tick"></span></td><td class="empty"></td><td><span class="tick"></span></td><td><span class="tick"></span></td><td><span class="tick"></span></td></tr>
+        <tr><td>Easily adding and removing members</td><td><span class="tick"></span></td><td class="empty"></td><td><span class="tick"></span></td><td><span class="tick"></span></td><td><span class="tick"></span></td></tr>
+        <tr><td>Adding temporary members</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
+        <tr><td>Free</td><td class="empty"></td><td><span class="tick"></span></td><td class="empty"></td><td><span class="tick"></span></td><td><span class="tick"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     05 · SITEMAP   left col: 271px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal">
+  <div class="cs-left" style="width:271px;">
+    <p class="cs-label">05 . Sitemap</p>
+    <h2 class="cs-title">Mapping it Out</h2>
+  </div>
+  <div class="cs-right">
+    <div class="sitemap-wrap">
+      <div class="app-tree">
+        <div class="sm-box">All Suggestions<span class="sm-num">0.0</span></div>
+        <div class="sm-vline"></div>
+        <div class="sm-split">
+          <div class="sm-branch">
+            <div class="sm-vline"></div>
+            <div class="sm-box">Edit Crew<span class="sm-num">0.1</span></div>
+            <div class="sm-vline"></div>
+            <div class="sm-box">Edit Crew Mates<span class="sm-num">0.1.1</span></div>
+          </div>
+          <div class="sm-branch">
+            <div class="sm-vline"></div>
+            <div class="sm-box">Matches<span class="sm-num">1.0</span></div>
+          </div>
+          <div class="sm-branch">
+            <div class="sm-vline"></div>
+            <div class="sm-box">Make a Suggestion<span class="sm-num">2.0</span></div>
+          </div>
+          <div class="sm-branch">
+            <div class="sm-vline"></div>
+            <div class="sm-box">Profile<span class="sm-num">3.0</span></div>
+            <div class="sm-vline"></div>
+            <div class="sm-box">Crew List<span class="sm-num">3.1</span></div>
+            <div class="sm-vline"></div>
+            <div class="sm-box">Languages<span class="sm-num">3.2</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="onboard-tree">
+        <div class="sm-box">Onboarding Part 1<span class="sm-num">A.0</span></div>
+        <div class="sm-vline"></div>
+        <div class="sm-box">Onboarding Part 2<span class="sm-num">A.0.1</span></div>
+        <div class="sm-vline"></div>
+        <div class="sm-box">Onboarding Part 3<span class="sm-num">A.0.1.1</span></div>
+        <div class="sm-vline"></div>
+        <div class="sm-box">Login<span class="sm-num">B.0</span></div>
+        <div class="sm-vline"></div>
+        <div class="sm-box">Create Group<span class="sm-num">B.0.1.1</span></div>
+        <div class="sm-vline"></div>
+        <div class="sm-box">Add Mates<span class="sm-num">B.0.1.1.1</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     06 · WIREFRAMES — FULL WIDTH (title above, image below)
+══════════════════════════════════════════════════════ -->
+<div class="fw-section reveal">
+  <div class="fw-header">
+    <p class="cs-label">06 . Wireframes</p>
+    <h2 class="cs-title">Low&#8209;Fidelity</h2>
+  </div>
+  <div class="full-img">
+    <img src="images/Image-Wrapper.png" alt="AllAboard low-fidelity wireframes" />
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     07 · FINAL DESIGNS — FULL WIDTH (title above, image below)
+══════════════════════════════════════════════════════ -->
+<div class="fw-section reveal">
+  <div class="fw-header">
+    <p class="cs-label">07 . Final Designs</p>
+    <h2 class="cs-title">The Outcome</h2>
+  </div>
+  <div class="full-img">
+    <img src="images/final-designs.png" alt="AllAboard final UI screens" />
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     06 · MOTION — FULL WIDTH: title then black box
+══════════════════════════════════════════════════════ -->
+<div class="fw-section reveal">
+  <div class="fw-header">
+    <p class="cs-label">06 . Final Designs</p>
+    <h2 class="cs-title">Motion</h2>
+  </div>
+  <div class="motion-black">
+    <div class="motion-phone">
+      <video autoplay loop muted playsinline>
+        <source src="images/vidoes/Card-Animation1.mov" type="video/quicktime" />
+        <source src="images/vidoes/Card-Animation1.mov" type="video/mp4" />
+      </video>
+    </div>
+    <div class="motion-phone">
+      <video autoplay loop muted playsinline>
+        <source src="images/vidoes/Card-Animation2.mov" type="video/quicktime" />
+        <source src="images/vidoes/Card-Animation2.mov" type="video/mp4" />
+      </video>
+    </div>
+    <div class="motion-phone">
+      <video autoplay loop muted playsinline>
+        <source src="images/vidoes/Card-Animation3.mov" type="video/quicktime" />
+        <source src="images/vidoes/Card-Animation3.mov" type="video/mp4" />
+      </video>
+    </div>
+    <div class="motion-phone">
+      <video autoplay loop muted playsinline>
+        <source src="images/vidoes/Card-Animation4.mov" type="video/quicktime" />
+        <source src="images/vidoes/Card-Animation4.mov" type="video/mp4" />
+      </video>
+    </div>
+    <div class="motion-phone">
+      <video autoplay loop muted playsinline>
+        <source src="images/vidoes/Card-Animation5.mov" type="video/quicktime" />
+        <source src="images/vidoes/Card-Animation5.mov" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     07 · KEY TAKEAWAYS   left col: 554px, text in Bitter 32px
+══════════════════════════════════════════════════════ -->
+<div class="cs reveal" style="padding-bottom:0;">
+  <div class="cs-left" style="width:554px;">
+    <p class="cs-label">07 . To Conclude</p>
+    <h2 class="cs-title">Key Takeaways</h2>
+  </div>
+  <div class="cs-right takeaways-text">
+    <ul>
+      <li>Navigating Group dynamics can be difficult.</li>
+      <li>Existing group-planning tools require too much.</li>
+      <li>In addition, they assume groups already decided what to do.</li>
+      <li>One person always has to do the grunt work.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="gap"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     LET'S CONNECT
+══════════════════════════════════════════════════════ -->
+<section class="lets-connect" id="contact">
+  <h2 class="lc-heading">Get in touch</h2>
+  <div class="lc-links">
+    <div class="lc-row">
+      <a href="https://linkedin.com/in/maxinecurva" target="_blank" rel="noopener">LinkedIn</a>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6f6f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+    </div>
+    <div class="lc-rule"></div>
+    <div class="lc-row">
+      <a href="mailto:m.curva@carrots.io">E-mail</a>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6f6f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+    </div>
+    <div class="lc-rule"></div>
+    <div class="lc-row">
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6f6f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+    </div>
+  </div>
+</section>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.04 });
+  reveals.forEach(el => io.observe(el));
+  reveals.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
+  });
+</script>
+
 </body>
 </html>

@@ -14,6 +14,7 @@
     :root {
       --bg:   #f6f6f6;
       --ink:  #160000;
+      --grey: #160000;  /* all text black */
       /* Horizontal content padding — 80px in Figma */
       --pl: 80px;
       --pr: 80px;
@@ -112,17 +113,17 @@
       font-size: clamp(24px, 2.78vw, 48px); font-weight: 400; line-height: 1.15;
     }
 
-    /* Section heading (large Bitter, all-caps) */
+    /* Section heading within right col (large Bitter, all-caps, GREY) */
     .sec-h {
       font-family: 'Bitter', serif;
-      font-size: clamp(22px, 2.78vw, 48px); font-weight: 400; line-height: 1.15;
-      text-transform: uppercase; color: var(--ink);
+      font-size: 48px; font-weight: 400; line-height: 1.15;
+      text-transform: uppercase; color: var(--grey);
     }
 
-    /* Helvetica body */
+    /* Helvetica body — GREY per Figma */
     .body {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--ink);
+      font-size: 20px; line-height: 1.5; color: var(--grey);
     }
     .body p + p { margin-top: 0.8em; }
     .body ul { list-style: none; padding: 0; margin-top: 0.4em; }
@@ -132,19 +133,22 @@
     /* ───── NUMBERED BORDERED CARD ───── */
     .num-cards { display: flex; }
     .num-card {
-      flex: 1; border: 1px solid var(--ink);
-      padding: 20px 20px 20px 20px;
+      flex: 1; border: 1px solid var(--grey);
+      padding: 20px;
       display: flex; flex-direction: column; justify-content: space-between;
       min-height: 280px;
     }
     .num-card + .num-card { border-left: none; }
+    /* num-n: Bitter 32px weight 341 GREY — matches Figma exactly */
     .num-n {
       font-family: 'Bitter', serif;
-      font-size: clamp(20px, 2.3vw, 40px); color: var(--ink); line-height: 1; font-weight: 400;
+      font-size: 32px; font-variation-settings: 'wght' 341;
+      font-weight: 341; color: var(--grey); line-height: 1;
+      text-transform: uppercase;
     }
     .num-text {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 18px; line-height: 1.45; color: var(--ink);
+      font-size: 20px; line-height: 1.45; color: var(--grey);
     }
 
     /* ───── USER RESEARCH ───── */
@@ -154,13 +158,13 @@
     .research-stats {
       width: 252px; flex-shrink: 0;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--ink);
+      font-size: 20px; line-height: 1.5; color: var(--grey);
     }
     .research-stats p { margin-bottom: 60px; }
     .research-findings { flex: 1; display: flex; flex-direction: column; }
     .findings-row { display: flex; }
     .finding-box {
-      flex: 1; border: 1px solid var(--ink);
+      flex: 1; border: 1px solid var(--grey);
       padding: 20px;
       display: flex; flex-direction: column; justify-content: space-between;
       min-height: 230px;
@@ -168,66 +172,73 @@
     .finding-box + .finding-box { border-left: none; }
     .findings-row + .findings-row .finding-box { border-top: none; }
 
-    /* ───── PERSONA CARDS ───── */
+    /* ───── PERSONA CARDS — grey border + grey text (Figma) ───── */
     .persona-row { display: flex; gap: 27px; margin-bottom: 48px; }
     .persona-card {
-      flex: 1; border: 1px solid var(--ink);
+      flex: 1; border: 1px solid var(--grey);
       padding: 40px; min-height: 480px;
+    }
+    /* All persona text in one grey Helvetica 20px block matching Figma */
+    .persona-text {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 20px; line-height: 1.7; color: var(--grey);
+      white-space: pre-line;
     }
     .persona-name {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
       font-size: 20px; font-weight: 400; line-height: 1.5;
-      text-transform: uppercase; color: var(--ink); margin-bottom: 16px;
+      color: var(--grey); display: block; margin-bottom: 16px;
     }
     .persona-card ul { list-style: none; padding: 0; }
     .persona-card li {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--ink);
+      font-size: 20px; line-height: 1.5; color: var(--grey);
       padding-left: 1.4em; position: relative; margin-bottom: 0.25em;
     }
     .persona-card li::before { content: '·'; position: absolute; left: 0; }
     .takeaway-label {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 10px;
+      font-size: 20px; font-weight: 400; color: var(--grey); margin-bottom: 8px;
     }
     .takeaway {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--ink);
+      font-size: 20px; line-height: 1.7; color: var(--grey);
+      white-space: pre-line;
     }
 
     /* ───── FULL IMAGES ───── */
     .full-img img { width: 100%; display: block; }
 
-    /* ───── COMPETITIVE TABLE ───── */
+    /* ───── COMPETITIVE TABLE — grey borders + grey text ───── */
     .comp-table {
       width: 100%; border-collapse: collapse;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-size: 15px;
     }
     .comp-table th, .comp-table td {
-      border: 1px solid rgba(22,0,0,0.25); padding: 13px 12px;
-      text-align: center; vertical-align: middle; color: var(--ink);
+      border: 1px solid var(--grey); padding: 13px 12px;
+      text-align: center; vertical-align: middle; color: var(--grey);
     }
     .comp-table th:first-child, .comp-table td:first-child { text-align: left; padding-left: 16px; min-width: 180px; }
     .comp-table th { font-weight: 400; font-size: 14px; }
     .comp-table td:first-child { font-size: 14px; }
     .empty { background: #e4e4e4; }
-    .tick::before { content: '✓'; font-size: 17px; }
+    .tick::before { content: '✓'; font-size: 17px; color: var(--grey); }
 
-    /* ───── SITEMAP ───── */
+    /* ───── SITEMAP — grey lines + grey text ───── */
     .sitemap-wrap { display: flex; gap: 40px; align-items: flex-start; }
     .app-tree { flex: 1.6; display: flex; flex-direction: column; align-items: center; }
-    .sm-vline { width: 1px; height: 28px; background: var(--ink); }
+    .sm-vline { width: 1px; height: 28px; background: var(--grey); }
     .sm-box {
-      border: 1px solid var(--ink); padding: 6px 16px;
+      border: 1px solid var(--grey); padding: 6px 16px;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
       font-size: 12px; text-transform: uppercase; text-align: center;
-      background: var(--bg); white-space: nowrap; line-height: 1.4; color: var(--ink);
+      background: var(--bg); white-space: nowrap; line-height: 1.4; color: var(--grey);
     }
     .sm-num { display: block; font-size: 10px; }
     .sm-split { display: flex; width: 100%; position: relative; }
     .sm-split::before {
       content: ''; position: absolute; top: 0;
-      left: 12.5%; right: 12.5%; height: 1px; background: var(--ink);
+      left: 12.5%; right: 12.5%; height: 1px; background: var(--grey);
     }
     .sm-branch { flex: 1; display: flex; flex-direction: column; align-items: center; }
     .onboard-tree { flex: 1; display: flex; flex-direction: column; align-items: center; }
@@ -246,13 +257,16 @@
     .motion-black::-webkit-scrollbar { height: 4px; }
     .motion-black::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
     .motion-phone { flex-shrink: 0; width: 260px; border-radius: 28px; overflow: hidden; background: #111; }
-    .motion-phone video { width: 100%; display: block; }
+    .motion-phone video, .motion-phone img { width: 100%; display: block; }
 
-    /* ───── KEY TAKEAWAYS — Bitter 32px ───── */
+    /* ───── KEY TAKEAWAYS — Bitter 32px weight 341 UPPER GREY ───── */
     .takeaways-text {
       font-family: 'Bitter', serif;
-      font-size: clamp(20px, 1.85vw, 32px);
-      font-weight: 341; line-height: 1.5; color: var(--ink);
+      font-size: 32px;
+      font-weight: 341;
+      font-variation-settings: 'wght' 341;
+      line-height: 1.5; color: var(--grey);
+      text-transform: uppercase;
     }
     .takeaways-text li { padding-left: 1.4em; position: relative; margin-bottom: 0.25em; }
     .takeaways-text li::before { content: '·'; position: absolute; left: 0; }
@@ -264,9 +278,10 @@
       display: flex; gap: 40px; align-items: flex-start;
       padding: 160px var(--pr) 160px var(--pl);
     }
+    /* Get in touch: Bitter 76px per Figma (not 80px) */
     .lc-heading {
       flex: 1; min-width: 0; font-family: 'Bitter', serif;
-      font-size: clamp(40px, 4.63vw, 80px); font-weight: 400; line-height: 1.1;
+      font-size: clamp(36px, 4.4vw, 76px); font-weight: 400; line-height: 1.1;
       letter-spacing: -0.02em; text-transform: uppercase; color: #f6f6f6;
     }
     .lc-links { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0; padding-top: 4px; }
@@ -369,7 +384,7 @@
     <h2 class="cs-title">The Situation</h2>
   </div>
   <div class="cs-right">
-    <p class="sec-h" style="margin-bottom:24px;">Group plans break down quickly.</p>
+    <p class="sec-h" style="margin-bottom:32px;">Group plans break down quickly.</p>
     <div class="body">
       <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel.</p>
       <p>They rely on:</p>
@@ -379,7 +394,7 @@
         <li>Uneven contribution</li>
       </ul>
     </div>
-    <p class="sec-h" style="margin-top:48px;">This leads to slow decision&#8209;making and in some cases, conflict.</p>
+    <p class="sec-h" style="margin-top:60px;">This leads to slow decision&#8209;making and in some cases, conflict.</p>
   </div>
 </div>
 
@@ -466,29 +481,29 @@
   </div>
   <div class="cs-right">
     <div class="persona-row">
+      <!-- Figma: all persona text in one grey Helvetica 20px block -->
       <div class="persona-card">
-        <p class="persona-name">Planning Patricia</p>
-        <ul>
-          <li>Frustrated she always does a bulk of the planning</li>
-          <li>Others ignoring messages</li>
-          <li>Disagreements with friends over sticking to the plan</li>
-          <li>Panics when plans fall through</li>
-          <li>Has to use many different platforms</li>
-        </ul>
+        <p class="persona-text">Planning Patricia
+
+· Frustrated she always does a bulk of the planning
+· Others ignoring messages
+· Disagreements with friends over sticking to the plan
+· Panics when plans fall through
+· Has to use many different platforms</p>
       </div>
       <div class="persona-card">
-        <p class="persona-name">Ghosting Greg</p>
-        <ul>
-          <li>Has never travelled without his parents before</li>
-          <li>Overwhelmed by long chats and decision-making</li>
-          <li>Prefers spontaneity and doesn't like to plan</li>
-          <li>Not accustomed to travelling</li>
-          <li>Regrets not speaking up about preferences before</li>
-        </ul>
+        <p class="persona-text">Ghosting Greg
+
+· Has never travelled without his parents before
+· Overwhelmed by long chats and decision-making
+· Prefers spontaneity and doesn't like to plan
+· Not accustomed to travelling
+· Regrets not speaking up about preferences before</p>
       </div>
     </div>
-    <p class="takeaway-label">Key Takeaways</p>
-    <p class="takeaway">There is a hidden power dynamic in group planning. Planning responsibilities and roles are often unclear. Decision-making is exhausting for everyone and different planning styles often lead to conflict. However at the end of the day, everyone wants a fun, stress-free group outing.</p>
+    <p class="takeaway">Key Takeaways
+
+There is a hidden power dynamic in group planning. Planning responsibilities and roles are often unclear. Decision-making is exhausting for everyone and different planning styles often lead to conflict. However at the end of the day, everyone wants a fun, stress-free group outing.</p>
   </div>
 </div>
 
@@ -544,7 +559,7 @@
 <div class="gap"></div>
 
 <!-- ══════════════════════════════════════════════════════
-     05 · SITEMAP   left col: 271px
+     05 · SITEMAP   left col: 271px  — SVG for precise connections
 ══════════════════════════════════════════════════════ -->
 <div class="cs reveal">
   <div class="cs-left" style="width:271px;">
@@ -552,48 +567,121 @@
     <h2 class="cs-title">Mapping it Out</h2>
   </div>
   <div class="cs-right">
-    <div class="sitemap-wrap">
-      <div class="app-tree">
-        <div class="sm-box">All Suggestions<span class="sm-num">0.0</span></div>
-        <div class="sm-vline"></div>
-        <div class="sm-split">
-          <div class="sm-branch">
-            <div class="sm-vline"></div>
-            <div class="sm-box">Edit Crew<span class="sm-num">0.1</span></div>
-            <div class="sm-vline"></div>
-            <div class="sm-box">Edit Crew Mates<span class="sm-num">0.1.1</span></div>
-          </div>
-          <div class="sm-branch">
-            <div class="sm-vline"></div>
-            <div class="sm-box">Matches<span class="sm-num">1.0</span></div>
-          </div>
-          <div class="sm-branch">
-            <div class="sm-vline"></div>
-            <div class="sm-box">Make a Suggestion<span class="sm-num">2.0</span></div>
-          </div>
-          <div class="sm-branch">
-            <div class="sm-vline"></div>
-            <div class="sm-box">Profile<span class="sm-num">3.0</span></div>
-            <div class="sm-vline"></div>
-            <div class="sm-box">Crew List<span class="sm-num">3.1</span></div>
-            <div class="sm-vline"></div>
-            <div class="sm-box">Languages<span class="sm-num">3.2</span></div>
-          </div>
-        </div>
+    <div style="display:flex; gap:48px; align-items:flex-start;">
+
+      <!-- LEFT: App Tree (SVG) -->
+      <div style="flex:1.6; min-width:0;">
+        <svg viewBox="0 0 620 340" width="100%" style="font-family:Helvetica,'Helvetica Neue',Arial,sans-serif; overflow:visible;">
+          <style>
+            .sm-label { font-size:11px; text-transform:uppercase; fill:#160000; }
+            .sm-sub   { font-size:9px;  fill:#160000; }
+            .sm-line  { stroke:#160000; stroke-width:1; }
+          </style>
+
+          <!-- ROOT: ALL SUGGESTIONS -->
+          <rect x="210" y="0" width="200" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="310" y="18" text-anchor="middle" class="sm-label">All Suggestions</text>
+          <text x="310" y="33" text-anchor="middle" class="sm-sub">0.0</text>
+
+          <!-- Root drop -->
+          <line x1="310" y1="44" x2="310" y2="76" class="sm-line"/>
+          <!-- Horizontal bar: center-of-branch-1 to center-of-branch-4 -->
+          <!-- 4 branches spaced at x=70,200,360,530 (centers) -->
+          <line x1="70"  y1="76" x2="530" y2="76" class="sm-line"/>
+
+          <!-- Branch drops -->
+          <line x1="70"  y1="76" x2="70"  y2="106" class="sm-line"/>
+          <line x1="210" y1="76" x2="210" y2="106" class="sm-line"/>
+          <line x1="370" y1="76" x2="370" y2="106" class="sm-line"/>
+          <line x1="530" y1="76" x2="530" y2="106" class="sm-line"/>
+
+          <!-- EDIT CREW 0.1 -->
+          <rect x="5"   y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="70"  y="124" text-anchor="middle" class="sm-label">Edit Crew</text>
+          <text x="70"  y="139" text-anchor="middle" class="sm-sub">0.1</text>
+
+          <!-- MATCHES 1.0 -->
+          <rect x="145" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="210" y="124" text-anchor="middle" class="sm-label">Matches</text>
+          <text x="210" y="139" text-anchor="middle" class="sm-sub">1.0</text>
+
+          <!-- MAKE A SUGGESTION 2.0 -->
+          <rect x="305" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="370" y="120" text-anchor="middle" class="sm-label">Make a</text>
+          <text x="370" y="133" text-anchor="middle" class="sm-label">Suggestion</text>
+          <text x="370" y="146" text-anchor="middle" class="sm-sub">2.0</text>
+
+          <!-- PROFILE 3.0 -->
+          <rect x="465" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="530" y="124" text-anchor="middle" class="sm-label">Profile</text>
+          <text x="530" y="139" text-anchor="middle" class="sm-sub">3.0</text>
+
+          <!-- Edit Crew → Edit Crew Mates -->
+          <line x1="70"  y1="150" x2="70"  y2="180" class="sm-line"/>
+          <rect x="5"   y="180" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="70"  y="198" text-anchor="middle" class="sm-label">Edit Crew Mates</text>
+          <text x="70"  y="213" text-anchor="middle" class="sm-sub">0.1.1</text>
+
+          <!-- Profile → Crew List → Languages -->
+          <line x1="530" y1="150" x2="530" y2="180" class="sm-line"/>
+          <rect x="465" y="180" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="530" y="198" text-anchor="middle" class="sm-label">Crew List</text>
+          <text x="530" y="213" text-anchor="middle" class="sm-sub">3.1</text>
+
+          <line x1="530" y1="224" x2="530" y2="254" class="sm-line"/>
+          <rect x="465" y="254" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+          <text x="530" y="272" text-anchor="middle" class="sm-label">Languages</text>
+          <text x="530" y="287" text-anchor="middle" class="sm-sub">3.2</text>
+        </svg>
       </div>
-      <div class="onboard-tree">
-        <div class="sm-box">Onboarding Part 1<span class="sm-num">A.0</span></div>
-        <div class="sm-vline"></div>
-        <div class="sm-box">Onboarding Part 2<span class="sm-num">A.0.1</span></div>
-        <div class="sm-vline"></div>
-        <div class="sm-box">Onboarding Part 3<span class="sm-num">A.0.1.1</span></div>
-        <div class="sm-vline"></div>
-        <div class="sm-box">Login<span class="sm-num">B.0</span></div>
-        <div class="sm-vline"></div>
-        <div class="sm-box">Create Group<span class="sm-num">B.0.1.1</span></div>
-        <div class="sm-vline"></div>
-        <div class="sm-box">Add Mates<span class="sm-num">B.0.1.1.1</span></div>
+
+      <!-- RIGHT: Onboarding Flow (SVG) -->
+      <div style="flex:1; min-width:0;">
+        <svg viewBox="0 0 200 370" width="100%" style="font-family:Helvetica,'Helvetica Neue',Arial,sans-serif; overflow:visible;">
+          <!-- Boxes spaced 30px apart, 44px tall each -->
+          <style>
+            .sm-label2 { font-size:11px; text-transform:uppercase; fill:#160000; }
+            .sm-sub2   { font-size:9px; fill:#160000; }
+            .sm-line2  { stroke:#160000; stroke-width:1; }
+          </style>
+
+          <!-- ONBOARDING PART 1 -->
+          <rect x="15" y="0"   width="170" height="44" fill="#f6f6f6" class="sm-line2"/>
+          <text x="100" y="18" text-anchor="middle" class="sm-label2">Onboarding Part 1</text>
+          <text x="100" y="33" text-anchor="middle" class="sm-sub2">A.0</text>
+          <line x1="100" y1="44"  x2="100" y2="74"  class="sm-line2"/>
+
+          <!-- ONBOARDING PART 2 -->
+          <rect x="15" y="74"  width="170" height="44" fill="#f6f6f6" class="sm-line2"/>
+          <text x="100" y="92"  text-anchor="middle" class="sm-label2">Onboarding Part 2</text>
+          <text x="100" y="107" text-anchor="middle" class="sm-sub2">A.0.1</text>
+          <line x1="100" y1="118" x2="100" y2="148" class="sm-line2"/>
+
+          <!-- ONBOARDING PART 3 -->
+          <rect x="15" y="148" width="170" height="44" fill="#f6f6f6" class="sm-line2"/>
+          <text x="100" y="166" text-anchor="middle" class="sm-label2">Onboarding Part 3</text>
+          <text x="100" y="181" text-anchor="middle" class="sm-sub2">A.0.1.1</text>
+          <line x1="100" y1="192" x2="100" y2="222" class="sm-line2"/>
+
+          <!-- LOGIN -->
+          <rect x="15" y="222" width="170" height="44" fill="#f6f6f6" class="sm-line2"/>
+          <text x="100" y="240" text-anchor="middle" class="sm-label2">Login</text>
+          <text x="100" y="255" text-anchor="middle" class="sm-sub2">B.0</text>
+          <line x1="100" y1="266" x2="100" y2="296" class="sm-line2"/>
+
+          <!-- CREATE GROUP -->
+          <rect x="15" y="296" width="170" height="44" fill="#f6f6f6" class="sm-line2"/>
+          <text x="100" y="314" text-anchor="middle" class="sm-label2">Create Group</text>
+          <text x="100" y="329" text-anchor="middle" class="sm-sub2">B.0.1.1</text>
+          <line x1="100" y1="340" x2="100" y2="370" class="sm-line2"/>
+
+          <!-- ADD MATES -->
+          <rect x="15" y="370" width="170" height="44" fill="#f6f6f6" class="sm-line2"/>
+          <text x="100" y="388" text-anchor="middle" class="sm-label2">Add Mates</text>
+          <text x="100" y="403" text-anchor="middle" class="sm-sub2">B.0.1.1.1</text>
+        </svg>
       </div>
+
     </div>
   </div>
 </div>
@@ -640,34 +728,13 @@
   </div>
   <div class="motion-black">
     <div class="motion-phone">
-      <video autoplay loop muted playsinline>
-        <source src="images/vidoes/Card-Animation1.mov" type="video/quicktime" />
-        <source src="images/vidoes/Card-Animation1.mov" type="video/mp4" />
-      </video>
+      <img src="images/gifs/Card-Animation3.gif" alt="AllAboard card swipe animation" />
     </div>
     <div class="motion-phone">
-      <video autoplay loop muted playsinline>
-        <source src="images/vidoes/Card-Animation2.mov" type="video/quicktime" />
-        <source src="images/vidoes/Card-Animation2.mov" type="video/mp4" />
-      </video>
+      <img src="images/gifs/Card-Animation4.gif" alt="AllAboard card swipe animation" />
     </div>
     <div class="motion-phone">
-      <video autoplay loop muted playsinline>
-        <source src="images/vidoes/Card-Animation3.mov" type="video/quicktime" />
-        <source src="images/vidoes/Card-Animation3.mov" type="video/mp4" />
-      </video>
-    </div>
-    <div class="motion-phone">
-      <video autoplay loop muted playsinline>
-        <source src="images/vidoes/Card-Animation4.mov" type="video/quicktime" />
-        <source src="images/vidoes/Card-Animation4.mov" type="video/mp4" />
-      </video>
-    </div>
-    <div class="motion-phone">
-      <video autoplay loop muted playsinline>
-        <source src="images/vidoes/Card-Animation5.mov" type="video/quicktime" />
-        <source src="images/vidoes/Card-Animation5.mov" type="video/mp4" />
-      </video>
+      <img src="images/gifs/Card-Animation6.gif" alt="AllAboard card swipe animation" />
     </div>
   </div>
 </div>

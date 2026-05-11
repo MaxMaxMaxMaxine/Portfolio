@@ -56,7 +56,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 28px;
+      font-size: 20px;
       font-weight: 600;
       letter-spacing: 0.56px;
       color: var(--ink);
@@ -202,7 +202,7 @@
 
     .cs-card-header p {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(13px, 1.39vw, 20px);
+      font-size: clamp(12px, 1.39vw, 20px);
       color: var(--light);
       text-transform: uppercase;
       letter-spacing: 0.02em;
@@ -235,7 +235,7 @@
     }
 
     .cs-title-block p {
-      font-size: clamp(28px, 6.1vw, 88px);
+      font-size: clamp(20px, 4.4vw, 64px);
       font-weight: 400;
       line-height: 1.25;
       letter-spacing: -0.02em;
@@ -616,9 +616,9 @@
     /* ── Scroll parallax + fade ── */
     (function () {
       const items = [
-        { el: document.querySelector('.hero'),         speed: 0.10, fadeIn: false },
-        { el: document.querySelector('.cs-card'),      speed: 0.05, fadeIn: true  },
-        { el: document.querySelector('.get-in-touch'), speed: 0.04, fadeIn: true  },
+        { el: document.querySelector('.hero'),         speed: 0.10, fadeIn: false, noTopFade: false },
+        { el: document.querySelector('.cs-card'),      speed: 0.05, fadeIn: true,  noTopFade: true  },
+        { el: document.querySelector('.get-in-touch'), speed: 0.04, fadeIn: true,  noTopFade: false },
       ].filter(d => d.el);
 
       const FADE  = 0.32;
@@ -626,14 +626,14 @@
 
       function update () {
         const vh = window.innerHeight;
-        items.forEach(({ el, speed, fadeIn }) => {
+        items.forEach(({ el, speed, fadeIn, noTopFade }) => {
           const rect   = el.getBoundingClientRect();
           const center = rect.top + rect.height * 0.5;
           const zone   = vh * FADE;
           const py     = (center - vh * 0.5) * speed;
           let   op     = 1;
           if (fadeIn && center > vh - zone) op = Math.min(op, 1 - (center - (vh - zone)) / zone);
-          if (center < zone)                op = Math.min(op, center / zone);
+          if (!noTopFade && center < zone)  op = Math.min(op, center / zone);
           el.style.opacity   = Math.max(0, Math.min(1, op));
           el.style.transform = `translateY(${py.toFixed(1)}px)`;
         });

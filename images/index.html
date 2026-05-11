@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcurva — Portfolio 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Variable-weight Bitter so font-variation-settings 'wght' works -->
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #f6f6f6;
+      --ink:   #160000;
+      --navy:  #23222a;
+      --light: #e4e4e4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Bitter', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 44px 40px;
+    }
+
+    .logo {
+      font-size: 48px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 80px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.56px;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--ink);
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-arr {
+      width: 22px; height: 22px; flex-shrink: 0;
+    }
+
+    /* ── SEPARATORS ── */
+    .rule        { width: 100%; height: 1px; background: rgba(22,0,0,0.18); }
+    .rule-light  { width: 100%; height: 1px; background: rgba(228,228,228,0.25); }
+    .rule-ink    { width: 100%; height: 1px; background: rgba(22,0,0,0.15); }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 0 40px;
+      /* Fill the viewport below the nav (nav ≈ 136px + 1px rule) */
+      height: calc(100dvh - 137px);
+      min-height: 320px;
+      will-change: opacity, transform;
+    }
+
+    /* Left: staggered lines */
+    #heroText {
+      flex: 1 0 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .hero-line {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: -0.09em;
+      flex-shrink: 0;
+    }
+    .hero-line.l-left   { justify-content: flex-start; }
+    .hero-line.l-center { justify-content: center; }
+    .hero-line.l-offset { justify-content: center; padding-left: 6.4vw; }
+    .hero-line.l-right  { justify-content: flex-end; }
+
+    .hero-line-text {
+      font-size: clamp(20px, 4.4vw, 64px);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      white-space: nowrap;
+      font-variation-settings: 'wght' 400;
+    }
+
+    .hero-line-text.wrappable {
+      white-space: normal;
+      text-align: right;
+      max-width: min(620px, 43vw);
+    }
+
+    /* Animation wrappers */
+    .h-word { display: inline-block; opacity: 0; }
+    .h-wave { display: inline-block; }
+    /* Characters respond to mouse proximity via JS-set font-variation-settings */
+    .h-char {
+      display: inline-block;
+      font-variation-settings: 'wght' 300;
+      transition: font-variation-settings 0.18s ease-out;
+    }
+
+    @keyframes heroWordIn {
+      0%   { opacity: 0; color: var(--c); }
+      100% { opacity: 1; color: var(--ink); }
+    }
+    @keyframes heroWave {
+      0%   { transform: translateY(0); }
+      30%  { transform: translateY(-9px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Right: info column */
+    .hero-info {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+      height: 100%;
+      padding-bottom: 8px;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(12px, 1.39vw, 20px);
+      line-height: 1.5;
+      color: var(--ink);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .hero-info-top {
+      flex: 1 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+    .hero-info-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    /* ── DARK CASE-STUDY CARD ── */
+    .cs-card {
+      background: var(--navy);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      will-change: opacity, transform;
+    }
+
+    .cs-card-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+    }
+
+    .cs-card-header p {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(12px, 1.39vw, 20px);
+      color: var(--light);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+    }
+
+    .cs-card-header svg { flex-shrink: 0; }
+
+    /* 3-column content inside the card */
+    .cs-card-body {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+      padding: 64px 40px;
+      align-items: center;
+    }
+
+    /* Left column */
+    .cs-col-left {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-self: stretch;
+      justify-content: center;
+    }
+
+    .cs-title-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cs-title-block p {
+      font-size: clamp(20px, 4.4vw, 64px);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: -0.09em;
+    }
+
+    .cs-title-block .underlined {
+      text-decoration: underline;
+      text-align: right;
+    }
+
+    .cs-body-text {
+      font-size: clamp(16px, 2.5vw, 36px);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    /* Centre: phone mockup */
+    .cs-image-wrap {
+      width: clamp(180px, 25.5vw, 367px);
+      height: clamp(320px, 45.8vw, 660px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cs-image-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cs-image-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Right column */
+    .cs-col-right {
+      display: flex;
+      flex-direction: column;
+      gap: 37px;
+      align-self: stretch;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .read-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid var(--light);
+      color: var(--light);
+      padding: 8px 60px;
+      border-radius: 43px;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(14px, 1.67vw, 24px);
+      line-height: 1.5;
+      text-decoration: none;
+      white-space: nowrap;
+      width: 100%;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .read-more-btn:hover { background: rgba(228,228,228,0.1); }
+
+    .cs-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+    }
+
+    .cs-card-footer p {
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(13px, 1.39vw, 20px);
+      color: var(--light);
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+
+    /* ── GET IN TOUCH ── */
+    .get-in-touch {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 160px 40px;
+      will-change: opacity, transform;
+    }
+
+    .git-heading {
+      flex: 1 0 0;
+      min-width: 0;
+      font-size: clamp(32px, 6.1vw, 88px);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .git-links {
+      flex: 1 0 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .git-link-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .git-link-row a {
+      flex: 1 0 0;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: clamp(15px, 1.67vw, 24px);
+      color: var(--ink);
+      text-decoration: none;
+      line-height: 1.5;
+      transition: opacity 0.2s;
+    }
+    .git-link-row a:hover { opacity: 0.55; }
+
+    .git-link-row svg { flex-shrink: 0; }
+
+    /* ── PARALLAX ── */
+    .hero, .cs-card, .get-in-touch {
+      will-change: opacity, transform;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 28px 24px; }
+      .logo { font-size: 32px; }
+      .nav-links { gap: 24px; }
+      .nav-links a { font-size: 18px; }
+      .hero { flex-direction: column; height: auto; padding: 32px 24px; }
+      .hero-info { align-items: flex-start; }
+      .cs-card-body { grid-template-columns: 1fr; }
+      .cs-image-wrap { width: 100%; height: auto; aspect-ratio: 367/660; }
+      .get-in-touch { flex-direction: column; padding: 80px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="index.html">mcurva</a>
+    <ul class="nav-links">
+      <li><a href="case-study.html">Work
+        <svg class="nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a></li>
+      <li><a href="#about">About
+        <svg class="nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a></li>
+      <li><a href="#contact">Contact
+        <svg class="nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a></li>
+    </ul>
+  </nav>
+
+  <div class="rule"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div id="heroText">
+      <div class="hero-line l-left">
+        <span class="hero-line-text">MOTION</span>
+      </div>
+      <div class="hero-line l-left">
+        <span class="hero-line-text">&amp; UX/UI designer,</span>
+      </div>
+      <div class="hero-line l-center">
+        <span class="hero-line-text">focused on creating</span>
+      </div>
+      <div class="hero-line l-offset">
+        <span class="hero-line-text">digital experiences</span>
+      </div>
+      <div class="hero-line l-right">
+        <span class="hero-line-text wrappable">that blend visual storytelling</span>
+      </div>
+      <div class="hero-line l-center">
+        <span class="hero-line-text">with product thinking.</span>
+      </div>
+    </div>
+
+    <div class="hero-info">
+      <div class="hero-info-top">
+        <p>MAXINE FAYE</p>
+        <p>GACUMA CURVA</p>
+      </div>
+      <div class="hero-info-bottom">
+        <p>BARCELONA-BASED</p>
+        <p>AUSTRALIAN-MADE</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK CASE STUDY CARD -->
+  <div class="cs-card" id="work">
+    <div class="cs-card-header">
+      <p>01 ALL ABOARD CASE STUDY</p>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e4e4e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+    </div>
+    <div class="rule-light"></div>
+
+    <div class="cs-card-body">
+      <!-- Left -->
+      <div class="cs-col-left">
+        <div class="cs-title-block">
+          <p>All aboard!</p>
+          <p class="underlined">UX/UI DESIGN</p>
+          <p class="underlined">motion</p>
+        </div>
+        <p class="cs-body-text">Deciding what to do as a group often turns into long message threads without a clear outcome.</p>
+      </div>
+
+      <!-- Centre: phone mockup -->
+      <div class="cs-image-wrap">
+        <div class="cs-image-inner">
+          <img src="https://www.figma.com/api/mcp/asset/65912159-ab59-4df2-8d4a-c9aabd7e6fd5" alt="AllAboard app" />
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="cs-col-right">
+        <p class="cs-body-text">There are no existing non-sticky tools to support group decision making during travel. So we designed an app to help smooth the group travel experience.</p>
+        <a class="read-more-btn" href="case-study.html">
+          Read more
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="rule-light"></div>
+    <div class="cs-card-footer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e4e4e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <p>10 MIN READ</p>
+    </div>
+  </div>
+
+  <!-- GET IN TOUCH -->
+  <section class="get-in-touch" id="contact">
+    <h2 class="git-heading">Get in touch</h2>
+    <div class="git-links">
+      <div class="git-link-row">
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </div>
+      <div class="rule-ink"></div>
+      <div class="git-link-row">
+        <a href="mailto:m.curva@carrots.io">E-mail</a>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </div>
+      <div class="rule-ink"></div>
+      <div class="git-link-row">
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ── Hero animation + per-character font-weight proximity ── */
+    (function () {
+      const hero    = document.getElementById('heroText');
+      const sources = hero.querySelectorAll('.hero-line-text');
+
+      const FADE_DUR   = 0.9;
+      const FADE_START = 0.08;
+      const WORD_LAG   = 0.1;
+      const WAVE_DUR   = 0.85;
+
+      // Pass 1 — count words for hue distribution
+      let totalWords = 0;
+      sources.forEach(src => {
+        src.textContent.split(/(\s+)/).forEach(t => {
+          if (t && !/^\s+$/.test(t)) totalWords++;
+        });
+      });
+
+      // Hue stops: indigo → purple → pink → red → purple → blue → indigo
+      const HUES = [245, 275, 310, 345, 285, 225, 245];
+      let gWord = 0;
+
+      // Pass 2 — build DOM with .h-word → .h-wave → .h-char structure
+      sources.forEach(src => {
+        const text = src.textContent;
+        src.textContent = '';
+
+        text.split(/(\s+)/).forEach(token => {
+          if (!token) return;
+          if (/^\s+$/.test(token)) { src.appendChild(document.createTextNode(token)); return; }
+
+          const wi    = gWord++;
+          const t     = totalWords > 1 ? wi / (totalWords - 1) : 0;
+          const seg   = t * (HUES.length - 1);
+          const si    = Math.min(Math.floor(seg), HUES.length - 2);
+          const hue   = Math.round(HUES[si] + (HUES[si + 1] - HUES[si]) * (seg - si));
+          const delay = (FADE_START + wi * WORD_LAG).toFixed(2);
+
+          // Outer: fade-in + colour
+          const outer = document.createElement('span');
+          outer.className = 'h-word';
+          outer.style.setProperty('--c', `hsl(${hue},100%,55%)`);
+          outer.style.animation =
+            `heroWordIn ${FADE_DUR}s cubic-bezier(0.16,1,0.3,1) ${delay}s forwards`;
+
+          // Inner: wave
+          const inner = document.createElement('span');
+          inner.className = 'h-wave';
+          inner.style.animation =
+            `heroWave ${WAVE_DUR}s cubic-bezier(0.22,1,0.36,1) ${delay}s 1`;
+
+          // Characters: font-weight proximity
+          token.split('').forEach(ch => {
+            const charEl = document.createElement('span');
+            charEl.className = 'h-char';
+            charEl.textContent = ch;
+            inner.appendChild(charEl);
+          });
+
+          outer.appendChild(inner);
+          src.appendChild(outer);
+        });
+      });
+
+      // Mouse proximity → font weight
+      const RADIUS  = 120; // px — tighter influence zone
+      const W_MIN   = 400; // back to Regular as base
+      const W_MAX   = 900;
+      let rafPending = false;
+
+      document.addEventListener('mousemove', e => {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          const chars = hero.querySelectorAll('.h-char');
+          chars.forEach(ch => {
+            const r    = ch.getBoundingClientRect();
+            const cx   = r.left + r.width  * 0.5;
+            const cy   = r.top  + r.height * 0.5;
+            const dist = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
+            // Square-root curve: weight surges to max quickly near the cursor
+            const prox = Math.max(0, 1 - dist / RADIUS);
+            const w    = Math.round(W_MIN + Math.pow(prox, 0.4) * (W_MAX - W_MIN));
+            ch.style.fontVariationSettings = `'wght' ${w}`;
+          });
+          rafPending = false;
+        });
+      });
+
+      // Reset weights when mouse leaves the page
+      document.addEventListener('mouseleave', () => {
+        hero.querySelectorAll('.h-char').forEach(ch => {
+          ch.style.fontVariationSettings = `'wght' ${W_MIN}`; // reset to light base
+        });
+      });
+    })();
+
+    /* ── Scroll parallax + fade ── */
+    (function () {
+      const items = [
+        { el: document.querySelector('.hero'),         speed: 0.10, fadeIn: false, noTopFade: false },
+        { el: document.querySelector('.cs-card'),      speed: 0.05, fadeIn: true,  noTopFade: true  },
+        { el: document.querySelector('.get-in-touch'), speed: 0.04, fadeIn: true,  noTopFade: false },
+      ].filter(d => d.el);
+
+      const FADE  = 0.32;
+      let ticking = false;
+
+      function update () {
+        const vh = window.innerHeight;
+        items.forEach(({ el, speed, fadeIn, noTopFade }) => {
+          const rect   = el.getBoundingClientRect();
+          const center = rect.top + rect.height * 0.5;
+          const zone   = vh * FADE;
+          const py     = (center - vh * 0.5) * speed;
+          let   op     = 1;
+          if (fadeIn && center > vh - zone) op = Math.min(op, 1 - (center - (vh - zone)) / zone);
+          if (!noTopFade && center < zone)  op = Math.min(op, center / zone);
+          el.style.opacity   = Math.max(0, Math.min(1, op));
+          el.style.transform = `translateY(${py.toFixed(1)}px)`;
+        });
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+</body>
+</html>

@@ -35,11 +35,11 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 44px var(--pr) 44px var(--pl);
     }
-    .logo { font-size: 48px; font-weight: 500; color: var(--ink); text-decoration: none; line-height: 1; }
+    .logo { font-size: 38px; font-weight: 500; color: var(--ink); text-decoration: none; line-height: 1; }
     .nav-links { display: flex; gap: 56px; list-style: none; }
     .nav-links a {
       display: flex; align-items: center; gap: 6px;
-      font-size: 28px; font-weight: 600; font-family: 'Bitter', serif;
+      font-size: 22px; font-weight: 600; font-family: 'Bitter', serif;
       color: var(--ink); text-decoration: none; white-space: nowrap; position: relative;
     }
     .nav-links a::after {
@@ -70,12 +70,12 @@
     }
     .hero-title {
       font-family: 'Bitter', serif;
-      font-size: clamp(32px, 4.63vw, 80px);
+      font-size: clamp(26px, 3.7vw, 64px);
       font-weight: 400; line-height: 1.05; text-transform: uppercase; color: var(--ink);
     }
     .hero-stat {
       font-family: 'Bitter', serif;
-      font-size: clamp(20px, 3.01vw, 52px);
+      font-size: clamp(16px, 2.4vw, 42px);
       font-weight: 400; line-height: 1.2; text-transform: uppercase; color: var(--ink);
     }
 
@@ -87,7 +87,7 @@
     .meta-col { width: 240px; display: flex; flex-direction: column; gap: 4px; }
     .meta-label, .meta-value {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; text-transform: uppercase; color: var(--ink);
+      font-size: 16px; line-height: 1.5; text-transform: uppercase; color: var(--ink);
     }
 
     /* ───── SHARED TWO-COLUMN LAYOUT ───── */
@@ -106,24 +106,24 @@
     }
     .cs-label {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--ink);
+      font-size: 16px; line-height: 1.5; color: var(--ink);
     }
     .cs-title {
       font-family: 'Bitter', serif;
-      font-size: clamp(24px, 2.78vw, 48px); font-weight: 400; line-height: 1.15;
+      font-size: clamp(19px, 2.2vw, 38px); font-weight: 400; line-height: 1.15;
     }
 
     /* Section heading within right col (large Bitter, all-caps, GREY) */
     .sec-h {
       font-family: 'Bitter', serif;
-      font-size: 48px; font-weight: 400; line-height: 1.15;
+      font-size: 38px; font-weight: 400; line-height: 1.15;
       text-transform: uppercase; color: var(--grey);
     }
 
     /* Helvetica body — GREY per Figma */
     .body {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--grey);
+      font-size: 16px; line-height: 1.5; color: var(--grey);
     }
     .body p + p { margin-top: 0.8em; }
     .body ul { list-style: none; padding: 0; margin-top: 0.4em; }
@@ -139,16 +139,16 @@
       min-height: 280px;
     }
     .num-card + .num-card { border-left: none; }
-    /* num-n: Bitter 32px weight 341 GREY — matches Figma exactly */
+    /* num-n: Bitter 26px weight 341 GREY */
     .num-n {
       font-family: 'Bitter', serif;
-      font-size: 32px; font-variation-settings: 'wght' 341;
+      font-size: 26px; font-variation-settings: 'wght' 341;
       font-weight: 341; color: var(--grey); line-height: 1;
       text-transform: uppercase;
     }
     .num-text {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.45; color: var(--grey);
+      font-size: 16px; line-height: 1.45; color: var(--grey);
     }
 
     /* ───── USER RESEARCH ───── */
@@ -158,19 +158,18 @@
     .research-stats {
       width: 252px; flex-shrink: 0;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--grey);
+      font-size: 16px; line-height: 1.5; color: var(--grey);
+      display: flex; flex-direction: column; justify-content: space-between;
     }
-    .research-stats p { margin-bottom: 60px; }
-    .research-findings { flex: 1; display: flex; flex-direction: column; }
-    .findings-row { display: flex; }
+    /* grid makes all 4 boxes share equal row heights */
+    .research-findings { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    /* rows become transparent so boxes join the parent grid directly */
+    .findings-row { display: contents; }
     .finding-box {
-      flex: 1; border: 1px solid var(--grey);
+      border: 1px solid var(--grey);
       padding: 20px;
       display: flex; flex-direction: column; justify-content: space-between;
-      min-height: 230px;
     }
-    .finding-box + .finding-box { border-left: none; }
-    .findings-row + .findings-row .finding-box { border-top: none; }
 
     /* ───── PERSONA CARDS — grey border + grey text (Figma) ───── */
     .persona-row { display: flex; gap: 27px; margin-bottom: 48px; }
@@ -178,31 +177,31 @@
       flex: 1; border: 1px solid var(--grey);
       padding: 40px; min-height: 480px;
     }
-    /* All persona text in one grey Helvetica 20px block matching Figma */
+    /* All persona text in Helvetica 16px */
     .persona-text {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.7; color: var(--grey);
+      font-size: 16px; line-height: 1.7; color: var(--grey);
       white-space: pre-line;
     }
     .persona-name {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; font-weight: 400; line-height: 1.5;
+      font-size: 16px; font-weight: 400; line-height: 1.5;
       color: var(--grey); display: block; margin-bottom: 16px;
     }
     .persona-card ul { list-style: none; padding: 0; }
     .persona-card li {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.5; color: var(--grey);
+      font-size: 16px; line-height: 1.5; color: var(--grey);
       padding-left: 1.4em; position: relative; margin-bottom: 0.25em;
     }
     .persona-card li::before { content: '·'; position: absolute; left: 0; }
     .takeaway-label {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; font-weight: 400; color: var(--grey); margin-bottom: 8px;
+      font-size: 16px; font-weight: 400; color: var(--grey); margin-bottom: 8px;
     }
     .takeaway {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; line-height: 1.7; color: var(--grey);
+      font-size: 16px; line-height: 1.7; color: var(--grey);
       white-space: pre-line;
     }
 
@@ -212,15 +211,15 @@
     /* ───── COMPETITIVE TABLE — grey borders + grey text ───── */
     .comp-table {
       width: 100%; border-collapse: collapse;
-      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-size: 15px;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-size: 12px;
     }
     .comp-table th, .comp-table td {
-      border: 1px solid var(--grey); padding: 13px 12px;
+      border: 1px solid var(--grey); padding: 10px 10px;
       text-align: center; vertical-align: middle; color: var(--grey);
     }
-    .comp-table th:first-child, .comp-table td:first-child { text-align: left; padding-left: 16px; min-width: 180px; }
-    .comp-table th { font-weight: 400; font-size: 14px; }
-    .comp-table td:first-child { font-size: 14px; }
+    .comp-table th:first-child, .comp-table td:first-child { text-align: left; padding-left: 14px; min-width: 150px; }
+    .comp-table th { font-weight: 400; font-size: 11px; }
+    .comp-table td:first-child { font-size: 11px; }
     .empty { background: #e4e4e4; }
     .tick::before { content: '✓'; font-size: 17px; color: var(--grey); }
 
@@ -259,10 +258,10 @@
     .motion-phone { flex-shrink: 0; width: 260px; border-radius: 28px; overflow: hidden; background: #111; }
     .motion-phone video, .motion-phone img { width: 100%; display: block; }
 
-    /* ───── KEY TAKEAWAYS — Bitter 32px weight 341 UPPER GREY ───── */
+    /* ───── KEY TAKEAWAYS — Bitter 26px weight 341 UPPER GREY ───── */
     .takeaways-text {
       font-family: 'Bitter', serif;
-      font-size: 32px;
+      font-size: 26px;
       font-weight: 341;
       font-variation-settings: 'wght' 341;
       line-height: 1.5; color: var(--grey);
@@ -278,17 +277,17 @@
       display: flex; gap: 40px; align-items: flex-start;
       padding: 160px var(--pr) 160px var(--pl);
     }
-    /* Get in touch: Bitter 76px per Figma (not 80px) */
+    /* Get in touch: Bitter 62px */
     .lc-heading {
       flex: 1; min-width: 0; font-family: 'Bitter', serif;
-      font-size: clamp(36px, 4.4vw, 76px); font-weight: 400; line-height: 1.1;
+      font-size: clamp(28px, 3.5vw, 62px); font-weight: 400; line-height: 1.1;
       letter-spacing: -0.02em; text-transform: uppercase; color: #f6f6f6;
     }
     .lc-links { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0; padding-top: 4px; }
     .lc-row { display: flex; align-items: center; gap: 8px; padding: 10px 0; }
     .lc-row a {
       flex: 1; font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 20px; color: #f6f6f6; text-decoration: none; line-height: 1.5;
+      font-size: 16px; color: #f6f6f6; text-decoration: none; line-height: 1.5;
       transition: opacity 0.2s;
     }
     .lc-row a:hover { opacity: 0.55; }
@@ -584,9 +583,9 @@ There is a hidden power dynamic in group planning. Planning responsibilities and
   <div class="cs-right">
     <div style="display:flex; gap:48px; align-items:flex-start;">
 
-      <!-- LEFT: App Tree (SVG) -->
+      <!-- LEFT: App Tree (SVG) — viewBox expanded 1.2× to scale content up -->
       <div style="flex:1.6; min-width:0;">
-        <svg viewBox="0 0 620 340" width="100%" style="font-family:Helvetica,'Helvetica Neue',Arial,sans-serif; overflow:visible;">
+        <svg viewBox="0 0 744 408" width="100%" style="font-family:Helvetica,'Helvetica Neue',Arial,sans-serif; overflow:visible;">
           <defs>
             <!-- ">" shape in marker coords → rotates to "↓" on downward lines via orient="auto" -->
             <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
@@ -600,65 +599,67 @@ There is a hidden power dynamic in group planning. Planning responsibilities and
             .sm-arr   { stroke:#160000; stroke-width:1; marker-end:url(#arr); }
           </style>
 
-          <!-- ROOT: ALL SUGGESTIONS -->
-          <rect x="210" y="0" width="200" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="310" y="18" text-anchor="middle" class="sm-label">All Suggestions</text>
-          <text x="310" y="33" text-anchor="middle" class="sm-sub">0.0</text>
+          <g transform="scale(1.2)">
+            <!-- ROOT: ALL SUGGESTIONS -->
+            <rect x="210" y="0" width="200" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="310" y="18" text-anchor="middle" class="sm-label">All Suggestions</text>
+            <text x="310" y="33" text-anchor="middle" class="sm-sub">0.0</text>
 
-          <!-- Root drop → arrowhead -->
-          <line x1="310" y1="44" x2="310" y2="70" class="sm-arr"/>
-          <!-- Horizontal bar -->
-          <line x1="70"  y1="76" x2="530" y2="76" class="sm-line"/>
+            <!-- Root drop → arrowhead -->
+            <line x1="310" y1="44" x2="310" y2="70" class="sm-arr"/>
+            <!-- Horizontal bar -->
+            <line x1="70"  y1="76" x2="530" y2="76" class="sm-line"/>
 
-          <!-- Branch drops → arrowheads -->
-          <line x1="70"  y1="76" x2="70"  y2="100" class="sm-arr"/>
-          <line x1="210" y1="76" x2="210" y2="100" class="sm-arr"/>
-          <line x1="370" y1="76" x2="370" y2="100" class="sm-arr"/>
-          <line x1="530" y1="76" x2="530" y2="100" class="sm-arr"/>
+            <!-- Branch drops → arrowheads -->
+            <line x1="70"  y1="76" x2="70"  y2="100" class="sm-arr"/>
+            <line x1="210" y1="76" x2="210" y2="100" class="sm-arr"/>
+            <line x1="370" y1="76" x2="370" y2="100" class="sm-arr"/>
+            <line x1="530" y1="76" x2="530" y2="100" class="sm-arr"/>
 
-          <!-- EDIT CREW 0.1 -->
-          <rect x="5"   y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="70"  y="124" text-anchor="middle" class="sm-label">Edit Crew</text>
-          <text x="70"  y="139" text-anchor="middle" class="sm-sub">0.1</text>
+            <!-- EDIT CREW 0.1 -->
+            <rect x="5"   y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="70"  y="124" text-anchor="middle" class="sm-label">Edit Crew</text>
+            <text x="70"  y="139" text-anchor="middle" class="sm-sub">0.1</text>
 
-          <!-- MATCHES 1.0 -->
-          <rect x="145" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="210" y="124" text-anchor="middle" class="sm-label">Matches</text>
-          <text x="210" y="139" text-anchor="middle" class="sm-sub">1.0</text>
+            <!-- MATCHES 1.0 -->
+            <rect x="145" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="210" y="124" text-anchor="middle" class="sm-label">Matches</text>
+            <text x="210" y="139" text-anchor="middle" class="sm-sub">1.0</text>
 
-          <!-- MAKE A SUGGESTION 2.0 -->
-          <rect x="305" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="370" y="120" text-anchor="middle" class="sm-label">Make a</text>
-          <text x="370" y="133" text-anchor="middle" class="sm-label">Suggestion</text>
-          <text x="370" y="146" text-anchor="middle" class="sm-sub">2.0</text>
+            <!-- MAKE A SUGGESTION 2.0 -->
+            <rect x="305" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="370" y="120" text-anchor="middle" class="sm-label">Make a</text>
+            <text x="370" y="133" text-anchor="middle" class="sm-label">Suggestion</text>
+            <text x="370" y="146" text-anchor="middle" class="sm-sub">2.0</text>
 
-          <!-- PROFILE 3.0 -->
-          <rect x="465" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="530" y="124" text-anchor="middle" class="sm-label">Profile</text>
-          <text x="530" y="139" text-anchor="middle" class="sm-sub">3.0</text>
+            <!-- PROFILE 3.0 -->
+            <rect x="465" y="106" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="530" y="124" text-anchor="middle" class="sm-label">Profile</text>
+            <text x="530" y="139" text-anchor="middle" class="sm-sub">3.0</text>
 
-          <!-- Edit Crew → Edit Crew Mates (arrowhead) -->
-          <line x1="70"  y1="150" x2="70"  y2="174" class="sm-arr"/>
-          <rect x="5"   y="180" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="70"  y="198" text-anchor="middle" class="sm-label">Edit Crew Mates</text>
-          <text x="70"  y="213" text-anchor="middle" class="sm-sub">0.1.1</text>
+            <!-- Edit Crew → Edit Crew Mates (arrowhead) -->
+            <line x1="70"  y1="150" x2="70"  y2="174" class="sm-arr"/>
+            <rect x="5"   y="180" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="70"  y="198" text-anchor="middle" class="sm-label">Edit Crew Mates</text>
+            <text x="70"  y="213" text-anchor="middle" class="sm-sub">0.1.1</text>
 
-          <!-- Profile → Crew List → Languages (arrowheads) -->
-          <line x1="530" y1="150" x2="530" y2="174" class="sm-arr"/>
-          <rect x="465" y="180" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="530" y="198" text-anchor="middle" class="sm-label">Crew List</text>
-          <text x="530" y="213" text-anchor="middle" class="sm-sub">3.1</text>
+            <!-- Profile → Crew List → Languages (arrowheads) -->
+            <line x1="530" y1="150" x2="530" y2="174" class="sm-arr"/>
+            <rect x="465" y="180" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="530" y="198" text-anchor="middle" class="sm-label">Crew List</text>
+            <text x="530" y="213" text-anchor="middle" class="sm-sub">3.1</text>
 
-          <line x1="530" y1="224" x2="530" y2="248" class="sm-arr"/>
-          <rect x="465" y="254" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
-          <text x="530" y="272" text-anchor="middle" class="sm-label">Languages</text>
-          <text x="530" y="287" text-anchor="middle" class="sm-sub">3.2</text>
+            <line x1="530" y1="224" x2="530" y2="248" class="sm-arr"/>
+            <rect x="465" y="254" width="130" height="44" fill="#f6f6f6" class="sm-line"/>
+            <text x="530" y="272" text-anchor="middle" class="sm-label">Languages</text>
+            <text x="530" y="287" text-anchor="middle" class="sm-sub">3.2</text>
+          </g>
         </svg>
       </div>
 
-      <!-- RIGHT: Onboarding Flow (SVG) — viewBox scaled to 390 so boxes match left tree -->
+      <!-- RIGHT: Onboarding Flow (SVG) — viewBox expanded 1.2× to scale content up -->
       <div style="flex:1; min-width:0;">
-        <svg viewBox="0 0 390 414" width="100%" style="font-family:Helvetica,'Helvetica Neue',Arial,sans-serif; overflow:visible;">
+        <svg viewBox="0 0 468 497" width="100%" style="font-family:Helvetica,'Helvetica Neue',Arial,sans-serif; overflow:visible;">
           <defs>
             <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M0,0 L9,5 L0,10" fill="none" stroke="#160000" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -671,40 +672,42 @@ There is a hidden power dynamic in group planning. Planning responsibilities and
             .sm-arr2   { stroke:#160000; stroke-width:1; marker-end:url(#arr2); }
           </style>
 
-          <!-- ONBOARDING PART 1 — box 130×44, centered at x=195 -->
-          <rect x="130" y="0"   width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
-          <text x="195" y="18" text-anchor="middle" class="sm-label2">Onboarding Part 1</text>
-          <text x="195" y="33" text-anchor="middle" class="sm-sub2">A.0</text>
-          <line x1="195" y1="44"  x2="195" y2="68"  class="sm-arr2"/>
+          <g transform="scale(1.2)">
+            <!-- ONBOARDING PART 1 — box 130×44, centered at x=195 -->
+            <rect x="130" y="0"   width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
+            <text x="195" y="18" text-anchor="middle" class="sm-label2">Onboarding Part 1</text>
+            <text x="195" y="33" text-anchor="middle" class="sm-sub2">A.0</text>
+            <line x1="195" y1="44"  x2="195" y2="68"  class="sm-arr2"/>
 
-          <!-- ONBOARDING PART 2 -->
-          <rect x="130" y="74"  width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
-          <text x="195" y="92"  text-anchor="middle" class="sm-label2">Onboarding Part 2</text>
-          <text x="195" y="107" text-anchor="middle" class="sm-sub2">A.0.1</text>
-          <line x1="195" y1="118" x2="195" y2="142" class="sm-arr2"/>
+            <!-- ONBOARDING PART 2 -->
+            <rect x="130" y="74"  width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
+            <text x="195" y="92"  text-anchor="middle" class="sm-label2">Onboarding Part 2</text>
+            <text x="195" y="107" text-anchor="middle" class="sm-sub2">A.0.1</text>
+            <line x1="195" y1="118" x2="195" y2="142" class="sm-arr2"/>
 
-          <!-- ONBOARDING PART 3 -->
-          <rect x="130" y="148" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
-          <text x="195" y="166" text-anchor="middle" class="sm-label2">Onboarding Part 3</text>
-          <text x="195" y="181" text-anchor="middle" class="sm-sub2">A.0.1.1</text>
-          <line x1="195" y1="192" x2="195" y2="216" class="sm-arr2"/>
+            <!-- ONBOARDING PART 3 -->
+            <rect x="130" y="148" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
+            <text x="195" y="166" text-anchor="middle" class="sm-label2">Onboarding Part 3</text>
+            <text x="195" y="181" text-anchor="middle" class="sm-sub2">A.0.1.1</text>
+            <line x1="195" y1="192" x2="195" y2="216" class="sm-arr2"/>
 
-          <!-- LOGIN -->
-          <rect x="130" y="222" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
-          <text x="195" y="240" text-anchor="middle" class="sm-label2">Login</text>
-          <text x="195" y="255" text-anchor="middle" class="sm-sub2">B.0</text>
-          <line x1="195" y1="266" x2="195" y2="290" class="sm-arr2"/>
+            <!-- LOGIN -->
+            <rect x="130" y="222" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
+            <text x="195" y="240" text-anchor="middle" class="sm-label2">Login</text>
+            <text x="195" y="255" text-anchor="middle" class="sm-sub2">B.0</text>
+            <line x1="195" y1="266" x2="195" y2="290" class="sm-arr2"/>
 
-          <!-- CREATE GROUP -->
-          <rect x="130" y="296" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
-          <text x="195" y="314" text-anchor="middle" class="sm-label2">Create Group</text>
-          <text x="195" y="329" text-anchor="middle" class="sm-sub2">B.0.1.1</text>
-          <line x1="195" y1="340" x2="195" y2="364" class="sm-arr2"/>
+            <!-- CREATE GROUP -->
+            <rect x="130" y="296" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
+            <text x="195" y="314" text-anchor="middle" class="sm-label2">Create Group</text>
+            <text x="195" y="329" text-anchor="middle" class="sm-sub2">B.0.1.1</text>
+            <line x1="195" y1="340" x2="195" y2="364" class="sm-arr2"/>
 
-          <!-- ADD MATES -->
-          <rect x="130" y="370" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
-          <text x="195" y="388" text-anchor="middle" class="sm-label2">Add Mates</text>
-          <text x="195" y="403" text-anchor="middle" class="sm-sub2">B.0.1.1.1</text>
+            <!-- ADD MATES -->
+            <rect x="130" y="370" width="130" height="44" fill="#f6f6f6" class="sm-line2"/>
+            <text x="195" y="388" text-anchor="middle" class="sm-label2">Add Mates</text>
+            <text x="195" y="403" text-anchor="middle" class="sm-sub2">B.0.1.1.1</text>
+          </g>
         </svg>
       </div>
 

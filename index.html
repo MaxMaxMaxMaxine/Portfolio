@@ -6,7 +6,6 @@
   <title>mcurva — Portfolio 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Variable-weight Bitter so font-variation-settings 'wght' works -->
   <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 
   <style>
@@ -38,11 +37,12 @@
     }
 
     .logo {
-      font-size: 48px;
-      font-weight: 500;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.56px;
       color: var(--ink);
       text-decoration: none;
-      line-height: 1;
+      line-height: 1.5;
       white-space: nowrap;
     }
 
@@ -55,8 +55,8 @@
     .nav-links a {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 20px;
+      gap: 8px;
+      font-size: 28px;
       font-weight: 600;
       letter-spacing: 0.56px;
       color: var(--ink);
@@ -69,20 +69,13 @@
       content: '';
       position: absolute;
       bottom: -3px; left: 0;
-      width: 0; height: 1px;
+      width: 0; height: 2px;
       background: var(--ink);
       transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .nav-links a:hover::after { width: 100%; }
 
-    .nav-arr {
-      width: 22px; height: 22px; flex-shrink: 0;
-    }
-
-    /* ── SEPARATORS ── */
-    .rule        { width: 100%; height: 1px; background: rgba(22,0,0,0.18); }
-    .rule-light  { width: 100%; height: 1px; background: rgba(228,228,228,0.25); }
-    .rule-ink    { width: 100%; height: 1px; background: rgba(22,0,0,0.15); }
+    .nav-arr { width: 28px; height: 28px; flex-shrink: 0; }
 
     /* ── HERO ── */
     .hero {
@@ -90,13 +83,11 @@
       gap: 20px;
       align-items: flex-start;
       padding: 0 40px;
-      /* Fill the viewport below the nav (nav ≈ 136px + 1px rule) */
-      height: calc(100dvh - 137px);
+      height: calc(100dvh - 116px);
       min-height: 320px;
       will-change: opacity, transform;
     }
 
-    /* Left: staggered lines */
     #heroText {
       flex: 1 0 0;
       min-width: 0;
@@ -118,7 +109,7 @@
     .hero-line.l-right  { justify-content: flex-end; }
 
     .hero-line-text {
-      font-size: clamp(20px, 4.4vw, 64px);
+      font-size: clamp(24px, 5.3vw, 76px);
       font-weight: 400;
       line-height: 1.25;
       letter-spacing: -0.02em;
@@ -128,16 +119,20 @@
       font-variation-settings: 'wght' 400;
     }
 
+    /* "digital experiences" and "product thinking." are slightly larger */
+    .hero-line-text.xl {
+      font-size: clamp(28px, 6.1vw, 88px);
+    }
+
     .hero-line-text.wrappable {
       white-space: normal;
       text-align: right;
-      max-width: min(620px, 43vw);
+      max-width: min(620px, 58vw);
     }
 
     /* Animation wrappers */
     .h-word { display: inline-block; opacity: 0; }
     .h-wave { display: inline-block; }
-    /* Characters respond to mouse proximity via JS-set font-variation-settings */
     .h-char {
       display: inline-block;
       font-variation-settings: 'wght' 300;
@@ -184,7 +179,7 @@
       align-items: flex-end;
     }
 
-    /* ── DARK CASE-STUDY CARD ── */
+    /* ── CASE STUDY CARD ── */
     .cs-card {
       background: var(--navy);
       width: 100%;
@@ -193,14 +188,14 @@
       will-change: opacity, transform;
     }
 
-    .cs-card-header {
+    /* "10 MIN READ" bar */
+    .cs-top-bar {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       padding: 8px 16px;
     }
-
-    .cs-card-header p {
+    .cs-top-bar p {
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
       font-size: clamp(12px, 1.39vw, 20px);
       color: var(--light);
@@ -208,13 +203,14 @@
       letter-spacing: 0.02em;
       line-height: 1.5;
     }
+    .cs-top-bar img { width: 24px; height: 24px; display: block; flex-shrink: 0; }
 
-    .cs-card-header svg { flex-shrink: 0; }
+    .rule-light { width: 100%; height: 1px; background: rgba(228,228,228,0.25); }
 
     /* 3-column content inside the card */
     .cs-card-body {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: 710px auto 1fr;
       gap: 40px;
       padding: 64px 40px;
       align-items: center;
@@ -224,7 +220,7 @@
     .cs-col-left {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 60px;
       align-self: stretch;
       justify-content: center;
     }
@@ -232,29 +228,37 @@
     .cs-title-block {
       display: flex;
       flex-direction: column;
+      color: var(--light);
     }
 
-    .cs-title-block p {
-      font-size: clamp(20px, 4.4vw, 64px);
+    .cs-title-block .t-main {
+      font-size: clamp(36px, 5.3vw, 76px);
       font-weight: 400;
       line-height: 1.25;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      color: var(--light);
       margin-bottom: -0.09em;
     }
 
-    .cs-title-block .underlined {
-      text-decoration: underline;
-      text-align: right;
-    }
-
-    .cs-body-text {
-      font-size: clamp(16px, 2.5vw, 36px);
+    .cs-title-block .t-under {
+      font-size: clamp(40px, 5.6vw, 80px);
       font-weight: 400;
-      line-height: 1.5;
+      line-height: 1.25;
       letter-spacing: -0.02em;
       text-transform: uppercase;
+      text-decoration: underline;
+      text-align: right;
+      margin-bottom: -0.09em;
+    }
+
+    .cs-title-block .t-under:last-child { margin-bottom: 0; }
+
+    .cs-body-text {
+      font-family: 'Bitter', Georgia, serif;
+      font-size: clamp(16px, 2vw, 28px);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.56px;
       color: var(--light);
     }
 
@@ -302,97 +306,82 @@
       padding: 8px 60px;
       border-radius: 43px;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(14px, 1.67vw, 24px);
-      line-height: 1.5;
+      font-size: clamp(14px, 1.39vw, 20px);
+      line-height: 2;
       text-decoration: none;
       white-space: nowrap;
       width: 100%;
       justify-content: center;
       transition: background 0.2s, color 0.2s;
     }
+    .read-more-btn img { width: 28px; height: 28px; display: block; flex-shrink: 0; }
     .read-more-btn:hover { background: rgba(228,228,228,0.1); }
 
-    .cs-card-footer {
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-    }
-
-    .cs-card-footer p {
-      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(13px, 1.39vw, 20px);
-      color: var(--light);
-      text-transform: uppercase;
-      line-height: 1.5;
-    }
-
-    /* ── GET IN TOUCH ── */
-    .get-in-touch {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 160px 40px;
-      will-change: opacity, transform;
-    }
-
-    .git-heading {
-      flex: 1 0 0;
-      min-width: 0;
-      font-size: clamp(32px, 6.1vw, 88px);
-      font-weight: 400;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-
-    .git-links {
-      flex: 1 0 0;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .git-link-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      padding: 44px 40px;
       width: 100%;
     }
 
-    .git-link-row a {
-      flex: 1 0 0;
-      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-      font-size: clamp(15px, 1.67vw, 24px);
+    .bottom-logo {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.56px;
       color: var(--ink);
       text-decoration: none;
       line-height: 1.5;
-      transition: opacity 0.2s;
+      white-space: nowrap;
     }
-    .git-link-row a:hover { opacity: 0.55; }
 
-    .git-link-row svg { flex-shrink: 0; }
+    .bottom-links {
+      display: flex;
+      gap: 80px;
+      list-style: none;
+    }
+
+    .bottom-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.56px;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .bottom-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--ink);
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .bottom-links a:hover::after { width: 100%; }
 
     /* ── PARALLAX ── */
-    .hero, .cs-card, .get-in-touch {
+    .hero, .cs-card {
       will-change: opacity, transform;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 28px 24px; }
-      .logo { font-size: 32px; }
+      .logo, .bottom-logo { font-size: 20px; }
       .nav-links { gap: 24px; }
-      .nav-links a { font-size: 18px; }
+      .nav-links a, .bottom-links a { font-size: 20px; }
+      .bottom-links { gap: 24px; }
+      .bottom-nav { padding: 28px 24px; }
       .hero { flex-direction: column; height: auto; padding: 32px 24px; }
       .hero-info { align-items: flex-start; }
       .cs-card-body { grid-template-columns: 1fr; }
       .cs-image-wrap { width: 100%; height: auto; aspect-ratio: 367/660; }
-      .get-in-touch { flex-direction: column; padding: 80px 24px; }
     }
   </style>
 </head>
@@ -403,18 +392,16 @@
     <a class="logo" href="index.html">mcurva</a>
     <ul class="nav-links">
       <li><a href="case-study.html">Work
-        <svg class="nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
       </a></li>
       <li><a href="#about">About
-        <svg class="nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
       </a></li>
       <li><a href="#contact">Contact
-        <svg class="nav-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
       </a></li>
     </ul>
   </nav>
-
-  <div class="rule"></div>
 
   <!-- HERO -->
   <section class="hero">
@@ -429,20 +416,20 @@
         <span class="hero-line-text">focused on creating</span>
       </div>
       <div class="hero-line l-offset">
-        <span class="hero-line-text">digital experiences</span>
+        <span class="hero-line-text xl">digital experiences</span>
       </div>
       <div class="hero-line l-right">
         <span class="hero-line-text wrappable">that blend visual storytelling</span>
       </div>
       <div class="hero-line l-center">
-        <span class="hero-line-text">with product thinking.</span>
+        <span class="hero-line-text xl">with product thinking.</span>
       </div>
     </div>
 
     <div class="hero-info">
       <div class="hero-info-top">
-        <p>MAXINE FAYE</p>
-        <p>GACUMA CURVA</p>
+        <p>MAXINE</p>
+        <p>CURVA</p>
       </div>
       <div class="hero-info-bottom">
         <p>BARCELONA-BASED</p>
@@ -451,11 +438,13 @@
     </div>
   </section>
 
-  <!-- DARK CASE STUDY CARD -->
+  <!-- CASE STUDY CARD -->
   <div class="cs-card" id="work">
-    <div class="cs-card-header">
-      <p>01 ALL ABOARD CASE STUDY</p>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e4e4e4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+
+    <!-- Top bar: clock + read time -->
+    <div class="cs-top-bar">
+      <img src="https://www.figma.com/api/mcp/asset/747a4d36-9c33-46d8-9c0e-6544e80fdd16" alt=""/>
+      <p>10 MIN READ</p>
     </div>
     <div class="rule-light"></div>
 
@@ -463,9 +452,9 @@
       <!-- Left -->
       <div class="cs-col-left">
         <div class="cs-title-block">
-          <p>All aboard!</p>
-          <p class="underlined">UX/UI DESIGN</p>
-          <p class="underlined">motion</p>
+          <p class="t-main">All aboard!</p>
+          <p class="t-under">UX/UI DESIGN</p>
+          <p class="t-under">motion</p>
         </div>
         <p class="cs-body-text">Deciding what to do as a group often turns into long message threads without a clear outcome.</p>
       </div>
@@ -473,47 +462,36 @@
       <!-- Centre: phone mockup -->
       <div class="cs-image-wrap">
         <div class="cs-image-inner">
-          <img src="https://www.figma.com/api/mcp/asset/65912159-ab59-4df2-8d4a-c9aabd7e6fd5" alt="AllAboard app" />
+          <img src="https://www.figma.com/api/mcp/asset/f0110b24-baa7-4819-92a9-bdd7d91062b2" alt="AllAboard app" />
         </div>
       </div>
 
       <!-- Right -->
       <div class="cs-col-right">
-        <p class="cs-body-text">There are no existing non-sticky tools to support group decision making during travel. So we designed an app to help smooth the group travel experience.</p>
+        <p class="cs-body-text">There are no existing non-sticky tools to support group decision-making during travel. So we designed an app to help smooth the group travel experience.</p>
         <a class="read-more-btn" href="case-study.html">
-          Read more
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          Read case study
+          <img src="https://www.figma.com/api/mcp/asset/08ae4eca-d19a-49c3-a3f3-70a89ae076db" alt="↗"/>
         </a>
       </div>
     </div>
-
-    <div class="rule-light"></div>
-    <div class="cs-card-footer">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e4e4e4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <p>10 MIN READ</p>
-    </div>
   </div>
 
-  <!-- GET IN TOUCH -->
-  <section class="get-in-touch" id="contact">
-    <h2 class="git-heading">Get in touch</h2>
-    <div class="git-links">
-      <div class="git-link-row">
-        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-      </div>
-      <div class="rule-ink"></div>
-      <div class="git-link-row">
-        <a href="mailto:m.curva@carrots.io">E-mail</a>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-      </div>
-      <div class="rule-ink"></div>
-      <div class="git-link-row">
-        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-      </div>
-    </div>
-  </section>
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" id="contact">
+    <a class="bottom-logo" href="index.html">mcurva</a>
+    <ul class="bottom-links">
+      <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      </a></li>
+      <li><a href="mailto:m.curva@carrots.io">E-mail
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      </a></li>
+      <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      </a></li>
+    </ul>
+  </nav>
 
   <script>
     /* ── Hero animation + per-character font-weight proximity ── */
@@ -554,20 +532,17 @@
           const hue   = Math.round(HUES[si] + (HUES[si + 1] - HUES[si]) * (seg - si));
           const delay = (FADE_START + wi * WORD_LAG).toFixed(2);
 
-          // Outer: fade-in + colour
           const outer = document.createElement('span');
           outer.className = 'h-word';
           outer.style.setProperty('--c', `hsl(${hue},100%,55%)`);
           outer.style.animation =
             `heroWordIn ${FADE_DUR}s cubic-bezier(0.16,1,0.3,1) ${delay}s forwards`;
 
-          // Inner: wave
           const inner = document.createElement('span');
           inner.className = 'h-wave';
           inner.style.animation =
             `heroWave ${WAVE_DUR}s cubic-bezier(0.22,1,0.36,1) ${delay}s 1`;
 
-          // Characters: font-weight proximity
           token.split('').forEach(ch => {
             const charEl = document.createElement('span');
             charEl.className = 'h-char';
@@ -581,8 +556,8 @@
       });
 
       // Mouse proximity → font weight
-      const RADIUS  = 120; // px — tighter influence zone
-      const W_MIN   = 400; // back to Regular as base
+      const RADIUS  = 120;
+      const W_MIN   = 400;
       const W_MAX   = 900;
       let rafPending = false;
 
@@ -596,7 +571,6 @@
             const cx   = r.left + r.width  * 0.5;
             const cy   = r.top  + r.height * 0.5;
             const dist = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
-            // Square-root curve: weight surges to max quickly near the cursor
             const prox = Math.max(0, 1 - dist / RADIUS);
             const w    = Math.round(W_MIN + Math.pow(prox, 0.4) * (W_MAX - W_MIN));
             ch.style.fontVariationSettings = `'wght' ${w}`;
@@ -605,10 +579,9 @@
         });
       });
 
-      // Reset weights when mouse leaves the page
       document.addEventListener('mouseleave', () => {
         hero.querySelectorAll('.h-char').forEach(ch => {
-          ch.style.fontVariationSettings = `'wght' ${W_MIN}`; // reset to light base
+          ch.style.fontVariationSettings = `'wght' ${W_MIN}`;
         });
       });
     })();
@@ -616,9 +589,8 @@
     /* ── Scroll parallax + fade ── */
     (function () {
       const items = [
-        { el: document.querySelector('.hero'),         speed: 0.10, fadeIn: false, noTopFade: false },
-        { el: document.querySelector('.cs-card'),      speed: 0.05, fadeIn: true,  noTopFade: true  },
-        { el: document.querySelector('.get-in-touch'), speed: 0.04, fadeIn: true,  noTopFade: false },
+        { el: document.querySelector('.hero'),    speed: 0.10, fadeIn: false, noTopFade: false },
+        { el: document.querySelector('.cs-card'), speed: 0.05, fadeIn: true,  noTopFade: true  },
       ].filter(d => d.el);
 
       const FADE  = 0.32;

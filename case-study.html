@@ -76,6 +76,9 @@
       justify-content: center;
       padding: 0 40px 52px;
       width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 0;
     }
     .hero-phone-wrap {
       display: flex;
@@ -167,6 +170,10 @@
       padding: 80px 80px 0;
       width: 100%;
       background: var(--bg);
+      position: relative;
+      z-index: 1;
+      border-radius: 24px 24px 0 0;
+      box-shadow: 0 -16px 60px rgba(0, 0, 0, 0.3);
     }
 
     /* ── SECTION 1: TWO COLUMNS (01–05) ── */
@@ -587,6 +594,18 @@
       .col-right { gap: 120px; }
     }
     /* At 1100px the min-width on body kicks in and the page scrolls horizontally */
+
+    /* ── SCROLL FADE-IN ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -1027,13 +1046,13 @@
   <nav class="bottom-nav">
     <a class="bottom-logo" href="index.html">mcurva</a>
     <ul class="bottom-links">
-      <li><a href="www.linkedin.com/in/maxine-curva" target="_blank" rel="noopener">linkedIn
+      <li><a href="https://www.linkedin.com/in/maxine-curva" target="_blank" rel="noopener">linkedIn
         <img src="https://www.figma.com/api/mcp/asset/1abacdb0-50a9-4fcf-823b-ddd8eb1cd433" alt="↗"/>
       </a></li>
       <li><a href="mailto:maxine.curva@gmail.com" target="_blank" rel="noopener">e-mail
         <img src="https://www.figma.com/api/mcp/asset/1abacdb0-50a9-4fcf-823b-ddd8eb1cd433" alt="↗"/>
       </a></li>
-      <li><a href="https://instagram.com" target="_blank" rel="noopener">instagram
+      <li><a href="https://www.instagram.com/mfa.ye/" target="_blank" rel="noopener">instagram
         <img src="https://www.figma.com/api/mcp/asset/1abacdb0-50a9-4fcf-823b-ddd8eb1cd433" alt="↗"/>
       </a></li>
     </ul>
@@ -1058,6 +1077,27 @@
       window.addEventListener('load',   scaleSitemap);
       window.addEventListener('resize', scaleSitemap);
       scaleSitemap();
+    })();
+
+    /* ── Scroll fade-in ── */
+    (function () {
+      const targets = document.querySelectorAll(
+        '.s1 > .title-block, .s1 > .content-block, .s1 > .goal-row, ' +
+        '.s1 > .research-content, .s1 > .personas-content, .s1 > .ecosystem-wrap, ' +
+        '.s2 .section-block, .s3'
+      );
+      targets.forEach(el => el.classList.add('fade-up'));
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      targets.forEach(el => obs.observe(el));
     })();
   </script>
 </body>

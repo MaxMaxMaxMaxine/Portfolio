@@ -23,7 +23,7 @@
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      min-width: 1100px;
+      min-width: 1300px;
     }
 
     /* ── TYPOGRAPHY HELPERS ── */
@@ -93,10 +93,10 @@
     /* Same card style as the motion section phones */
     .hero-phone-frame {
       height: 100%;              /* fills the padded inner container */
-      width: auto;
+      width: 200;
       aspect-ratio: 305 / 656;
-      border: 1px solid rgba(246, 246, 246, 0.35);
-      border-radius: 28px;
+      border: 2px solid rgba(246, 246, 246, 0.35);
+      border-radius: 30px;
       overflow: hidden;
       position: relative;
     }
@@ -105,7 +105,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
       border-radius: 28px;
     }
@@ -164,32 +164,22 @@
       display: flex;
       flex-direction: column;
       gap: 160px;
-      padding: 80px;
+      padding: 80px 80px 0;
       width: 100%;
       background: var(--bg);
     }
 
     /* ── SECTION 1: TWO COLUMNS (01–05) ── */
     .s1 {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 394px 1fr;
+      column-gap: 80px;
+      row-gap: 160px;
+      align-items: start;
       width: 100%;
     }
-    .col-left {
-      display: flex;
-      flex-direction: column;
-      gap: 160px;
-      width: 394px;
-      flex-shrink: 0;
-    }
-    .col-right {
-      display: flex;
-      flex: 1 0 0;
-      flex-direction: column;
-      gap: 160px;
-      min-width: 0;
-    }
+    /* col-left / col-right wrappers no longer needed — kept as display:contents */
+    .col-left, .col-right { display: contents; }
     .title-block {
       display: flex;
       flex-direction: column;
@@ -204,10 +194,10 @@
     /* ── 01 PROBLEM ── */
     .content-block { width: 100%; }
 
-    /* Hanging-indent bullets */
+    /* Bullets inside the text block */
     .body-bitter ul { list-style: none; padding: 0; margin: 4px 0 0 0; }
-    .body-bitter li { position: relative; padding-left: 0; }
-    .body-bitter li::before { content: "•"; font-weight: 700; position: absolute; left: -1em; line-height: inherit; }
+    .body-bitter li { position: relative; padding-left: 1em; }
+    .body-bitter li::before { content: "•"; font-weight: 700; position: absolute; left: 0; line-height: inherit; }
 
     /* ── 02 GOAL — dark boxes ── */
     .goal-row {
@@ -215,7 +205,6 @@
       gap: 12px;
       align-items: flex-start;
       width: 100%;
-      height: 400px;
     }
     .dark-box {
       background: var(--navy);
@@ -223,19 +212,20 @@
       display: flex;
       flex: 1 0 0;
       flex-direction: column;
-      gap: 10px;
+      gap: 4px;
       align-items: flex-start;
-      padding: 40px 20px;
+      padding: 20px 20px;
       min-width: 0;
       aspect-ratio: 1 / 1;
       color: var(--light);
+
     }
     .dark-box .box-num {
       font-family: 'Bitter', Georgia, serif;
       font-weight: 600;
       font-size: 32px;
       line-height: 36px;
-      flex: 1 0 0;
+    
       min-height: 0;
       width: 100%;
     }
@@ -243,7 +233,7 @@
       font-family: 'Bitter', Georgia, serif;
       font-weight: 400;
       font-size: 21px;
-      line-height: 32px;
+      line-height: 28px;
       flex-shrink: 0;
       width: 100%;
     }
@@ -273,8 +263,8 @@
     }
     .insight-row {
       display: flex;
-      gap: 20px;
-      align-items: center;
+      gap: 8px;
+      align-items: flex-start;
       width: 100%;
     }
 
@@ -324,10 +314,10 @@
       padding: 0;
       margin-left: 0;
     }
-    .persona-list li { position: relative; padding-left: 0; }
+    .persona-list li { position: relative; padding-left: 1em; }
     .persona-list li::before {
       content: "•"; font-weight: 700;
-      position: absolute; left: -1em;
+      position: absolute; left: 0;
       line-height: inherit;
     }
 
@@ -358,7 +348,7 @@
     .s2 {
       display: flex;
       flex-direction: column;
-      gap: 120px;
+      gap: 220px;
       width: 100%;
     }
     .section-block {
@@ -393,8 +383,8 @@
     .comp-hdr-row > .comp-cell { min-height: 68px; }
     .comp-data-row > .comp-cell { min-height: 95px; }
     .comp-cell.label-cell { justify-content: flex-start; padding: 8px 18px; }
-    .comp-cell.label-cell p { font-family: 'Bitter', Georgia, serif; font-weight: 400; font-size: 21px; line-height: 32px; color: var(--navy); }
-    .comp-cell.name-cell p { font-family: 'Bitter', Georgia, serif; font-weight: 400; font-size: 21px; line-height: 32px; color: var(--navy); white-space: nowrap; }
+    .comp-cell.label-cell p { font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 14px;text-transform: uppercase; line-height: 32px; color: var(--navy); }
+    .comp-cell.name-cell p { font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 14px;text-transform: uppercase; line-height: 32px;  color: var(--navy); white-space: nowrap; }
     .comp-cell.tick-cell img { width: 43.724px; height: 43.724px; display: block; }
     .comp-cell.dark { background: var(--navy); }
 
@@ -431,14 +421,14 @@
       height: 72px;
     }
     .sm-box-text {
-      font-family: 'Bitter', Georgia, serif;
-      font-weight: 400;
-      font-size: 21px;
-      line-height: 32px;
-      text-transform: uppercase;
-      text-align: center;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1.0;
+      letter-spacing: 0.56px;
       color: var(--light);
       white-space: nowrap;
+      text-align: center;
     }
     .sm-box-text p { line-height: 32px; }
     .sm-line-wrap { display: flex; align-items: flex-start; justify-content: center; width: 100%; flex-shrink: 0; }
@@ -517,7 +507,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
       border-radius: 28px;
     }
@@ -545,7 +535,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 44px 40px;
-      width: 100%;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
     }
     .bottom-logo {
       font-family: 'Bitter', Georgia, serif;
@@ -612,7 +605,7 @@
       <div class="hero-phone-inner">
         <div class="hero-phone-frame">
           <video autoplay loop muted playsinline>
-            <source src="images/Card-Animation6.mp4" type="video/mp4"/>
+            <source src="images/Card-Animation6.mp4?v=20260513" type="video/mp4"/>
           </video>
         </div>
       </div>
@@ -650,138 +643,119 @@
     <!-- ── SECTION 1: 01–05 two columns ── -->
     <div class="s1">
 
-      <!-- LEFT: section titles -->
-      <div class="col-left">
-
-        <div class="title-block h400">
-          <p class="label">The Problem</p>
-          <p class="heading2">Group plans break<br>down quickly</p>
+      <!-- 01 Problem -->
+      <div class="title-block">
+        <p class="label">The Problem</p>
+        <p class="heading2">Group plans break<br>down quickly</p>
+      </div>
+      <div class="content-block">
+        <div class="body-bitter">
+          <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel. This leads to slow decision-making and in some cases, conflict.</p>
+          <p><br>They rely on:</p>
+          <ul>
+            <li>Back-and-forth conversations</li>
+            <li>Manual coordination</li>
+            <li>Uneven contribution</li>
+          </ul>
         </div>
-
-        <div class="title-block h400">
-          <p class="label">The goal</p>
-          <p class="heading2">Effortless<br>decision-making</p>
-        </div>
-
-        <div class="title-block h1800">
-          <p class="label">User Research</p>
-          <p class="heading2">What did the<br>backpackers think?</p>
-        </div>
-
-        <div class="title-block h800">
-          <p class="label">Personas</p>
-          <p class="heading2">Who are our users?</p>
-        </div>
-
-        <div class="title-block h900">
-          <p class="label">The ecosystem</p>
-          <p class="heading2">How do groups travel?</p>
-        </div>
-
       </div>
 
-      <!-- RIGHT: content -->
-      <div class="col-right">
-
-        <!-- 01 Problem -->
-        <div class="content-block h400">
-          <div class="body-bitter">
-            <p>Deciding what to do as a group often turns into long message threads with no clear outcome. There are no existing non-sticky tools to support group decision-making during group travel.</p>
-            <p><br>They rely on:</p>
-            <ul>
-              <li>Back-and-forth conversations</li>
-              <li>Manual coordination</li>
-              <li>Uneven contribution</li>
-            </ul>
-            <p><br>This leads to slow decision-making and in some cases, conflict.</p>
-          </div>
+      <!-- 02 Goal -->
+      <div class="title-block">
+        <p class="label">The goal</p>
+        <p class="heading2">Effortless<br>decision-making</p>
+      </div>
+      <div class="goal-row">
+        <div class="dark-box">
+          <p class="box-num">01.</p>
+          <p class="box-body">Create a tool that takes group dynamics into account</p>
         </div>
+        <div class="dark-box">
+          <p class="box-num">02.</p>
+          <p class="box-body">Help travelling groups reduce friction.</p>
+        </div>
+        <div class="dark-box">
+          <p class="box-num">03.</p>
+          <p class="box-body">Create a non-sticky tool that doesn't take them out of their travel experience</p>
+        </div>
+      </div>
 
-        <!-- 02 Goal -->
-        <div class="goal-row">
+      <!-- 03 Research -->
+      <div class="title-block">
+        <p class="label">User Research</p>
+        <p class="heading2">What did the<br>backpackers think?</p>
+      </div>
+      <div class="research-content">
+        <div class="research-img">
+          <img src="images/research.png?v=20260513" alt="Field research"/>
+        </div>
+        <p class="body-bitter">We interviewed 30 backpackers aged 18-24 across 2 different hostels and found some recurring pain-points. At the end of the day, Everyone wants a fun, stress-free group outing.</p>
+        <div class="insight-row">
           <div class="dark-box">
             <p class="box-num">01.</p>
-            <p class="box-body">Create a tool that takes group dynamics into account</p>
+            <p class="box-body">Hidden power dynamic in group planning</p>
           </div>
           <div class="dark-box">
             <p class="box-num">02.</p>
-            <p class="box-body">Help travelling groups reduce friction.</p>
+            <p class="box-body">Planning responsibilities and roles are unclear</p>
           </div>
           <div class="dark-box">
             <p class="box-num">03.</p>
-            <p class="box-body">Create a non-sticky tool that doesn't take them out of their travel experience</p>
+            <p class="box-body">Decision-making is exhausting for everyone</p>
+          </div>
+          <div class="dark-box">
+            <p class="box-num">04.</p>
+            <p class="box-body">Different planning styles can lead to Conflict</p>
           </div>
         </div>
-
-        <!-- 03 Research -->
-        <div class="research-content h1800">
-          <div class="research-img">
-            <img src="images/research.png" alt="Field research"/>
-          </div>
-          <p class="body-bitter">We interviewed 30 backpackers aged 18-24 across 2 different hostels and found some recurring pain-points. At the end of the day, Everyone wants a fun, stress-free group outing.</p>
-          <div>
-            <div class="insight-row">
-              <div class="dark-box">
-                <p class="box-num">01.</p>
-                <p class="box-body">Hidden power dynamic in group planning</p>
-              </div>
-              <div class="dark-box">
-                <p class="box-num">02.</p>
-                <p class="box-body">Planning responsibilities and roles are unclear</p>
-              </div>
-            </div>
-            <div class="insight-row" style="margin-top:20px;">
-              <div class="dark-box">
-                <p class="box-num">03.</p>
-                <p class="box-body">Decision-making is exhausting for everyone</p>
-              </div>
-              <div class="dark-box">
-                <p class="box-num">04.</p>
-                <p class="box-body">Different planning styles can lead to Conflict</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 04 Personas -->
-        <div class="personas-content h800">
-          <p class="body-bitter">There is a hidden power dynamic in group planning. Planning responsibilities and roles are often unclear. Decision-making is exhausting for everyone and different planning styles often lead to conflict. However at the end of the day, everyone wants a fun, stress-free group outing</p>
-          <div class="persona-row">
-            <div class="persona-card">
-              <p class="persona-name">Planning Patricia</p>
-              <div class="persona-list-wrap">
-                <ul class="persona-list">
-                  <li>Frustrated she always does a bulk of the planning</li>
-                  <li>Others ignoring messages</li>
-                  <li>Disagreements with friends over sticking to the plan</li>
-                  <li>Panics when plans fall through</li>
-                  <li>Has to use many different platforms</li>
-                </ul>
-              </div>
-            </div>
-            <div class="persona-card">
-              <p class="persona-name">Gregory</p>
-              <div class="persona-list-wrap">
-                <ul class="persona-list">
-                  <li>Has never travelled without his parents before</li>
-                  <li>Overwhelmed by long chats and decision-making</li>
-                  <li>Prefers spontaneity and doesn't like to plan</li>
-                  <li>Not accustomed to travelling</li>
-                  <li>Regrets not speaking up about preferences before</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 05 Ecosystem -->
-        <div class="h900" style="display:flex;align-items:flex-start;width:100%;">
-          <div class="ecosystem-img">
-            <img src="images/ecosystem.png" alt="Ecosystem diagram"/>
-          </div>
-        </div>
-
       </div>
+
+      <!-- 04 Personas -->
+      <div class="title-block">
+        <p class="label">Personas</p>
+        <p class="heading2">Who are our users?</p>
+      </div>
+      <div class="personas-content">
+        <p class="body-bitter">There is a hidden power dynamic in group planning. Planning responsibilities and roles are often unclear. Decision-making is exhausting for everyone and different planning styles often lead to conflict. However at the end of the day, everyone wants a fun, stress-free group outing</p>
+        <div class="persona-row">
+          <div class="persona-card">
+            <p class="persona-name">Planning Patricia</p>
+            <div class="persona-list-wrap">
+              <ul class="persona-list">
+                <li>Frustrated she always does a bulk of the planning</li>
+                <li>Others ignoring messages</li>
+                <li>Disagreements with friends over sticking to the plan</li>
+                <li>Panics when plans fall through</li>
+                <li>Has to use many different platforms</li>
+              </ul>
+            </div>
+          </div>
+          <div class="persona-card">
+            <p class="persona-name">Gregory</p>
+            <div class="persona-list-wrap">
+              <ul class="persona-list">
+                <li>Has never travelled without his parents before</li>
+                <li>Overwhelmed by long chats and decision-making</li>
+                <li>Prefers spontaneity and doesn't like to plan</li>
+                <li>Not accustomed to travelling</li>
+                <li>Regrets not speaking up about preferences before</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 Ecosystem -->
+      <div class="title-block">
+        <p class="label">The ecosystem</p>
+        <p class="heading2">How do groups travel?</p>
+      </div>
+      <div class="ecosystem-wrap">
+        <div class="ecosystem-img">
+          <img src="images/ecosystem.png?v=20260513" alt="Ecosystem diagram"/>
+        </div>
+      </div>
+
     </div><!-- /s1 -->
 
     <!-- ── SECTION 2: 06–09 single column ── -->
@@ -972,16 +946,16 @@
         </div>
         <div class="wf-row">
           <div class="wf-phone">
-            <img src="images/wireframes/1-A1 - Onboarding.png" alt="Wireframe 1"/>
+            <img src="images/wireframes/1-A1 - Onboarding.png?v=20260513" alt="Wireframe 1"/>
           </div>
           <div class="wf-phone">
-            <img src="images/wireframes/2-0.0 - Main page NTM.png" alt="Wireframe 2"/>
+            <img src="images/wireframes/2-0.0 - Main page NTM.png?v=20260513" alt="Wireframe 2"/>
           </div>
           <div class="wf-phone">
-            <img src="images/wireframes/3-0.0 - Main page NHM swiped.png" alt="Wireframe 3"/>
+            <img src="images/wireframes/3-0.0 - Main page NHM swiped.png?v=20260513" alt="Wireframe 3"/>
           </div>
           <div class="wf-phone">
-            <img src="images/wireframes/4-0.0 - Main page CTC after super swiped.png" alt="Wireframe 4"/>
+            <img src="images/wireframes/4-0.0 - Main page CTC after super swiped.png?v=20260513" alt="Wireframe 4"/>
           </div>
         </div>
       </div>
@@ -993,21 +967,19 @@
           <p class="heading2">The outcome</p>
         </div>
         <div class="final-grid">
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-0.07%;top:0.07%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-103.61%;top:0.07%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-208.93%;top:-0.03%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-312.17%;top:-0.03%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-417.95%;top:-0.03%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-0.09%;top:-105.11%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-104.3%;top:-105.01%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png" alt="" style="height:205.04%;left:-209.05%;top:-105.11%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-0.07%;top:0.05%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-104%;top:0.07%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-208.93%;top:0.03%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-312.17%;top:-1%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-417.95%;top:-1.7%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-0.09%;top:-105.11%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-104.3%;top:-105.01%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-209.05%;top:-105.11%;width:518.1%;"/></div>
         </div>
       </div>
 
-    </div><!-- /s2 -->
-
-    <!-- ── 10 MOTION DESIGN ── -->
-    <div class="section-block">
+      <!-- ── 10 MOTION DESIGN ── -->
+      <div class="section-block">
       <div class="section-hdr">
         <p class="label">Motion design</p>
         <p class="heading2">Design in action</p>
@@ -1015,26 +987,26 @@
       <div class="motion-row">
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation3.mp4" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation3.mp4?v=20260513" type="video/mp4"/>
           </video>
         </div>
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation4.mp4" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation4.mp4?v=20260513" type="video/mp4"/>
           </video>
         </div>
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation5.mp4" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation5.mp4?v=20260513" type="video/mp4"/>
           </video>
         </div>
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation6-Randomize.mp4" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation6-Randomize.mp4?v=20260513" type="video/mp4"/>
           </video>
         </div>
       </div>
-    </div>
+    </div><!-- /s2 -->
 
     <!-- ── SECTION 3: CONCLUSION ── -->
     <div class="s3">
@@ -1044,7 +1016,7 @@
       </div>
       <div style="display:flex;flex:1 0 0;flex-direction:column;align-items:flex-start;min-width:0;">
         <div style="height:400px;display:flex;flex-direction:column;align-items:flex-start;width:100%;">
-          <p class="conclusion-text">Navigating Group dynamics can be difficult. Existing group-planning tools require too much. In addition, they assume groups already decided what to do. One person always has to do the grunt work.</p>
+          <p class="conclusion-text">Navigating Group dynamics can be difficult. Existing group-planning tools require too much. In addition, they assume groups already decided what to do. One person always has to do the grunt work. Navigating Group dynamics can be difficult. Existing group-planning tools require too much. In addition, they assume groups already decided what to do. One person always has to do the grunt work. Designing AllAboard taught me that UX can support not just usability, but also group dynamics and interpersonal experiences.</p>
         </div>
       </div>
     </div>
@@ -1055,10 +1027,10 @@
   <nav class="bottom-nav">
     <a class="bottom-logo" href="index.html">mcurva</a>
     <ul class="bottom-links">
-      <li><a href="https://linkedin.com" target="_blank" rel="noopener">linkedIn
+      <li><a href="www.linkedin.com/in/maxine-curva" target="_blank" rel="noopener">linkedIn
         <img src="https://www.figma.com/api/mcp/asset/1abacdb0-50a9-4fcf-823b-ddd8eb1cd433" alt="↗"/>
       </a></li>
-      <li><a href="mailto:m.curva@carrots.io">e-mail
+      <li><a href="mailto:maxine.curva@gmail.com" target="_blank" rel="noopener">e-mail
         <img src="https://www.figma.com/api/mcp/asset/1abacdb0-50a9-4fcf-823b-ddd8eb1cd433" alt="↗"/>
       </a></li>
       <li><a href="https://instagram.com" target="_blank" rel="noopener">instagram

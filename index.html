@@ -26,6 +26,7 @@
       font-family: 'Bitter', Georgia, serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      min-width: 1100px;   /* controlled desktop layout — horizontal scroll below 1100px */
     }
 
     /* ── NAV ── */
@@ -80,7 +81,7 @@
     /* ── HERO ── */
     .hero {
       display: flex;
-      gap: 20px;
+      gap: 12px;
       align-items: flex-start;
       padding: 0 40px;
       height: calc(100dvh - 116px);
@@ -89,8 +90,8 @@
     }
 
     #heroText {
-      flex: 1 0 0;
-      min-width: 0;
+      width: 1200px;
+      min-width: 1000px;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -100,7 +101,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      margin-bottom: -0.09em;
+      margin-bottom: -0.9em;
       flex-shrink: 0;
     }
     .hero-line.l-left   { justify-content: flex-start; }
@@ -152,31 +153,26 @@
     /* Right: info column */
     .hero-info {
       flex-shrink: 0;
+      align-self: stretch;   /* matches the hero's actual height instead of a fixed value */
       display: flex;
       flex-direction: column;
-      gap: 10px;
       align-items: flex-end;
-      height: 100%;
-      padding-bottom: 8px;
+      padding-bottom: -80px;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
       font-size: clamp(12px, 1.39vw, 20px);
-      line-height: 1.5;
+      line-height: 1.2;
       color: var(--ink);
       text-transform: uppercase;
       white-space: nowrap;
     }
-    .hero-info-top {
-      flex: 1 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      align-items: flex-end;
-    }
+    /* All info lines grouped at the bottom of the hero */
     .hero-info-bottom {
+   
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 0px;
       align-items: flex-end;
+      justify-content: flex-end;
     }
 
     /* ── CASE STUDY CARD ── */
@@ -210,7 +206,7 @@
     /* 3-column content inside the card */
     .cs-card-body {
       display: grid;
-      grid-template-columns: 710px auto 1fr;
+      grid-template-columns: 650px auto 1fr;
       gap: 40px;
       padding: 64px 40px;
       align-items: center;
@@ -219,6 +215,7 @@
     /* Left column */
     .cs-col-left {
       display: flex;
+      width: 650px;
       flex-direction: column;
       gap: 60px;
       align-self: stretch;
@@ -231,41 +228,32 @@
       color: var(--light);
     }
 
-    .cs-title-block .t-main {
+    /* All title lines: same size, all underlined */
+    .cs-title-block p {
       font-size: clamp(36px, 5.3vw, 76px);
       font-weight: 400;
       line-height: 1.25;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      margin-bottom: -0.09em;
-    }
-
-    .cs-title-block .t-under {
-      font-size: clamp(40px, 5.6vw, 80px);
-      font-weight: 400;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
       text-decoration: underline;
-      text-align: right;
       margin-bottom: -0.09em;
     }
-
-    .cs-title-block .t-under:last-child { margin-bottom: 0; }
+    /* Second and third lines right-aligned */
+    .cs-title-block p:not(:first-child) { text-align: right; }
+    .cs-title-block p:last-child { margin-bottom: 0; }
 
     .cs-body-text {
       font-family: 'Bitter', Georgia, serif;
-      font-size: clamp(16px, 2vw, 28px);
+      font-size: clamp(14px, 1.46vw, 21px);
       font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: 0.56px;
+      line-height: 32px;
       color: var(--light);
     }
 
     /* Centre: phone mockup */
     .cs-image-wrap {
-      width: clamp(180px, 25.5vw, 367px);
-      height: clamp(320px, 45.8vw, 660px);
+      width: 302px;
+      height: 660px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -275,15 +263,20 @@
     .cs-image-inner {
       width: 100%;
       height: 100%;
-      border-radius: 12px;
+      border-radius: 28px;
+      border: 1px solid rgba(246, 246, 246, 0.35);
       overflow: hidden;
+      position: relative;
     }
 
-    .cs-image-inner img {
+    .cs-image-inner video {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
+      border-radius: 28px;
     }
 
     /* Right column */
@@ -293,7 +286,7 @@
       gap: 37px;
       align-self: stretch;
       justify-content: center;
-      align-items: flex-end;
+      align-items: flex-start;
     }
 
     .read-more-btn {
@@ -303,14 +296,14 @@
       background: transparent;
       border: 1px solid var(--light);
       color: var(--light);
-      padding: 8px 60px;
+      padding: 8px 20px;
       border-radius: 43px;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
       font-size: clamp(14px, 1.39vw, 20px);
       line-height: 2;
       text-decoration: none;
       white-space: nowrap;
-      width: 100%;
+      width: 248px;
       justify-content: center;
       transition: background 0.2s, color 0.2s;
     }
@@ -391,14 +384,14 @@
   <nav>
     <a class="logo" href="index.html">mcurva</a>
     <ul class="nav-links">
-      <li><a href="case-study.html">Work
-        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      <li><a href="case-study.html">work
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
-      <li><a href="#about">About
-        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      <li><a href="#about">about
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
-      <li><a href="#contact">Contact
-        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      <li><a href="#contact">contact
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
     </ul>
   </nav>
@@ -426,12 +419,10 @@
       </div>
     </div>
 
+    <!-- All three lines grouped at bottom-right -->
     <div class="hero-info">
-      <div class="hero-info-top">
-        <p>MAXINE</p>
-        <p>CURVA</p>
-      </div>
       <div class="hero-info-bottom">
+        <p>MAXINE CURVA</p>
         <p>BARCELONA-BASED</p>
         <p>AUSTRALIAN-MADE</p>
       </div>
@@ -443,35 +434,40 @@
 
     <!-- Top bar: clock + read time -->
     <div class="cs-top-bar">
-      <img src="https://www.figma.com/api/mcp/asset/747a4d36-9c33-46d8-9c0e-6544e80fdd16" alt=""/>
+      <img src="https://www.figma.com/api/mcp/asset/cd847bec-11ee-4c36-bddd-da5988b15fc9" alt=""/>
       <p>10 MIN READ</p>
     </div>
     <div class="rule-light"></div>
 
     <div class="cs-card-body">
-      <!-- Left -->
+      <!-- Left: title only -->
       <div class="cs-col-left">
         <div class="cs-title-block">
-          <p class="t-main">All aboard!</p>
-          <p class="t-under">UX/UI DESIGN</p>
-          <p class="t-under">motion</p>
+          <p>All aboard!</p>
+          <p>UX/UI DESIGN</p>
+          <p>motion</p>
         </div>
-        <p class="cs-body-text">Deciding what to do as a group often turns into long message threads without a clear outcome.</p>
       </div>
 
       <!-- Centre: phone mockup -->
       <div class="cs-image-wrap">
         <div class="cs-image-inner">
-          <img src="https://www.figma.com/api/mcp/asset/f0110b24-baa7-4819-92a9-bdd7d91062b2" alt="AllAboard app" />
+          <video autoplay loop muted playsinline>
+            <source src="images/Card-Animation6.mp4" type="video/mp4"/>
+          </video>
         </div>
       </div>
 
-      <!-- Right -->
+      <!-- Right: body text + button -->
       <div class="cs-col-right">
-        <p class="cs-body-text">There are no existing non-sticky tools to support group decision-making during travel. So we designed an app to help smooth the group travel experience.</p>
+        <div class="cs-body-text">
+          <p>Deciding what to do as a group often turns into long message threads without a clear outcome.</p>
+          <br/>
+          <p>So we designed an app to help smooth the group travel experience.</p>
+        </div>
         <a class="read-more-btn" href="case-study.html">
           Read case study
-          <img src="https://www.figma.com/api/mcp/asset/08ae4eca-d19a-49c3-a3f3-70a89ae076db" alt="↗"/>
+          <img src="https://www.figma.com/api/mcp/asset/ca8e79e4-ecd6-439c-9776-6119ed8944ce" alt="↗"/>
         </a>
       </div>
     </div>
@@ -481,14 +477,14 @@
   <nav class="bottom-nav" id="contact">
     <a class="bottom-logo" href="index.html">mcurva</a>
     <ul class="bottom-links">
-      <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn
-        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      <li><a href="https://linkedin.com" target="_blank" rel="noopener">linkedin
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
-      <li><a href="mailto:m.curva@carrots.io">E-mail
-        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      <li><a href="mailto:m.curva@carrots.io">email
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
-      <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram
-        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/c070136b-522f-4403-868f-ea1e57a65e69" alt="↗"/>
+      <li><a href="https://instagram.com" target="_blank" rel="noopener">instagram
+        <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
     </ul>
   </nav>

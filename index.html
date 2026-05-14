@@ -381,6 +381,28 @@
       .cs-card-body { grid-template-columns: 1fr; }
       .cs-image-wrap { width: 100%; height: auto; aspect-ratio: 367/660; }
     }
+
+    /* ── CURSOR HOVER IMAGE ── */
+    .hoverable { cursor: none; }
+    #cursor-img {
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      transform: translate(-50%, -50%);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #cursor-img.visible { opacity: 1; }
+    #cursor-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -427,9 +449,9 @@
     <!-- All three lines grouped at bottom-right -->
     <div class="hero-info">
       <div class="hero-info-bottom">
-        <p>MAXINE CURVA</p>
-        <p>BARCELONA-BASED</p>
-        <p>AUSTRALIAN-MADE</p>
+        <p class="hoverable" data-hover="hover-over-images/maxine-curva-hover.png">MAXINE CURVA</p>
+        <p class="hoverable" data-hover="hover-over-images/barcelona-based-hover.png">BARCELONA-BASED</p>
+        <p class="hoverable" data-hover="hover-over-images/australian-made-hover.png">AUSTRALIAN-MADE</p>
       </div>
     </div>
   </section>
@@ -482,13 +504,13 @@
   <nav class="bottom-nav" id="contact">
     <a class="bottom-logo" href="index.html">mcurva</a>
     <ul class="bottom-links">
-      <li><a href="https://linkedin.com" target="_blank" rel="noopener">linkedin
+      <li><a href="https://www.linkedin.com/in/maxine-curva" target="_blank" rel="noopener">linkedin
         <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
       <li><a href="mailto:m.curva@carrots.io">email
         <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
-      <li><a href="https://instagram.com" target="_blank" rel="noopener">instagram
+      <li><a href="https://www.instagram.com/mfa.ye/" target="_blank" rel="noopener">instagram
         <img class="nav-arr" src="https://www.figma.com/api/mcp/asset/74a65a1d-9119-4ea4-821c-2cc927b43c19" alt="↗"/>
       </a></li>
     </ul>
@@ -624,6 +646,31 @@
         { threshold: 0.08 }
       );
       obs.observe(card);
+    })();
+  </script>
+
+  <div id="cursor-img"><img src="" alt=""/></div>
+
+  <script>
+    /* ── Hover image follower ── */
+    (function () {
+      const cursor = document.getElementById('cursor-img');
+      const img    = cursor.querySelector('img');
+
+      document.querySelectorAll('.hoverable').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          img.src = el.dataset.hover;
+          cursor.classList.add('visible');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('visible');
+        });
+      });
+
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
     })();
   </script>
 </body>

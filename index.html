@@ -233,18 +233,28 @@
       color: var(--light);
     }
 
-    /* All title lines: same size, all underlined */
+    /* All title lines: same size, animated underline */
     .cs-title-block p {
       font-size: clamp(36px, 5.3vw, 76px);
       font-weight: 400;
       line-height: 1.25;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      text-decoration: underline;
       margin-bottom: -0.09em;
+      display: block;
+      width: fit-content;
+      background-image: linear-gradient(var(--light), var(--light));
+      background-repeat: no-repeat;
+      background-position: 0 calc(100% - 0.04em);
+      background-size: 0% 4px;
+      transition: background-size 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      font-weight: 400;
+    }
+    .cs-title-block p.underline-in {
+      background-size: 100% 4px;
     }
     /* Second and third lines right-aligned */
-    .cs-title-block p:not(:first-child) { text-align: right; }
+    .cs-title-block p:not(:first-child) { margin-left: auto; }
     .cs-title-block p:last-child { margin-bottom: 0; }
 
     .cs-body-text {
@@ -637,15 +647,41 @@
       update();
     })();
 
-    /* ── Case study card: slide up on scroll into view ── */
+    /* ── Case study card: slide up + scroll-driven sequential underlines ── */
     (function () {
-      const card = document.querySelector('.cs-card');
+      const card  = document.querySelector('.cs-card');
       if (!card) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) { card.classList.add('in-view'); obs.disconnect(); } },
-        { threshold: 0.08 }
-      );
-      obs.observe(card);
+      const lines = card.querySelectorAll('.cs-title-block p');
+
+      // Slide-up trigger (one-shot)
+      const slideObs = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        card.classList.add('in-view');
+        slideObs.disconnect();
+      }, { threshold: 0.08 });
+      slideObs.observe(card);
+
+      // Scroll-driven underlines: each line triggers at a different scroll depth
+      const THRESHOLDS = [0.12, 0.32, 0.52]; // fraction of card visible when each line fires
+      let ticking = false;
+
+      function checkLines () {
+        const rect = card.getBoundingClientRect();
+        const vh   = window.innerHeight;
+        // progress: 0 = card bottom just entered viewport, 1 = card fully scrolled past
+        const progress = (vh - rect.top) / (rect.height + vh * 0.4);
+
+        lines.forEach((line, i) => {
+          if (progress >= THRESHOLDS[i]) line.classList.add('underline-in');
+        });
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(checkLines); ticking = true; }
+      }, { passive: true });
+
+      checkLines(); // run once on load in case card is already in view
     })();
   </script>
 

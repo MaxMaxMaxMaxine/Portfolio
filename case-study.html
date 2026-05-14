@@ -194,6 +194,13 @@
     }
     /* col-left / col-right wrappers no longer needed — kept as display:contents */
     .col-left, .col-right { display: contents; }
+
+    /* Align tops of right-column content with the heading2 (offset by label height + gap) */
+    .s1 > .content-block,
+    .s1 > .goal-row,
+    .s1 > .research-content,
+    .s1 > .personas-content,
+    .s1 > .ecosystem-wrap { padding-top: 25px; }
     .title-block {
       display: flex;
       flex-direction: column;
@@ -368,7 +375,7 @@
     .section-block {
       display: flex;
       flex-direction: column;
-      gap: 60px;
+      gap: 30px;
       width: 100%;
     }
     .section-hdr {
@@ -396,11 +403,12 @@
     }
     .comp-hdr-row > .comp-cell { min-height: 68px; }
     .comp-data-row > .comp-cell { min-height: 95px; }
-    .comp-cell.label-cell { justify-content: flex-start; padding: 8px 18px; }
-    .comp-cell.label-cell p { font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 14px;text-transform: uppercase; line-height: 32px; color: var(--navy); }
-    .comp-cell.name-cell p { font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 14px;text-transform: uppercase; line-height: 32px;  color: var(--navy); white-space: nowrap; }
+    .comp-cell.label-cell { justify-content: flex-start; padding: 8px 18px; background: var(--ink); }
+    .comp-cell.label-cell p { font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; line-height: 32px; color: var(--bg); }
+    .comp-cell.name-cell { background: var(--ink); }
+    .comp-cell.name-cell p { font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; line-height: 32px; color: var(--bg); white-space: nowrap; }
     .comp-cell.tick-cell img { width: 43.724px; height: 43.724px; display: block; }
-    .comp-cell.dark { background: var(--navy); }
+    .comp-cell.dark { background: var(--bg); }
 
     /* ── 07 SITEMAP ── */
     .sitemap-frame {
@@ -408,7 +416,6 @@
       flex-direction: column;
       align-items: flex-start;
       overflow: hidden;
-      padding: 38px 0;
       width: 100%;
     }
     .sitemap-scale-wrap { width: 100%; position: relative; overflow: hidden; }
@@ -508,7 +515,7 @@
     .motion-phone {
       flex: 1 0 0;
       min-width: 0;
-      aspect-ratio: 305 / 656;
+      aspect-ratio: 310 / 658;
       height: auto;
       border: 1px solid var(--ink);
       border-radius: 28px;
@@ -518,7 +525,7 @@
     }
     .motion-phone video {
       position: absolute;
-      inset: 0;
+      inset: 0px;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -631,7 +638,7 @@
       <div class="hero-phone-inner">
         <div class="hero-phone-frame">
           <video autoplay loop muted playsinline>
-            <source src="images/Card-Animation6.mp4?v=20260513" type="video/mp4"/>
+            <source src="images/Card-Animation6.mp4?v=20260514c" type="video/mp4"/>
           </video>
         </div>
       </div>
@@ -713,7 +720,7 @@
       </div>
       <div class="research-content">
         <div class="research-img">
-          <img src="images/research.png?v=20260513" alt="Field research"/>
+          <img src="images/research.png?v=20260514c" alt="Field research"/>
         </div>
         <p class="body-bitter">We interviewed 30 backpackers aged 18-24 across 2 different hostels and found some recurring pain-points. At the end of the day, Everyone wants a fun, stress-free group outing.</p>
         <div class="insight-row">
@@ -778,7 +785,7 @@
       </div>
       <div class="ecosystem-wrap">
         <div class="ecosystem-img">
-          <img src="images/ecosystem.png?v=20260513" alt="Ecosystem diagram"/>
+          <img src="images/ecosystem.png?v=20260514c" alt="Ecosystem diagram"/>
         </div>
       </div>
 
@@ -796,7 +803,7 @@
         <div class="comp-table">
           <!-- Header row -->
           <div class="comp-row comp-hdr-row">
-            <div class="comp-cell label-cell"></div>
+            <div class="comp-cell label-cell"><p>Platform Comparison</p></div>
             <div class="comp-cell name-cell"><p>Wanderlog</p></div>
             <div class="comp-cell name-cell"><p>Flickmate</p></div>
             <div class="comp-cell name-cell"><p>Splitwise</p></div>
@@ -972,16 +979,16 @@
         </div>
         <div class="wf-row">
           <div class="wf-phone">
-            <img src="images/wireframes/1-A1 - Onboarding.png?v=20260513" alt="Wireframe 1"/>
+            <img src="images/wireframes/1-A1 - Onboarding.png?v=20260514c" alt="Wireframe 1"/>
           </div>
           <div class="wf-phone">
-            <img src="images/wireframes/2-0.0 - Main page NTM.png?v=20260513" alt="Wireframe 2"/>
+            <img src="images/wireframes/2-0.0 - Main page NTM.png?v=20260514c" alt="Wireframe 2"/>
           </div>
           <div class="wf-phone">
-            <img src="images/wireframes/3-0.0 - Main page NHM swiped.png?v=20260513" alt="Wireframe 3"/>
+            <img src="images/wireframes/3-0.0 - Main page NHM swiped.png?v=20260514c" alt="Wireframe 3"/>
           </div>
           <div class="wf-phone">
-            <img src="images/wireframes/4-0.0 - Main page CTC after super swiped.png?v=20260513" alt="Wireframe 4"/>
+            <img src="images/wireframes/4-0.0 - Main page CTC after super swiped.png?v=20260514c" alt="Wireframe 4"/>
           </div>
         </div>
       </div>
@@ -993,14 +1000,14 @@
           <p class="heading2">The outcome</p>
         </div>
         <div class="final-grid">
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-0.07%;top:0.05%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-104%;top:0.07%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-208.93%;top:0.03%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-312.17%;top:-1%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-417.95%;top:-1.7%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-0.09%;top:-105.11%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-104.3%;top:-105.01%;width:518.1%;"/></div>
-          <div class="fd-phone"><img src="images/final-designs.png?v=20260513" alt="" style="height:205.04%;left:-209.05%;top:-105.11%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-0.07%;top:0.05%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-104%;top:0.07%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-208.93%;top:0.03%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-312.17%;top:-1%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-417.95%;top:-1.7%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-0.09%;top:-105.11%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-104.3%;top:-105.01%;width:518.1%;"/></div>
+          <div class="fd-phone"><img src="images/final-designs.png?v=20260514c" alt="" style="height:205.04%;left:-209.05%;top:-105.11%;width:518.1%;"/></div>
         </div>
       </div>
 
@@ -1013,22 +1020,22 @@
       <div class="motion-row">
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation3.mp4?v=20260513" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation3.mp4?v=20260514c" type="video/mp4"/>
           </video>
         </div>
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation4.mp4?v=20260513" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation4.mp4?v=20260514c" type="video/mp4"/>
           </video>
         </div>
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation5.mp4?v=20260513" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation5.mp4?v=20260514c" type="video/mp4"/>
           </video>
         </div>
         <div class="motion-phone">
           <video autoplay loop muted playsinline>
-            <source src="images/gifs/Card-Animation6-Randomize.mp4?v=20260513" type="video/mp4"/>
+            <source src="images/gifs/Card-Animation6-Randomize.mp4?v=20260514c" type="video/mp4"/>
           </video>
         </div>
       </div>

@@ -126,10 +126,18 @@
       font-size: 76px;
       line-height: 1.25;
       letter-spacing: -1.52px;
-      text-decoration: underline;
       text-transform: uppercase;
       color: var(--light);
-      width: 100%;
+      display: block;
+      width: fit-content;
+      background-image: linear-gradient(var(--light), var(--light));
+      background-repeat: no-repeat;
+      background-position: 0 calc(100% - 0.04em);
+      background-size: 0% 4px;
+      transition: background-size 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-title.underline-in {
+      background-size: 100% 4px;
     }
     .hero-sub {
       font-family: 'Bitter', Georgia, serif;
@@ -1097,6 +1105,27 @@
       }, { threshold: 0.08 });
 
       targets.forEach(el => obs.observe(el));
+    })();
+
+    /* ── Hero title scroll-driven underline ── */
+    (function () {
+      const title = document.querySelector('.hero-title');
+      if (!title) return;
+      let ticking = false;
+
+      function check () {
+        const rect = title.getBoundingClientRect();
+        const vh   = window.innerHeight;
+        // Fire when the title is 30% up from the bottom of the viewport
+        if (rect.top < vh * 0.85) title.classList.add('underline-in');
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(check); ticking = true; }
+      }, { passive: true });
+
+      check();
     })();
   </script>
 </body>

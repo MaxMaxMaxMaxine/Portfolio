@@ -153,11 +153,10 @@
     /* Right: info column */
     .hero-info {
       flex-shrink: 0;
-      align-self: stretch;   /* matches the hero's actual height instead of a fixed value */
+      align-self: flex-start;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      padding-bottom: -80px;
       font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
       font-size: clamp(12px, 1.39vw, 20px);
       line-height: 1.2;
@@ -165,14 +164,11 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-    /* All info lines grouped at the bottom of the hero */
     .hero-info-bottom {
-   
       display: flex;
       flex-direction: column;
       gap: 0px;
       align-items: flex-end;
-      justify-content: flex-end;
     }
 
     /* ── CASE STUDY CARD ── */
